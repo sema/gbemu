@@ -38,11 +38,17 @@ func (vm *vm) Run(path string) error {
 			},
 		},
 		// 8bit load instructions
+		// 0x0,1,2,3x
+		0x02: makeLoad8(vm, newOperandIndirect8(registerBC), newOperandRegister8(registerA)),
 		0x06: makeLoad8(vm, newOperandRegister8(registerB), newOperandData8()),
+
+		0x0e: makeLoad8(vm, newOperandRegister8(registerC), newOperandData8()),
+
 		0x16: makeLoad8(vm, newOperandRegister8(registerD), newOperandData8()),
 		0x26: makeLoad8(vm, newOperandRegister8(registerH), newOperandData8()),
-		0x0e: makeLoad8(vm, newOperandRegister8(registerC), newOperandData8()),
+
 		0x1e: makeLoad8(vm, newOperandRegister8(registerE), newOperandData8()),
+		0x2a: makeLoad8(vm, newOperandRegister8(registerA), newOperandIndirect8(registerHL), incrementRegisterOpt16(registerHL)),
 		0x2e: makeLoad8(vm, newOperandRegister8(registerL), newOperandData8()),
 		0x3e: makeLoad8(vm, newOperandRegister8(registerA), newOperandData8()),
 
@@ -54,6 +60,17 @@ func (vm *vm) Run(path string) error {
 		0x45: makeLoad8(vm, newOperandRegister8(registerB), newOperandRegister8(registerL)),
 		// 0x46
 		0x47: makeLoad8(vm, newOperandRegister8(registerB), newOperandRegister8(registerA)),
+		0x48: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerB)),
+		0x49: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerC)),
+		0x4A: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerD)),
+		0x4B: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerE)),
+		0x4C: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerH)),
+		0x4D: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerL)),
+		// 0x4E
+		0x4F: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerA)),
+
+		// 5x 6x 7x
+		// ex fx
 
 		// 16bit load instructions
 		0x01: makeLoad16(vm, newOperandRegister16(registerBC), newOperandData16()),
