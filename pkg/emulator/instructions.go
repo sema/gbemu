@@ -1,199 +1,108 @@
 package emulator
 
 import (
-	"encoding/binary"
 	"fmt"
+	"strings"
 )
 
-type instImpl func(args []byte)
-
-func (vm *vm) opNOP(args []byte) {}
-
 type instruction struct {
-	mnemonic string
-	impl     instImpl
-	args     uint16 // # bytes
+	Opcode   string
+	Mnemonic string
+	// Size of instruction in bytes (1 byte opcode + operands)
+	Size     uint16
+	Cycles   []int
+	Operands []operand
+	Flags    flags
+
+	// TODO flags instruction as unsupported temporarily as we expand codegen
+	Todo string
 }
 
-type loadable16 interface {
-	String() string
-	Load16(vm *vm, args []byte) uint16
-	TakesArgs() uint16
+type operand struct {
+	Name string
+	Type operandType
+
+	Ref           string
+	RefRegister8  register8
+	RefRegister16 register16
+
+	IncrementReg16 bool
+	DecrementReg16 bool
 }
 
-type storable16 interface {
-	String() string
-	Store16(vm *vm, v uint16)
+type flags struct {
+	Z string
+	N string
+	H string
+	C string
 }
 
-type operandRegister16 struct {
-	r register16
+type operandType int
+
+// TODO complete docs as I gain insight into the types
+const (
+	// operandD8 is a 8bit value immediately following the opcode (i.e. PC+1)
+	operandD8 operandType = iota
+	// operandD16 is a 16bit value immediately following the opcode (i.e. PC+1 and PC+2)
+	operandD16
+	// operandA8 ??
+	operandA8
+	// operandA8Ptr ??
+	operandA8Ptr
+	// operandA16 ??
+	operandA16
+	// operandA16Ptr ??
+	operandA16Ptr
+	// operandR8 ??
+	operandR8
+	// operandFlag is a CPU flag (see cpu.go).
+	operandFlag
+	// operandReg8 is a 8bit register (see cpu.go).
+	// The exact register for an operand of this type is stored in RefRegister8.
+	operandReg8
+	// operandReg8Ptr ??
+	operandReg8Ptr
+	// operandReg16 is a 16bit register (see cpu.go).
+	// The exact register for an operand of this type is stored in RefRegister16.
+	operandReg16
+	// operandReg16Ptr is similar to operandReg16, with the value of operandReg16
+	// interpreted as a pointer into the memory space. Any reads/writes to this operand
+	// are done on the dereferenced pointer.
+	operandReg16Ptr
+	// operandHex is a static 8bit value associated with the opcode.
+	operandHex
+)
+
+var operandTypeNames = map[operandType]string{
+	operandD8:       "d8",
+	operandD16:      "d16",
+	operandA8:       "a8",
+	operandA8Ptr:    "a8ptr",
+	operandA16:      "a16",
+	operandA16Ptr:   "a16ptr",
+	operandR8:       "r8",
+	operandFlag:     "flag",
+	operandReg8:     "reg8",
+	operandReg8Ptr:  "reg8ptr",
+	operandReg16:    "reg16",
+	operandReg16Ptr: "reg16ptr",
+	operandHex:      "hex",
 }
 
-func newOperandRegister16(r register16) operandRegister16 {
-	return operandRegister16{
-		r: r,
+func (o operandType) String() string {
+	name, ok := operandTypeNames[o]
+	if !ok {
+		panic(fmt.Sprintf("unable to determine name of operand (%d)", o))
 	}
+
+	return name
 }
 
-func (o operandRegister16) String() string {
-	return o.r.String()
-}
-
-func (o operandRegister16) Store16(vm *vm, v uint16) {
-	binary.LittleEndian.PutUint16(vm.registers.data[o.r:o.r+2], v)
-}
-
-func (o operandRegister16) Load16(vm *vm, args []byte) uint16 {
-	return binary.LittleEndian.Uint16(vm.registers.data[o.r : o.r+2])
-}
-
-func (o operandRegister16) TakesArgs() uint16 {
-	return 0
-}
-
-type operandIndirect8 struct {
-	r register16
-}
-
-func newOperandIndirect8(r register16) operandIndirect8 {
-	return operandIndirect8{
-		r: r,
+func (inst instruction) String() string {
+	var operandStrs []string
+	for _, op := range inst.Operands {
+		operandStrs = append(operandStrs, op.Name)
 	}
-}
 
-func (o operandIndirect8) String() string {
-	return fmt.Sprintf("(%s)", o.r.String())
-}
-
-func (o operandIndirect8) Store8(vm *vm, v byte) {
-	addr := toAddress(vm.registers.data[o.r : o.r+2])
-	vm.memory.data[addr] = v
-}
-
-func (o operandIndirect8) Load8(vm *vm, args []byte) byte {
-	addr := toAddress(vm.registers.data[o.r : o.r+2])
-	return vm.memory.data[addr]
-}
-
-func (o operandIndirect8) TakesArgs() uint16 {
-	return 0
-}
-
-type operandData16 struct{}
-
-func newOperandData16() operandData16 {
-	return operandData16{}
-}
-
-func (o operandData16) String() string {
-	return "d16"
-}
-
-func (o operandData16) Load16(vm *vm, args []byte) uint16 {
-	return binary.LittleEndian.Uint16(args)
-}
-
-func (o operandData16) TakesArgs() uint16 {
-	return 2
-}
-
-func makeLoad16(vm *vm, to storable16, from loadable16) instruction {
-	return instruction{
-		mnemonic: fmt.Sprintf("LD %s=%s", to.String(), from.String()),
-		args:     from.TakesArgs(),
-		impl: func(args []byte) {
-			v := from.Load16(vm, args)
-			to.Store16(vm, v)
-		},
-	}
-}
-
-type loadable8 interface {
-	String() string
-	Load8(vm *vm, args []byte) byte
-	TakesArgs() uint16
-}
-
-type storable8 interface {
-	String() string
-	Store8(vm *vm, v byte)
-}
-
-type operandRegister8 struct {
-	r register8
-}
-
-func newOperandRegister8(r register8) operandRegister8 {
-	return operandRegister8{
-		r: r,
-	}
-}
-
-func (o operandRegister8) String() string {
-	return o.r.String()
-}
-
-func (o operandRegister8) Store8(vm *vm, v byte) {
-	vm.registers.data[o.r] = v
-}
-
-func (o operandRegister8) Load8(vm *vm, args []byte) byte {
-	return vm.registers.data[o.r]
-}
-
-func (o operandRegister8) TakesArgs() uint16 {
-	return 0
-}
-
-type operandData8 struct{}
-
-func newOperandData8() operandData8 {
-	return operandData8{}
-}
-
-func (o operandData8) String() string {
-	return "d8"
-}
-
-func (o operandData8) Load8(vm *vm, args []byte) byte {
-	return args[0]
-}
-
-func (o operandData8) TakesArgs() uint16 {
-	return 1
-}
-
-type loadOpt func(vm *vm)
-
-func incrementRegisterOpt16(r register16) loadOpt {
-	return func(vm *vm) {
-		// TODO make read/write of these registers nicer to read - use binary function consistently or wrap consistently in helper
-		registerData := vm.registers.data[r : r+2]
-		addr := toAddress(registerData) + 1
-		binary.LittleEndian.PutUint16(registerData, addr)
-	}
-}
-
-func decrementRegisterOpt16(r register16) loadOpt {
-	return func(vm *vm) {
-		registerData := vm.registers.data[r : r+2]
-		addr := toAddress(registerData) - 1
-		binary.LittleEndian.PutUint16(registerData, addr)
-	}
-}
-
-func makeLoad8(vm *vm, to storable8, from loadable8, opts ...loadOpt) instruction {
-	return instruction{
-		mnemonic: fmt.Sprintf("LD %s=%s", to.String(), from.String()),
-		args:     from.TakesArgs(),
-		impl: func(args []byte) {
-			v := from.Load8(vm, args)
-			to.Store8(vm, v)
-
-			for _, opt := range opts {
-				opt(vm)
-			}
-		},
-	}
+	return fmt.Sprintf("[%s] %s %s", inst.Opcode, inst.Mnemonic, strings.Join(operandStrs, " "))
 }

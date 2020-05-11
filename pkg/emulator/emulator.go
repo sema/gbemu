@@ -2,8 +2,8 @@ package emulator
 
 import (
 	"encoding/binary"
-	"fmt"
 	"log"
+	"os"
 )
 
 type vm struct {
@@ -25,82 +25,139 @@ func (vm *vm) Run(path string) error {
 		return err
 	}
 
-	opCodes := map[uint8]instruction{
-		0x00: {
-			mnemonic: "NOP",
-			impl:     vm.opNOP,
-		},
-		0xC3: {
-			mnemonic: "JP nnnn",
-			args:     2,
-			impl: func(args []byte) {
-				vm.programCounter = toAddress(args)
-			},
-		},
-		// 8bit load instructions
-		// 0x0,1,2,3x
-		0x02: makeLoad8(vm, newOperandIndirect8(registerBC), newOperandRegister8(registerA)),
-		0x06: makeLoad8(vm, newOperandRegister8(registerB), newOperandData8()),
-
-		0x0e: makeLoad8(vm, newOperandRegister8(registerC), newOperandData8()),
-
-		0x16: makeLoad8(vm, newOperandRegister8(registerD), newOperandData8()),
-		0x26: makeLoad8(vm, newOperandRegister8(registerH), newOperandData8()),
-
-		0x1e: makeLoad8(vm, newOperandRegister8(registerE), newOperandData8()),
-		0x2a: makeLoad8(vm, newOperandRegister8(registerA), newOperandIndirect8(registerHL), incrementRegisterOpt16(registerHL)),
-		0x2e: makeLoad8(vm, newOperandRegister8(registerL), newOperandData8()),
-		0x3e: makeLoad8(vm, newOperandRegister8(registerA), newOperandData8()),
-
-		0x40: makeLoad8(vm, newOperandRegister8(registerB), newOperandRegister8(registerB)),
-		0x41: makeLoad8(vm, newOperandRegister8(registerB), newOperandRegister8(registerC)),
-		0x42: makeLoad8(vm, newOperandRegister8(registerB), newOperandRegister8(registerD)),
-		0x43: makeLoad8(vm, newOperandRegister8(registerB), newOperandRegister8(registerE)),
-		0x44: makeLoad8(vm, newOperandRegister8(registerB), newOperandRegister8(registerH)),
-		0x45: makeLoad8(vm, newOperandRegister8(registerB), newOperandRegister8(registerL)),
-		// 0x46
-		0x47: makeLoad8(vm, newOperandRegister8(registerB), newOperandRegister8(registerA)),
-		0x48: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerB)),
-		0x49: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerC)),
-		0x4A: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerD)),
-		0x4B: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerE)),
-		0x4C: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerH)),
-		0x4D: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerL)),
-		// 0x4E
-		0x4F: makeLoad8(vm, newOperandRegister8(registerC), newOperandRegister8(registerA)),
-
-		// 5x 6x 7x
-		// ex fx
-
-		// 16bit load instructions
-		0x01: makeLoad16(vm, newOperandRegister16(registerBC), newOperandData16()),
-		0x11: makeLoad16(vm, newOperandRegister16(registerDE), newOperandData16()),
-		0x21: makeLoad16(vm, newOperandRegister16(registerHL), newOperandData16()),
-		0x31: makeLoad16(vm, newOperandRegister16(registerSP), newOperandData16()),
-	}
-
 	for i := 0; i < 20; i++ {
-		origPC := vm.programCounter
-
-		// lookup opcode
 		opcode := vm.memory.data[vm.programCounter]
-		vm.programCounter++
-
-		op, ok := opCodes[opcode]
-		if !ok {
-			return fmt.Errorf("unimplemented opcode [%#02x] encountered", opcode)
-		}
-
-		args := vm.memory.data[vm.programCounter : vm.programCounter+op.args]
-		vm.programCounter += op.args
-
-		log.Printf("Execute %#04x [%#02x] %s (%# 02x)", origPC, opcode, op.mnemonic, args)
-		op.impl(args)
+		instruction := instructions[opcode]
+		vm.execute(instruction)
 	}
 
 	return nil
 }
 
+func (vm *vm) execute(inst instruction) {
+	log.Printf("Execute %#04x %s", vm.programCounter, inst.String())
+
+	// TODO remove when we support everything
+	if inst.Todo != "" {
+		notImplemented("Unsupported instruction [%s] %s called: %s", inst.Opcode, inst.Mnemonic, inst.Todo)
+	}
+
+	autoIncrementPC := true
+
+	switch inst.Mnemonic {
+	case "ILLEGAL":
+		log.Panicf("Illegal instruction [%s] called", inst.Mnemonic)
+	case "NOP":
+		// Intentionally left blank
+	case "LD8":
+		// LD8 $TARGET $VALUE
+		v := vm.read8(inst.Operands[1])
+		vm.write8(inst.Operands[0], v)
+	case "LD16":
+		// LD16 $TARGET $VALUE
+		v := vm.read16(inst.Operands[1])
+		vm.write16(inst.Operands[0], v)
+	case "JP":
+		// JP $TO [$CONDITION]
+		if len(inst.Operands) > 1 {
+			notImplemented("JP with condition not implemented yet")
+		}
+		addr := vm.read16(inst.Operands[0])
+		vm.programCounter = addr
+		autoIncrementPC = false
+	default:
+		notImplemented("instruction not implemented yet")
+	}
+
+	for _, op := range inst.Operands {
+		if op.IncrementReg16 || op.DecrementReg16 {
+			assertOperandType(op, operandReg16, operandReg16Ptr)
+			address := vm.registers.Read16(op.RefRegister16)
+			if op.IncrementReg16 {
+				address++
+			} else {
+				address--
+			}
+			vm.registers.Write16(op.RefRegister16, address)
+		}
+	}
+
+	if autoIncrementPC {
+		vm.programCounter += inst.Size
+	}
+}
+
+func (vm *vm) read16(op operand) uint16 {
+	switch op.Type {
+	case operandD16:
+		// TODO little endian conversion here may be wrong
+		data := vm.memory.data[vm.programCounter+1 : vm.programCounter+3]
+		return toAddress(data)
+	case operandA16:
+		data := vm.memory.data[vm.programCounter+1 : vm.programCounter+3]
+		return toAddress(data)
+	case operandReg16:
+		return vm.registers.Read16(op.RefRegister16)
+	default:
+		log.Panicf("unexpected operand (%s) encountered while reading 16bit value", op.Type.String())
+		return 0
+	}
+}
+
+func (vm *vm) write16(op operand, v uint16) {
+	switch op.Type {
+	case operandReg16:
+		vm.registers.Write16(op.RefRegister16, v)
+	default:
+		log.Panicf("unexpected operand (%s) encountered while writing 16bit value", op.Type.String())
+	}
+}
+
+func (vm *vm) read8(op operand) byte {
+	switch op.Type {
+	case operandD8:
+		// TODO offset
+		return vm.memory.data[vm.programCounter+1]
+	case operandReg8:
+		return vm.registers.data[op.RefRegister8]
+	case operandReg16Ptr:
+		address := vm.registers.Read16(op.RefRegister16)
+		return vm.memory.data[address]
+	default:
+		log.Panicf("unexpected operand (%s) encountered while reading 8bit value", op.Type.String())
+		return 0
+	}
+}
+
+func (vm *vm) write8(op operand, v byte) {
+	switch op.Type {
+	case operandReg8:
+		vm.registers.data[op.RefRegister8] = v
+	case operandReg16Ptr:
+		data := vm.registers.data[op.RefRegister16 : op.RefRegister16+2]
+		address := toAddress(data)
+		vm.memory.data[address] = v
+	default:
+		log.Panicf("unexpected operand (%s) encountered while writing 8bit value", op.Type.String())
+	}
+
+}
+
+func notImplemented(msg string, args ...interface{}) {
+	log.Printf(msg, args...)
+	os.Exit(1)
+}
+
 func toAddress(bytes []byte) uint16 {
 	return binary.LittleEndian.Uint16(bytes)
+}
+
+func assertOperandType(op operand, expected ...operandType) {
+	for _, e := range expected {
+		if op.Type == e {
+			return
+		}
+	}
+
+	log.Panicf("unexpected operand type (%s) of operand: expected one of type %s", op.Type.String(), expected)
 }
