@@ -2,8 +2,10 @@ package emulator
 
 import (
 	"encoding/binary"
+	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 type vm struct {
@@ -35,7 +37,7 @@ func (vm *vm) Run(path string) error {
 }
 
 func (vm *vm) execute(inst instruction) {
-	log.Printf("Execute %#04x %s", vm.programCounter, inst.String())
+	log.Printf("Execute %#04x %-30s %s", vm.programCounter, inst.String(), vm.reprOperandValues(inst))
 
 	// TODO remove when we support everything
 	if inst.Todo != "" {
@@ -91,11 +93,9 @@ func (vm *vm) read16(op operand) uint16 {
 	switch op.Type {
 	case operandD16:
 		// TODO little endian conversion here may be wrong
-		data := vm.memory.data[vm.programCounter+1 : vm.programCounter+3]
-		return toAddress(data)
+		return vm.memory.Read16(vm.programCounter + 1)
 	case operandA16:
-		data := vm.memory.data[vm.programCounter+1 : vm.programCounter+3]
-		return toAddress(data)
+		return vm.memory.Read16(vm.programCounter + 1)
 	case operandReg16:
 		return vm.registers.Read16(op.RefRegister16)
 	default:
@@ -140,7 +140,24 @@ func (vm *vm) write8(op operand, v byte) {
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 8bit value", op.Type.String())
 	}
+}
 
+func (vm *vm) reprOperandValues(inst instruction) string {
+	var builder strings.Builder
+	for _, op := range inst.Operands {
+		var value string
+		switch op.Type {
+		case operandA16, operandD16, operandReg16:
+			value = fmt.Sprintf("%#04x", vm.read16(op))
+		case operandD8, operandReg8, operandReg16Ptr:
+			value = fmt.Sprintf("%#02x", vm.read8(op))
+		}
+		if value != "" {
+			fmt.Fprintf(&builder, "%-5s= %6s  ", op.Name, value)
+		}
+	}
+
+	return builder.String()
 }
 
 func notImplemented(msg string, args ...interface{}) {

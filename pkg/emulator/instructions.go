@@ -101,8 +101,8 @@ func (o operandType) String() string {
 func (inst instruction) String() string {
 	var operandStrs []string
 	for _, op := range inst.Operands {
-		operandStrs = append(operandStrs, op.Name)
+		operandStrs = append(operandStrs, fmt.Sprintf("%-5s", op.Name))
 	}
 
-	return fmt.Sprintf("[%s] %s %s", inst.Opcode, inst.Mnemonic, strings.Join(operandStrs, " "))
+	return fmt.Sprintf("[%s] %-4s %s", inst.Opcode, inst.Mnemonic, strings.Join(operandStrs, " "))
 }

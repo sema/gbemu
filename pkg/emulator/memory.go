@@ -1,6 +1,7 @@
 package emulator
 
 import (
+	"encoding/binary"
 	"fmt"
 	"log"
 	"os"
@@ -45,4 +46,8 @@ func (m *memory) LoadROM(path string) error {
 
 	log.Printf("Loaded %d bytes from ROM", l)
 	return nil
+}
+
+func (m *memory) Read16(address uint16) uint16 {
+	return binary.LittleEndian.Uint16(m.data[address : address+2])
 }
