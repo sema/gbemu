@@ -8,38 +8,38 @@ import (
 	"strings"
 )
 
-type vm struct {
+type emulator struct {
 	registers      registers
 	memory         memory
 	programCounter uint16
 	powerOn        bool
 }
 
-func New() vm {
-	return vm{
+func New() emulator {
+	return emulator{
 		registers:      newRegisters(),
 		memory:         newMemory(),
 		programCounter: 0x0100,
 	}
 }
 
-func (vm *vm) Run(path string) error {
-	if err := vm.memory.LoadROM(path); err != nil {
+func (e *emulator) Run(path string) error {
+	if err := e.memory.LoadROM(path); err != nil {
 		return err
 	}
 
-	vm.powerOn = true
-	for vm.powerOn {
-		opcode := vm.memory.data[vm.programCounter]
+	e.powerOn = true
+	for e.powerOn {
+		opcode := e.memory.data[e.programCounter]
 		instruction := instructions[opcode]
-		vm.execute(instruction)
+		e.execute(instruction)
 	}
 
 	return nil
 }
 
-func (vm *vm) execute(inst instruction) {
-	log.Printf("Execute %#04x %-30s %s", vm.programCounter, inst.String(), vm.reprOperandValues(inst))
+func (e *emulator) execute(inst instruction) {
+	log.Printf("Execute %#04x %-30s %s", e.programCounter, inst.String(), e.reprOperandValues(inst))
 
 	// TODO remove when we support everything
 	if inst.Todo != "" {
@@ -54,154 +54,158 @@ func (vm *vm) execute(inst instruction) {
 	case "NOP":
 		// Intentionally left blank
 	case "LD8":
-		// LD8 $TARGET $VALUE
-		v := vm.read8(inst.Operands[1])
-		vm.write8(inst.Operands[0], v)
+		// LD8 $TARGET $VALUE; $TARGET=$VALUE
+		v := e.read8(inst.Operands[1])
+		e.write8(inst.Operands[0], v)
 	case "LD16":
-		// LD16 $TARGET $VALUE
-		v := vm.read16(inst.Operands[1])
-		vm.write16(inst.Operands[0], v)
+		// LD16 $TARGET $VALUE; $TARGET=$VALUE
+		v := e.read16(inst.Operands[1])
+		e.write16(inst.Operands[0], v)
 	case "INC8":
-		v := vm.read8(inst.Operands[0]) + 1
-		vm.write8(inst.Operands[0], v)
-		vm.registers.Write1(flagZ, v == 0)
-		vm.registers.Write1(flagN, false)
+		// INC8 $OP; $OP++
+		v := e.read8(inst.Operands[0]) + 1
+		e.write8(inst.Operands[0], v)
+		e.registers.Write1(flagZ, v == 0)
+		e.registers.Write1(flagN, false)
 		lowerHalfInOverflowPosition := v&0b00001111 == 0
-		vm.registers.Write1(flagH, lowerHalfInOverflowPosition)
+		e.registers.Write1(flagH, lowerHalfInOverflowPosition)
 	case "DEC8":
-		v := vm.read8(inst.Operands[0]) - 1
-		vm.write8(inst.Operands[0], v)
-		vm.registers.Write1(flagZ, v == 0)
-		vm.registers.Write1(flagN, true)
+		// DEC8 $OP; $OP--
+		v := e.read8(inst.Operands[0]) - 1
+		e.write8(inst.Operands[0], v)
+		e.registers.Write1(flagZ, v == 0)
+		e.registers.Write1(flagN, true)
 		lowerHalfInOverflowPosition := v&0b00001111 == 0 // TODO this is almost certainly incorrect
-		vm.registers.Write1(flagH, lowerHalfInOverflowPosition)
+		e.registers.Write1(flagH, lowerHalfInOverflowPosition)
 	case "JP":
 		// JP $TO [$CONDITION]; PC=$TO
 		jump := true
 		if len(inst.Operands) > 1 {
-			jump = vm.isFlagSet(inst.Operands[1])
+			jump = e.isFlagSet(inst.Operands[1])
 		}
 
 		if jump {
 			assertOperandType(inst.Operands[0], operandA16, operandReg16)
-			addr := vm.read16(inst.Operands[0])
-			vm.programCounter = addr
+			addr := e.read16(inst.Operands[0])
+			e.programCounter = addr
 			autoIncrementPC = false
 		}
 	case "JR":
-		// JR $OFFSET [$CONDITION]; PC=PC+$OFFSET
+		// JR $OFFSET [$CONDITION]; PC=PC+-$OFFSET
 		jump := true
 		if len(inst.Operands) > 1 {
-			jump = vm.isFlagSet(inst.Operands[1])
+			jump = e.isFlagSet(inst.Operands[1])
 		}
 
 		if jump {
 			assertOperandType(inst.Operands[0], operandR8)
-			offset := vm.read8signed(inst.Operands[0])
-			vm.programCounter = offsetAddress(vm.programCounter, offset)
+			offset := e.read8signed(inst.Operands[0])
+			e.programCounter = offsetAddress(e.programCounter, offset)
 			autoIncrementPC = false
 		}
 	case "STOP":
+		// STOP; stop running
 		log.Println("POWER OFF")
-		vm.powerOn = false
+		e.powerOn = false
 	default:
 		notImplemented("instruction not implemented yet")
 	}
 
+	// Some instructions automatically increment/decrement values after they complete
 	for _, op := range inst.Operands {
 		if op.IncrementReg16 || op.DecrementReg16 {
 			assertOperandType(op, operandReg16, operandReg16Ptr)
-			address := vm.registers.Read16(op.RefRegister16)
+			address := e.registers.Read16(op.RefRegister16)
 			if op.IncrementReg16 {
 				address++
 			} else {
 				address--
 			}
-			vm.registers.Write16(op.RefRegister16, address)
+			e.registers.Write16(op.RefRegister16, address)
 		}
 	}
 
 	if autoIncrementPC {
-		vm.programCounter += inst.Size
+		e.programCounter += inst.Size
 	}
 }
 
-func (vm *vm) read16(op operand) uint16 {
+func (e *emulator) read16(op operand) uint16 {
 	switch op.Type {
 	case operandD16:
 		// TODO little endian conversion here may be wrong
-		return vm.memory.Read16(vm.programCounter + 1)
+		return e.memory.Read16(e.programCounter + 1)
 	case operandA16:
-		return vm.memory.Read16(vm.programCounter + 1)
+		return e.memory.Read16(e.programCounter + 1)
 	case operandReg16:
-		return vm.registers.Read16(op.RefRegister16)
+		return e.registers.Read16(op.RefRegister16)
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 16bit value", op.Type.String())
 		return 0
 	}
 }
 
-func (vm *vm) write16(op operand, v uint16) {
+func (e *emulator) write16(op operand, v uint16) {
 	switch op.Type {
 	case operandReg16:
-		vm.registers.Write16(op.RefRegister16, v)
+		e.registers.Write16(op.RefRegister16, v)
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 16bit value", op.Type.String())
 	}
 }
 
-func (vm *vm) read8(op operand) byte {
+func (e *emulator) read8(op operand) byte {
 	switch op.Type {
 	case operandD8:
 		// TODO offset
-		return vm.memory.data[vm.programCounter+1]
+		return e.memory.data[e.programCounter+1]
 	case operandReg8:
-		return vm.registers.data[op.RefRegister8]
+		return e.registers.data[op.RefRegister8]
 	case operandReg16Ptr:
-		address := vm.registers.Read16(op.RefRegister16)
-		return vm.memory.data[address]
+		address := e.registers.Read16(op.RefRegister16)
+		return e.memory.data[address]
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 8bit value", op.Type.String())
 		return 0
 	}
 }
 
-func (vm *vm) read8signed(op operand) int8 {
+func (e *emulator) read8signed(op operand) int8 {
 	switch op.Type {
 	case operandR8:
-		return int8(vm.memory.data[vm.programCounter+1])
+		return int8(e.memory.data[e.programCounter+1])
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading signed 8bit value", op.Type.String())
 		return 0
 	}
 }
 
-func (vm *vm) write8(op operand, v byte) {
+func (e *emulator) write8(op operand, v byte) {
 	switch op.Type {
 	case operandReg8:
-		vm.registers.data[op.RefRegister8] = v
+		e.registers.data[op.RefRegister8] = v
 	case operandReg16Ptr:
-		data := vm.registers.data[op.RefRegister16 : op.RefRegister16+2]
+		data := e.registers.data[op.RefRegister16 : op.RefRegister16+2]
 		address := toAddress(data)
-		vm.memory.data[address] = v
+		e.memory.data[address] = v
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 8bit value", op.Type.String())
 	}
 }
 
-func (vm *vm) reprOperandValues(inst instruction) string {
+func (e *emulator) reprOperandValues(inst instruction) string {
 	var builder strings.Builder
 	for _, op := range inst.Operands {
 		var value string
 		switch op.Type {
 		case operandA16, operandD16, operandReg16:
-			value = fmt.Sprintf("%#04x", vm.read16(op))
+			value = fmt.Sprintf("%#04x", e.read16(op))
 		case operandD8, operandReg8, operandReg16Ptr:
-			value = fmt.Sprintf("%#02x", vm.read8(op))
+			value = fmt.Sprintf("%#02x", e.read8(op))
 		case operandFlag:
-			value = fmt.Sprintf("%t", vm.isFlagSet(op))
+			value = fmt.Sprintf("%t", e.isFlagSet(op))
 		case operandR8:
-			value = fmt.Sprintf("%d", vm.read8signed(op))
+			value = fmt.Sprintf("%d", e.read8signed(op))
 		}
 		if value != "" {
 			fmt.Fprintf(&builder, "%-5s= %6s  ", op.Name, value)
@@ -211,9 +215,9 @@ func (vm *vm) reprOperandValues(inst instruction) string {
 	return builder.String()
 }
 
-func (vm *vm) isFlagSet(op operand) bool {
+func (e *emulator) isFlagSet(op operand) bool {
 	assertOperandType(op, operandFlag)
-	condition := vm.registers.Read1(op.RefFlag)
+	condition := e.registers.Read1(op.RefFlag)
 	if op.RefFlagNegate {
 		condition = !condition
 	}
