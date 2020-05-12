@@ -1,8 +1,13 @@
 package emulator
 
+import (
+	"encoding/json"
+	"io/ioutil"
+)
+
 type emulator struct {
-	memory *memory
-	cpu    *cpu
+	Memory *memory
+	CPU    *cpu
 }
 
 func New() emulator {
@@ -10,19 +15,28 @@ func New() emulator {
 	registers := newRegisters()
 	cpu := newCPU(memory, registers)
 	return emulator{
-		cpu:    cpu,
-		memory: memory,
+		CPU:    cpu,
+		Memory: memory,
 	}
 }
 
 func (e *emulator) Run(path string) error {
-	if err := e.memory.LoadROM(path); err != nil {
+	if err := e.Memory.LoadROM(path); err != nil {
 		return err
 	}
 
-	for e.cpu.powerOn {
-		e.cpu.cycle()
+	for e.CPU.PowerOn {
+		e.CPU.cycle()
 	}
 
 	return nil
+}
+
+func (e *emulator) Snapshot(path string) error {
+	data, err := json.Marshal(e)
+	if err != nil {
+		return err
+	}
+
+	return ioutil.WriteFile(path, data, 0644)
 }

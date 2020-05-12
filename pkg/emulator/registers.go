@@ -86,7 +86,7 @@ func (f flag) String() string {
 }
 
 type registers struct {
-	// data contains the common registers A-E, H, L at predefined offsets (see registerX constants)
+	// Data contains the common registers A-E, H, L at predefined offsets (see registerX constants)
 	//
 	// The 8 bit registers may also be referenced in pairs as the 16 bit registers AF, BC, DE, and HL
 	// (see registerXY constants). In this mode, the 8 bit registers are ordered using little-endian
@@ -102,33 +102,33 @@ type registers struct {
 	// DE    D    E
 	// HL    H    L
 	// SP    -    -    Stack pointer. Can't be addressed in 8bit
-	data []byte
+	Data []byte
 }
 
 func newRegisters() *registers {
 	return &registers{
-		data: make([]byte, 10),
+		Data: make([]byte, 10),
 	}
 }
 
 func (r *registers) Read16(register register16) uint16 {
-	return toAddress(r.data[register : register+2])
+	return toAddress(r.Data[register : register+2])
 }
 
 func (r *registers) Write16(register register16, v uint16) {
-	binary.LittleEndian.PutUint16(r.data[register:register+2], v)
+	binary.LittleEndian.PutUint16(r.Data[register:register+2], v)
 }
 
 func (r *registers) Read1(flag flag) bool {
-	return r.data[0]&(1<<flag) > 0
+	return r.Data[0]&(1<<flag) > 0
 }
 
 func (r *registers) Write1(flag flag, v bool) {
 	if v {
 		// Example [flags] ORed 00100000 -> sets 3rd bit to 1
-		r.data[0] |= (1 << flag)
+		r.Data[0] |= (1 << flag)
 	} else {
 		// Example [flags] ANDed 11011111 (negated)  -> forces 3rd bit to 0
-		r.data[0] &= ^(1 << flag)
+		r.Data[0] &= ^(1 << flag)
 	}
 }

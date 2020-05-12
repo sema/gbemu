@@ -15,15 +15,15 @@ const (
 )
 
 type memory struct {
-	// data contains the current addressable memory (ROM, RAM, I/O)
+	// Data contains the current addressable memory (ROM, RAM, I/O)
 	//
 	// See https://gbdev.io/pandocs/#memory-map for details on the layout.
-	data []byte
+	Data []byte
 }
 
 func newMemory() *memory {
 	return &memory{
-		data: make([]byte, bytes64k),
+		Data: make([]byte, bytes64k),
 	}
 }
 
@@ -36,7 +36,7 @@ func (m *memory) LoadROM(path string) error {
 		return err
 	}
 
-	l, err := file.Read(m.data)
+	l, err := file.Read(m.Data)
 	if err != nil {
 		return err
 	}
@@ -49,5 +49,5 @@ func (m *memory) LoadROM(path string) error {
 }
 
 func (m *memory) Read16(address uint16) uint16 {
-	return binary.LittleEndian.Uint16(m.data[address : address+2])
+	return binary.LittleEndian.Uint16(m.Data[address : address+2])
 }

@@ -67,7 +67,7 @@ func TestIsFlagSet(t *testing.T) {
 			registers.Write1(flagC, false)
 
 			c := &cpu{
-				registers: registers,
+				Registers: registers,
 			}
 
 			if got := c.isFlagSet(tt.args.op); got != tt.want {

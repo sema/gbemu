@@ -6,14 +6,24 @@ import (
 )
 
 type runCmd struct {
-	//Recursive bool `help:"Recursively remove files."`
+	SnapshotState string `help:"Snapshot emulator state at completion for debugging" type:"path"`
 
 	Path string `arg name:"path" help:"Path to ROM" type:"path"`
 }
 
 func (r *runCmd) Run() error {
 	e := emulator.New()
-	return e.Run(r.Path)
+	if err := e.Run(r.Path); err != nil {
+		return err
+	}
+
+	if r.SnapshotState != "" {
+		if err := e.Snapshot(r.SnapshotState); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 var root struct {

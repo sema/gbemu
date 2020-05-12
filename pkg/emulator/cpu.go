@@ -9,26 +9,26 @@ import (
 )
 
 type cpu struct {
-	memory         *memory
-	registers      *registers
-	programCounter uint16
-	powerOn        bool
+	Memory         *memory
+	Registers      *registers
+	ProgramCounter uint16
+	PowerOn        bool
 }
 
 func newCPU(memory *memory, registers *registers) *cpu {
 	return &cpu{
-		memory:         memory,
-		registers:      registers,
-		programCounter: 0x0100,
-		powerOn:        true,
+		Memory:         memory,
+		Registers:      registers,
+		ProgramCounter: 0x0100,
+		PowerOn:        true,
 	}
 }
 
 func (c *cpu) cycle() {
-	opcode := c.memory.data[c.programCounter]
+	opcode := c.Memory.Data[c.ProgramCounter]
 	inst := instructions[opcode]
 
-	log.Printf("Execute %#04x %-30s %s", c.programCounter, inst.String(), c.reprOperandValues(inst))
+	log.Printf("Execute %#04x %-30s %s", c.ProgramCounter, inst.String(), c.reprOperandValues(inst))
 
 	// TODO remove when we support everything
 	if inst.Todo != "" {
@@ -54,18 +54,18 @@ func (c *cpu) cycle() {
 		// INC8 $OP; $OP++
 		v := c.read8(inst.Operands[0]) + 1
 		c.write8(inst.Operands[0], v)
-		c.registers.Write1(flagZ, v == 0)
-		c.registers.Write1(flagN, false)
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, false)
 		lowerHalfInOverflowPosition := v&0b00001111 == 0
-		c.registers.Write1(flagH, lowerHalfInOverflowPosition)
+		c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
 	case "DEC8":
 		// DEC8 $OP; $OP--
 		v := c.read8(inst.Operands[0]) - 1
 		c.write8(inst.Operands[0], v)
-		c.registers.Write1(flagZ, v == 0)
-		c.registers.Write1(flagN, true)
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, true)
 		lowerHalfInOverflowPosition := v&0b00001111 == 0 // TODO this is almost certainly incorrect
-		c.registers.Write1(flagH, lowerHalfInOverflowPosition)
+		c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
 	case "JP":
 		// JP $TO [$CONDITION]; PC=$TO
 		jump := true
@@ -76,7 +76,7 @@ func (c *cpu) cycle() {
 		if jump {
 			assertOperandType(inst.Operands[0], operandA16, operandReg16)
 			addr := c.read16(inst.Operands[0])
-			c.programCounter = addr
+			c.ProgramCounter = addr
 			autoIncrementPC = false
 		}
 	case "JR":
@@ -89,13 +89,13 @@ func (c *cpu) cycle() {
 		if jump {
 			assertOperandType(inst.Operands[0], operandR8)
 			offset := c.read8signed(inst.Operands[0])
-			c.programCounter = offsetAddress(c.programCounter, offset)
+			c.ProgramCounter = offsetAddress(c.ProgramCounter, offset)
 			autoIncrementPC = false
 		}
 	case "STOP":
 		// STOP; stop running
 		log.Println("POWER OFF")
-		c.powerOn = false
+		c.PowerOn = false
 	default:
 		notImplemented("instruction not implemented yet")
 	}
@@ -104,18 +104,18 @@ func (c *cpu) cycle() {
 	for _, op := range inst.Operands {
 		if op.IncrementReg16 || op.DecrementReg16 {
 			assertOperandType(op, operandReg16, operandReg16Ptr)
-			address := c.registers.Read16(op.RefRegister16)
+			address := c.Registers.Read16(op.RefRegister16)
 			if op.IncrementReg16 {
 				address++
 			} else {
 				address--
 			}
-			c.registers.Write16(op.RefRegister16, address)
+			c.Registers.Write16(op.RefRegister16, address)
 		}
 	}
 
 	if autoIncrementPC {
-		c.programCounter += inst.Size
+		c.ProgramCounter += inst.Size
 	}
 }
 
@@ -123,11 +123,11 @@ func (c *cpu) read16(op operand) uint16 {
 	switch op.Type {
 	case operandD16:
 		// TODO little endian conversion here may be wrong
-		return c.memory.Read16(c.programCounter + 1)
+		return c.Memory.Read16(c.ProgramCounter + 1)
 	case operandA16:
-		return c.memory.Read16(c.programCounter + 1)
+		return c.Memory.Read16(c.ProgramCounter + 1)
 	case operandReg16:
-		return c.registers.Read16(op.RefRegister16)
+		return c.Registers.Read16(op.RefRegister16)
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 16bit value", op.Type.String())
 		return 0
@@ -137,7 +137,7 @@ func (c *cpu) read16(op operand) uint16 {
 func (c *cpu) write16(op operand, v uint16) {
 	switch op.Type {
 	case operandReg16:
-		c.registers.Write16(op.RefRegister16, v)
+		c.Registers.Write16(op.RefRegister16, v)
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 16bit value", op.Type.String())
 	}
@@ -146,12 +146,12 @@ func (c *cpu) write16(op operand, v uint16) {
 func (c *cpu) read8(op operand) byte {
 	switch op.Type {
 	case operandD8:
-		return c.memory.data[c.programCounter+1]
+		return c.Memory.Data[c.ProgramCounter+1]
 	case operandReg8:
-		return c.registers.data[op.RefRegister8]
+		return c.Registers.Data[op.RefRegister8]
 	case operandReg16Ptr:
-		address := c.registers.Read16(op.RefRegister16)
-		return c.memory.data[address]
+		address := c.Registers.Read16(op.RefRegister16)
+		return c.Memory.Data[address]
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 8bit value", op.Type.String())
 		return 0
@@ -161,7 +161,7 @@ func (c *cpu) read8(op operand) byte {
 func (c *cpu) read8signed(op operand) int8 {
 	switch op.Type {
 	case operandR8:
-		return int8(c.memory.data[c.programCounter+1])
+		return int8(c.Memory.Data[c.ProgramCounter+1])
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading signed 8bit value", op.Type.String())
 		return 0
@@ -171,11 +171,11 @@ func (c *cpu) read8signed(op operand) int8 {
 func (c *cpu) write8(op operand, v byte) {
 	switch op.Type {
 	case operandReg8:
-		c.registers.data[op.RefRegister8] = v
+		c.Registers.Data[op.RefRegister8] = v
 	case operandReg16Ptr:
-		data := c.registers.data[op.RefRegister16 : op.RefRegister16+2]
+		data := c.Registers.Data[op.RefRegister16 : op.RefRegister16+2]
 		address := toAddress(data)
-		c.memory.data[address] = v
+		c.Memory.Data[address] = v
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 8bit value", op.Type.String())
 	}
@@ -205,7 +205,7 @@ func (c *cpu) reprOperandValues(inst instruction) string {
 
 func (c *cpu) isFlagSet(op operand) bool {
 	assertOperandType(op, operandFlag)
-	condition := c.registers.Read1(op.RefFlag)
+	condition := c.Registers.Read1(op.RefFlag)
 	if op.RefFlagNegate {
 		condition = !condition
 	}
