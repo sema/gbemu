@@ -680,14 +680,16 @@ var instructions = []instruction{
 		Size:     2,
 		Operands: []operand{
 			{
-				Name: "NZ",
-				Type: operandFlag,
-				Ref:  "NZ",
-			},
-			{
 				Name: "r8",
 				Type: operandR8,
 				Ref:  "",
+			},
+			{
+				Name:          "NZ",
+				Type:          operandFlag,
+				Ref:           "",
+				RefFlag:       flagZ,
+				RefFlagNegate: true,
 			},
 		},
 		Flags: flags{
@@ -854,14 +856,15 @@ var instructions = []instruction{
 		Size:     2,
 		Operands: []operand{
 			{
-				Name: "Z",
-				Type: operandFlag,
-				Ref:  "Z",
-			},
-			{
 				Name: "r8",
 				Type: operandR8,
 				Ref:  "",
+			},
+			{
+				Name:    "Z",
+				Type:    operandFlag,
+				Ref:     "",
+				RefFlag: flagZ,
 			},
 		},
 		Flags: flags{
@@ -1029,14 +1032,16 @@ var instructions = []instruction{
 		Size:     2,
 		Operands: []operand{
 			{
-				Name: "NC",
-				Type: operandFlag,
-				Ref:  "NC",
-			},
-			{
 				Name: "r8",
 				Type: operandR8,
 				Ref:  "",
+			},
+			{
+				Name:          "NC",
+				Type:          operandFlag,
+				Ref:           "",
+				RefFlag:       flagC,
+				RefFlagNegate: true,
 			},
 		},
 		Flags: flags{
@@ -1203,15 +1208,15 @@ var instructions = []instruction{
 		Size:     2,
 		Operands: []operand{
 			{
+				Name: "r8",
+				Type: operandR8,
+				Ref:  "",
+			},
+			{
 				Name:         "C",
 				Type:         operandReg8,
 				Ref:          "",
 				RefRegister8: registerC,
-			},
-			{
-				Name: "r8",
-				Type: operandR8,
-				Ref:  "",
 			},
 		},
 		Flags: flags{
@@ -4454,9 +4459,11 @@ var instructions = []instruction{
 		Size:     1,
 		Operands: []operand{
 			{
-				Name: "NZ",
-				Type: operandFlag,
-				Ref:  "NZ",
+				Name:          "NZ",
+				Type:          operandFlag,
+				Ref:           "",
+				RefFlag:       flagZ,
+				RefFlagNegate: true,
 			},
 		},
 		Flags: flags{
@@ -4498,9 +4505,11 @@ var instructions = []instruction{
 				Ref:  "",
 			},
 			{
-				Name: "NZ",
-				Type: operandFlag,
-				Ref:  "NZ",
+				Name:          "NZ",
+				Type:          operandFlag,
+				Ref:           "",
+				RefFlag:       flagZ,
+				RefFlagNegate: true,
 			},
 		},
 		Flags: flags{
@@ -4536,9 +4545,11 @@ var instructions = []instruction{
 		Size:     3,
 		Operands: []operand{
 			{
-				Name: "NZ",
-				Type: operandFlag,
-				Ref:  "NZ",
+				Name:          "NZ",
+				Type:          operandFlag,
+				Ref:           "",
+				RefFlag:       flagZ,
+				RefFlagNegate: true,
 			},
 			{
 				Name: "a16",
@@ -4624,9 +4635,10 @@ var instructions = []instruction{
 		Size:     1,
 		Operands: []operand{
 			{
-				Name: "Z",
-				Type: operandFlag,
-				Ref:  "Z",
+				Name:    "Z",
+				Type:    operandFlag,
+				Ref:     "",
+				RefFlag: flagZ,
 			},
 		},
 		Flags: flags{
@@ -4661,9 +4673,10 @@ var instructions = []instruction{
 				Ref:  "",
 			},
 			{
-				Name: "Z",
-				Type: operandFlag,
-				Ref:  "Z",
+				Name:    "Z",
+				Type:    operandFlag,
+				Ref:     "",
+				RefFlag: flagZ,
 			},
 		},
 		Flags: flags{
@@ -4693,9 +4706,10 @@ var instructions = []instruction{
 		Size:     3,
 		Operands: []operand{
 			{
-				Name: "Z",
-				Type: operandFlag,
-				Ref:  "Z",
+				Name:    "Z",
+				Type:    operandFlag,
+				Ref:     "",
+				RefFlag: flagZ,
 			},
 			{
 				Name: "a16",
@@ -4780,9 +4794,11 @@ var instructions = []instruction{
 		Size:     1,
 		Operands: []operand{
 			{
-				Name: "NC",
-				Type: operandFlag,
-				Ref:  "NC",
+				Name:          "NC",
+				Type:          operandFlag,
+				Ref:           "",
+				RefFlag:       flagC,
+				RefFlagNegate: true,
 			},
 		},
 		Flags: flags{
@@ -4824,9 +4840,11 @@ var instructions = []instruction{
 				Ref:  "",
 			},
 			{
-				Name: "NC",
-				Type: operandFlag,
-				Ref:  "NC",
+				Name:          "NC",
+				Type:          operandFlag,
+				Ref:           "",
+				RefFlag:       flagC,
+				RefFlagNegate: true,
 			},
 		},
 		Flags: flags{
@@ -4856,9 +4874,11 @@ var instructions = []instruction{
 		Size:     3,
 		Operands: []operand{
 			{
-				Name: "NC",
-				Type: operandFlag,
-				Ref:  "NC",
+				Name:          "NC",
+				Type:          operandFlag,
+				Ref:           "",
+				RefFlag:       flagC,
+				RefFlagNegate: true,
 			},
 			{
 				Name: "a16",

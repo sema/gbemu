@@ -27,7 +27,7 @@ func (vm *vm) Run(path string) error {
 		return err
 	}
 
-	for i := 0; i < 20; i++ {
+	for i := 0; i < 4000; i++ {
 		opcode := vm.memory.data[vm.programCounter]
 		instruction := instructions[opcode]
 		vm.execute(instruction)
@@ -62,17 +62,36 @@ func (vm *vm) execute(inst instruction) {
 	case "INC8":
 		v := vm.read8(inst.Operands[0]) + 1
 		vm.write8(inst.Operands[0], v)
-		vm.registers.Write1(flagZero, v == 0)
-		vm.registers.Write1(flagSubtract, false)
-		vm.registers.Write1(flagHalfCarry, v&0b00001111 == 0)
+		vm.registers.Write1(flagZ, v == 0)
+		vm.registers.Write1(flagN, false)
+		lowerHalfInOverflowPosition := v&0b00001111 == 0
+		vm.registers.Write1(flagH, lowerHalfInOverflowPosition)
 	case "JP":
-		// JP $TO [$CONDITION]
+		// JP $TO [$CONDITION]; PC=$TO
+		jump := true
 		if len(inst.Operands) > 1 {
-			notImplemented("JP with condition not implemented yet")
+			jump = vm.isFlagSet(inst.Operands[1])
 		}
-		addr := vm.read16(inst.Operands[0])
-		vm.programCounter = addr
-		autoIncrementPC = false
+
+		if jump {
+			assertOperandType(inst.Operands[0], operandA16, operandReg16)
+			addr := vm.read16(inst.Operands[0])
+			vm.programCounter = addr
+			autoIncrementPC = false
+		}
+	case "JR":
+		// JR $OFFSET [$CONDITION]; PC=PC+$OFFSET
+		jump := true
+		if len(inst.Operands) > 1 {
+			jump = vm.isFlagSet(inst.Operands[1])
+		}
+
+		if jump {
+			assertOperandType(inst.Operands[0], operandR8)
+			offset := vm.read8signed(inst.Operands[0])
+			vm.programCounter = offsetAddress(vm.programCounter, offset)
+			autoIncrementPC = false
+		}
 	default:
 		notImplemented("instruction not implemented yet")
 	}
@@ -135,6 +154,16 @@ func (vm *vm) read8(op operand) byte {
 	}
 }
 
+func (vm *vm) read8signed(op operand) int8 {
+	switch op.Type {
+	case operandR8:
+		return int8(vm.memory.data[vm.programCounter+1])
+	default:
+		log.Panicf("unexpected operand (%s) encountered while reading signed 8bit value", op.Type.String())
+		return 0
+	}
+}
+
 func (vm *vm) write8(op operand, v byte) {
 	switch op.Type {
 	case operandReg8:
@@ -157,6 +186,10 @@ func (vm *vm) reprOperandValues(inst instruction) string {
 			value = fmt.Sprintf("%#04x", vm.read16(op))
 		case operandD8, operandReg8, operandReg16Ptr:
 			value = fmt.Sprintf("%#02x", vm.read8(op))
+		case operandFlag:
+			value = fmt.Sprintf("%t", vm.isFlagSet(op))
+		case operandR8:
+			value = fmt.Sprintf("%d", vm.read8signed(op))
 		}
 		if value != "" {
 			fmt.Fprintf(&builder, "%-5s= %6s  ", op.Name, value)
@@ -164,6 +197,15 @@ func (vm *vm) reprOperandValues(inst instruction) string {
 	}
 
 	return builder.String()
+}
+
+func (vm *vm) isFlagSet(op operand) bool {
+	assertOperandType(op, operandFlag)
+	condition := vm.registers.Read1(op.RefFlag)
+	if op.RefFlagNegate {
+		condition = !condition
+	}
+	return condition
 }
 
 func notImplemented(msg string, args ...interface{}) {

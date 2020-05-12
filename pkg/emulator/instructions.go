@@ -25,6 +25,8 @@ type operand struct {
 	Ref           string
 	RefRegister8  register8
 	RefRegister16 register16
+	RefFlag       flag
+	RefFlagNegate bool
 
 	IncrementReg16 bool
 	DecrementReg16 bool

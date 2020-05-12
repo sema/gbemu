@@ -28,10 +28,10 @@ const (
 )
 
 const (
-	flagZero      flag = 0 // Z
-	flagSubtract       = 1 // N
-	flagHalfCarry      = 2 // H
-	flagCarry          = 3 // C
+	flagZ flag = 0 // Zero
+	flagN      = 1 // Subtract
+	flagH      = 2 // HalfCarry
+	flagC      = 3 // Carry
 )
 
 var register8Names = map[register8]string{
@@ -52,10 +52,10 @@ var register16Names = map[register16]string{
 }
 
 var flagNames = map[flag]string{
-	flagZero:      "Z",
-	flagSubtract:  "N",
-	flagHalfCarry: "H",
-	flagCarry:     "C",
+	flagZ: "Z",
+	flagN: "N",
+	flagH: "H",
+	flagC: "C",
 }
 
 func (r register8) String() string {

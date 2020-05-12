@@ -37,6 +37,8 @@ var instructions = []instruction{
 				Ref: "{{ .Ref }}",
 				{{ if .RefRegister8 }}RefRegister8:  {{ .RefRegister8 }},{{ printf "\n" }}{{ end -}}
 				{{- if .RefRegister16 }}RefRegister16: {{ .RefRegister16 }},{{ printf "\n" }}{{ end -}}
+				{{- if .RefFlag }}RefFlag: {{ .RefFlag }},{{ printf "\n" }}{{ end -}}
+				{{- if .RefFlagNegate }}RefFlagNegate: {{ .RefFlagNegate }},{{ printf "\n" }}{{ end -}}
 				{{- if .Increment }}IncrementReg16: {{ .Increment }},{{ printf "\n" }}{{ end -}}
 				{{- if .Decrement }}DecrementReg16: {{ .Decrement }},{{ printf "\n" }}{{ end -}}
 			},{{ printf "\n" }}
@@ -94,6 +96,8 @@ type operand struct {
 	Ref           string
 	RefRegister8  string
 	RefRegister16 string
+	RefFlag       string
+	RefFlagNegate bool
 
 	// R/W Bits - 1, 8 or 16 depending on the number of bits that are read or
 	// written from the operand
@@ -186,10 +190,11 @@ func postprocessSpec(instructionSpec *root) {
 				op.RefRegister16 = fmt.Sprintf("register%s", op.Name)
 			} else if len(op.Name) == 1 && strings.Contains("ZNHC", op.Name) {
 				op.Type = "operandFlag"
-				op.Ref = op.Name
+				op.RefFlag = fmt.Sprintf("flag%s", op.Name)
 			} else if op.Name == "NC" || op.Name == "NZ" {
 				op.Type = "operandFlag"
-				op.Ref = op.Name
+				op.RefFlag = fmt.Sprintf("flag%s", op.Name[1:])
+				op.RefFlagNegate = true
 			} else if strings.HasSuffix(op.Name, "H") {
 				op.Type = "operandHex"
 				op.Ref = op.Name
@@ -231,7 +236,7 @@ func postprocessSpec(instructionSpec *root) {
 			inst.Mnemonic = fmt.Sprintf("%s%d", inst.Mnemonic, inst.Operands[0].RWBits)
 		}
 
-		if inst.Mnemonic == "JP" && len(inst.Operands) == 2 {
+		if (inst.Mnemonic == "JP" || inst.Mnemonic == "JR") && len(inst.Operands) == 2 {
 			// Swap the order of operands, such that operand-0 is always the
 			// destination and the second is an (optional) condition for the
 			// jump. This simplifies the emulator logic.
