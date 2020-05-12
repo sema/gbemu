@@ -230,7 +230,7 @@ func postprocessSpec(instructionSpec *root) {
 			inst.Mnemonic = "ILLEGAL"
 		}
 
-		if inst.Mnemonic == "LD" || inst.Mnemonic == "INC" {
+		if inst.Mnemonic == "LD" || inst.Mnemonic == "INC" || inst.Mnemonic == "DEC" {
 			// Differentiate between 8bit and 16bit instructions, as they
 			// differn between the amount of data they expect to read and write
 			inst.Mnemonic = fmt.Sprintf("%s%d", inst.Mnemonic, inst.Operands[0].RWBits)
@@ -244,7 +244,7 @@ func postprocessSpec(instructionSpec *root) {
 		}
 
 		if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
-			if inst.Mnemonic != "INC8" {
+			if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" {
 				inst.Todo = "mutates flags"
 			}
 		}

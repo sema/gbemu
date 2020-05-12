@@ -112,7 +112,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x05",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -128,7 +128,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x06",
@@ -247,7 +247,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x0B",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC16",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -287,7 +287,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x0D",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -303,7 +303,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x0E",
@@ -449,7 +449,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x15",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -465,7 +465,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x16",
@@ -578,7 +578,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x1B",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC16",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -618,7 +618,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x1D",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -634,7 +634,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x1E",
@@ -794,7 +794,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x25",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -810,7 +810,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x26",
@@ -930,7 +930,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x2B",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC16",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -970,7 +970,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x2D",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -986,7 +986,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x2E",
@@ -1146,7 +1146,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x35",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -1162,7 +1162,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x36",
@@ -1282,7 +1282,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x3B",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC16",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -1322,7 +1322,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x3D",
-		Mnemonic: "DEC",
+		Mnemonic: "DEC8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -1338,7 +1338,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x3E",

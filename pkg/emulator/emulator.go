@@ -12,6 +12,7 @@ type vm struct {
 	registers      registers
 	memory         memory
 	programCounter uint16
+	powerOn        bool
 }
 
 func New() vm {
@@ -27,7 +28,8 @@ func (vm *vm) Run(path string) error {
 		return err
 	}
 
-	for i := 0; i < 4000; i++ {
+	vm.powerOn = true
+	for vm.powerOn {
 		opcode := vm.memory.data[vm.programCounter]
 		instruction := instructions[opcode]
 		vm.execute(instruction)
@@ -66,6 +68,13 @@ func (vm *vm) execute(inst instruction) {
 		vm.registers.Write1(flagN, false)
 		lowerHalfInOverflowPosition := v&0b00001111 == 0
 		vm.registers.Write1(flagH, lowerHalfInOverflowPosition)
+	case "DEC8":
+		v := vm.read8(inst.Operands[0]) - 1
+		vm.write8(inst.Operands[0], v)
+		vm.registers.Write1(flagZ, v == 0)
+		vm.registers.Write1(flagN, true)
+		lowerHalfInOverflowPosition := v&0b00001111 == 0 // TODO this is almost certainly incorrect
+		vm.registers.Write1(flagH, lowerHalfInOverflowPosition)
 	case "JP":
 		// JP $TO [$CONDITION]; PC=$TO
 		jump := true
@@ -92,6 +101,9 @@ func (vm *vm) execute(inst instruction) {
 			vm.programCounter = offsetAddress(vm.programCounter, offset)
 			autoIncrementPC = false
 		}
+	case "STOP":
+		log.Println("POWER OFF")
+		vm.powerOn = false
 	default:
 		notImplemented("instruction not implemented yet")
 	}
