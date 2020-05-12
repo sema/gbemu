@@ -21,8 +21,8 @@ type memory struct {
 	data []byte
 }
 
-func newMemory() memory {
-	return memory{
+func newMemory() *memory {
+	return &memory{
 		data: make([]byte, bytes64k),
 	}
 }
