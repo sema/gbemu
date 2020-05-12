@@ -7,13 +7,14 @@ import (
 
 type runCmd struct {
 	SnapshotState string `help:"Snapshot emulator state at completion for debugging" type:"path"`
+	BootROM       string `help:"Use boot ROM" type:"path"`
 
 	Path string `arg name:"path" help:"Path to ROM" type:"path"`
 }
 
 func (r *runCmd) Run() error {
 	e := emulator.New()
-	if err := e.Run(r.Path); err != nil {
+	if err := e.Run(r.Path, r.BootROM); err != nil {
 		return err
 	}
 
