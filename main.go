@@ -1,17 +1,28 @@
 package main
 
 import (
-	"log"
-
+	"github.com/alecthomas/kong"
 	"github.com/sema/gbemu/pkg/emulator"
 )
 
-func main() {
-	romPath := "gb-test-roms/cpu_instrs/individual/01-special.gb"
+type runCmd struct {
+	//Recursive bool `help:"Recursively remove files."`
 
+	Path string `arg name:"path" help:"Path to ROM" type:"path"`
+}
+
+func (r *runCmd) Run() error {
 	e := emulator.New()
-	if err := e.Run(romPath); err != nil {
-		log.Fatal(err)
-	}
+	return e.Run(r.Path)
+}
+
+var root struct {
+	Run runCmd `cmd help:"run ROM"`
+}
+
+func main() {
+	cli := kong.Parse(&root)
+	err := cli.Run()
+	cli.FatalIfErrorf(err)
 
 }
