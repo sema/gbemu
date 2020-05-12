@@ -28,10 +28,10 @@ const (
 )
 
 const (
-	flagZero      flag = 0
-	flagSubtract       = 1
-	flagHalfCarry      = 2
-	flagCarry          = 3
+	flagZero      flag = 0 // Z
+	flagSubtract       = 1 // N
+	flagHalfCarry      = 2 // H
+	flagCarry          = 3 // C
 )
 
 var register8Names = map[register8]string{
@@ -117,4 +117,18 @@ func (r *registers) Read16(register register16) uint16 {
 
 func (r *registers) Write16(register register16, v uint16) {
 	binary.LittleEndian.PutUint16(r.data[register:register+2], v)
+}
+
+func (r *registers) Read1(flag flag) bool {
+	return r.data[0]&(1<<flag) > 0
+}
+
+func (r *registers) Write1(flag flag, v bool) {
+	if v {
+		// Example [flags] ORed 00100000 -> sets 3rd bit to 1
+		r.data[0] |= (1 << flag)
+	} else {
+		// Example [flags] ANDed 11011111 (negated)  -> forces 3rd bit to 0
+		r.data[0] &= ^(1 << flag)
+	}
 }

@@ -59,6 +59,12 @@ func (vm *vm) execute(inst instruction) {
 		// LD16 $TARGET $VALUE
 		v := vm.read16(inst.Operands[1])
 		vm.write16(inst.Operands[0], v)
+	case "INC8":
+		v := vm.read8(inst.Operands[0]) + 1
+		vm.write8(inst.Operands[0], v)
+		vm.registers.Write1(flagZero, v == 0)
+		vm.registers.Write1(flagSubtract, false)
+		vm.registers.Write1(flagHalfCarry, v&0b00001111 == 0)
 	case "JP":
 		// JP $TO [$CONDITION]
 		if len(inst.Operands) > 1 {
