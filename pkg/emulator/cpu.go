@@ -347,6 +347,9 @@ func (c *cpu) write8(op operand, v byte) {
 	case operandA8Ptr:
 		offset := c.Memory.Data[c.ProgramCounter-1]
 		c.Memory.Data[0xFF00+uint16(offset)] = v
+	case operandA16Ptr:
+		address := c.Memory.Read16(c.ProgramCounter - 2)
+		c.Memory.Data[address] = v
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 8bit value", op.Type.String())
 	}
