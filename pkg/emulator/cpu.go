@@ -198,6 +198,9 @@ func (c *cpu) read8(op operand) byte {
 	case operandReg16Ptr:
 		address := c.Registers.Read16(op.RefRegister16)
 		return c.Memory.Data[address]
+	case operandReg8Ptr:
+		offset := c.Registers.Data[op.RefRegister8]
+		return c.Memory.Data[0xFF00+uint16(offset)]
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 8bit value", op.Type.String())
 		return 0
@@ -222,6 +225,9 @@ func (c *cpu) write8(op operand, v byte) {
 		data := c.Registers.Data[op.RefRegister16 : op.RefRegister16+2]
 		address := toAddress(data)
 		c.Memory.Data[address] = v
+	case operandReg8Ptr:
+		offset := c.Registers.Data[op.RefRegister8]
+		c.Memory.Data[0xFF00+uint16(offset)] = v
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 8bit value", op.Type.String())
 	}
