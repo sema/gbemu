@@ -32,15 +32,14 @@ func (c *cpu) cycle() {
 		opcode = c.Memory.Data[c.ProgramCounter+1]
 		inst = cbInstructions[opcode]
 	}
+	c.ProgramCounter += inst.Size
 
-	log.Printf("Execute %#04x %-30s %s", c.ProgramCounter, inst.String(), c.reprOperandValues(inst))
+	log.Printf("Execute %#04x %-30s %s", c.ProgramCounter-inst.Size, inst.String(), c.reprOperandValues(inst))
 
 	// TODO remove when we support everything
 	if inst.Todo != "" {
 		notImplemented("Unsupported instruction [%s] %s called: %s", inst.Opcode, inst.Mnemonic, inst.Todo)
 	}
-
-	autoIncrementPC := true
 
 	switch inst.Mnemonic {
 	case "ILLEGAL":
@@ -84,7 +83,6 @@ func (c *cpu) cycle() {
 			assertOperandType(inst.Operands[0], operandA16, operandReg16)
 			addr := c.read16(inst.Operands[0])
 			c.ProgramCounter = addr
-			autoIncrementPC = false
 		}
 	case "JR":
 		// JR $OFFSET [$CONDITION]; PC=PC+-$OFFSET
@@ -98,7 +96,6 @@ func (c *cpu) cycle() {
 			assertOperandType(inst.Operands[0], operandR8)
 			offset := c.read8signed(inst.Operands[0])
 			c.ProgramCounter = offsetAddress(c.ProgramCounter, offset)
-			autoIncrementPC = false
 		}
 	case "XOR":
 		// XOR $A $X; $A=$A^$X
@@ -166,19 +163,15 @@ func (c *cpu) cycle() {
 			c.Registers.Write16(op.RefRegister16, address)
 		}
 	}
-
-	if autoIncrementPC {
-		c.ProgramCounter += inst.Size
-	}
 }
 
 func (c *cpu) read16(op operand) uint16 {
 	switch op.Type {
 	case operandD16:
 		// TODO little endian conversion here may be wrong
-		return c.Memory.Read16(c.ProgramCounter + 1)
+		return c.Memory.Read16(c.ProgramCounter - 2)
 	case operandA16:
-		return c.Memory.Read16(c.ProgramCounter + 1)
+		return c.Memory.Read16(c.ProgramCounter - 2)
 	case operandReg16:
 		return c.Registers.Read16(op.RefRegister16)
 	default:
@@ -199,7 +192,7 @@ func (c *cpu) write16(op operand, v uint16) {
 func (c *cpu) read8(op operand) byte {
 	switch op.Type {
 	case operandD8:
-		return c.Memory.Data[c.ProgramCounter+1]
+		return c.Memory.Data[c.ProgramCounter-1]
 	case operandReg8:
 		return c.Registers.Data[op.RefRegister8]
 	case operandReg16Ptr:
@@ -214,7 +207,7 @@ func (c *cpu) read8(op operand) byte {
 func (c *cpu) read8signed(op operand) int8 {
 	switch op.Type {
 	case operandR8:
-		return int8(c.Memory.Data[c.ProgramCounter+1])
+		return int8(c.Memory.Data[c.ProgramCounter-1])
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading signed 8bit value", op.Type.String())
 		return 0
