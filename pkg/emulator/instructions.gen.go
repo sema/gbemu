@@ -5254,7 +5254,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0xE0",
-		Mnemonic: "LDH",
+		Mnemonic: "LD8",
 		Size:     2,
 		Operands: []operand{
 			{
@@ -5570,7 +5570,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0xF0",
-		Mnemonic: "LDH",
+		Mnemonic: "LD8",
 		Size:     2,
 		Operands: []operand{
 			{

@@ -201,6 +201,9 @@ func (c *cpu) read8(op operand) byte {
 	case operandReg8Ptr:
 		offset := c.Registers.Data[op.RefRegister8]
 		return c.Memory.Data[0xFF00+uint16(offset)]
+	case operandA8Ptr:
+		offset := c.Memory.Data[c.ProgramCounter-1]
+		return c.Memory.Data[0xFF00+uint16(offset)]
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 8bit value", op.Type.String())
 		return 0
@@ -228,6 +231,9 @@ func (c *cpu) write8(op operand, v byte) {
 	case operandReg8Ptr:
 		offset := c.Registers.Data[op.RefRegister8]
 		c.Memory.Data[0xFF00+uint16(offset)] = v
+	case operandA8Ptr:
+		offset := c.Memory.Data[c.ProgramCounter-1]
+		c.Memory.Data[0xFF00+uint16(offset)] = v
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 8bit value", op.Type.String())
 	}
@@ -240,7 +246,7 @@ func (c *cpu) reprOperandValues(inst instruction) string {
 		switch op.Type {
 		case operandA16, operandD16, operandReg16:
 			value = fmt.Sprintf("%#04x", c.read16(op))
-		case operandD8, operandReg8, operandReg16Ptr:
+		case operandD8, operandReg8, operandReg8Ptr, operandReg16Ptr, operandA8Ptr:
 			value = fmt.Sprintf("%#02x", c.read8(op))
 		case operandFlag:
 			value = fmt.Sprintf("%t", c.isFlagSet(op))

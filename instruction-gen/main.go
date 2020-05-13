@@ -94,7 +94,7 @@ var cbInstructions = []instruction{
 var typeToRWBits = map[string]uint{
 	"operandD8":       8,
 	"operandD16":      16,
-	"operandA8":       16, // TODO Not sure about this one
+	"operandA8":       16,
 	"operandA8Ptr":    8,
 	"operandA16":      16,
 	"operandA16Ptr":   8,
@@ -247,6 +247,13 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		// in the template. Normalize these into ILLEGAL to fit the format
 		// of other mnemonics.
 		inst.Mnemonic = "ILLEGAL"
+	}
+
+	if inst.Mnemonic == "LDH" {
+		// LDH is equivalent with LD, with the only difference being that LDH accepts a8 (FF00 offset)
+		// operands. Due to the way we implement LD, it is trivial to also support the LDH case at the
+		// same time.
+		inst.Mnemonic = "LD"
 	}
 
 	for _, op := range inst.Operands {
