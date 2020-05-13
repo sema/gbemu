@@ -28,9 +28,10 @@ func (e *emulator) Run(path string, bootPath string) error {
 	if bootPath != "" {
 		// Load and run the boot ROM (optional) - this will display the
 		// iconic loading screen when starting the emulator.
-
 		e.Memory.LoadBootROM(bootPath)
 		e.CPU.ProgramCounter = 0 // execute the boot rom
+	} else {
+		e.CPU.ProgramCounter = 0x0100 // skip past boot rom and run ROM directly
 	}
 
 	for e.CPU.PowerOn {
