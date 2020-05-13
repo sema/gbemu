@@ -3819,6 +3819,12 @@ var instructions = []instruction{
 		Size:     1,
 		Operands: []operand{
 			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
 				Name:         "B",
 				Type:         operandReg8,
 				Ref:          "",
@@ -3831,13 +3837,19 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA1",
 		Mnemonic: "AND",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "C",
 				Type:         operandReg8,
@@ -3851,13 +3863,19 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA2",
 		Mnemonic: "AND",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "D",
 				Type:         operandReg8,
@@ -3871,13 +3889,19 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA3",
 		Mnemonic: "AND",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "E",
 				Type:         operandReg8,
@@ -3891,13 +3915,19 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA4",
 		Mnemonic: "AND",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "H",
 				Type:         operandReg8,
@@ -3911,13 +3941,19 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA5",
 		Mnemonic: "AND",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "L",
 				Type:         operandReg8,
@@ -3931,13 +3967,19 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA6",
 		Mnemonic: "AND",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:          "(HL)",
 				Type:          operandReg16Ptr,
@@ -3951,7 +3993,7 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA7",
@@ -3964,6 +4006,12 @@ var instructions = []instruction{
 				Ref:          "",
 				RefRegister8: registerA,
 			},
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 		},
 		Flags: flags{
 			Z: "Z",
@@ -3971,13 +4019,19 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA8",
 		Mnemonic: "XOR",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "B",
 				Type:         operandReg8,
@@ -3991,13 +4045,19 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA9",
 		Mnemonic: "XOR",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "C",
 				Type:         operandReg8,
@@ -4011,13 +4071,19 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xAA",
 		Mnemonic: "XOR",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "D",
 				Type:         operandReg8,
@@ -4031,13 +4097,19 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xAB",
 		Mnemonic: "XOR",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "E",
 				Type:         operandReg8,
@@ -4051,13 +4123,19 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xAC",
 		Mnemonic: "XOR",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "H",
 				Type:         operandReg8,
@@ -4071,13 +4149,19 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xAD",
 		Mnemonic: "XOR",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:         "L",
 				Type:         operandReg8,
@@ -4091,13 +4175,19 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xAE",
 		Mnemonic: "XOR",
 		Size:     1,
 		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
 			{
 				Name:          "(HL)",
 				Type:          operandReg16Ptr,
@@ -4111,7 +4201,7 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xAF",
@@ -4124,160 +4214,6 @@ var instructions = []instruction{
 				Ref:          "",
 				RefRegister8: registerA,
 			},
-		},
-		Flags: flags{
-			Z: "Z",
-			N: "0",
-			H: "0",
-			C: "0",
-		},
-		Todo: "mutates flags",
-	},
-	{
-		Opcode:   "0xB0",
-		Mnemonic: "OR",
-		Size:     1,
-		Operands: []operand{
-			{
-				Name:         "B",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerB,
-			},
-		},
-		Flags: flags{
-			Z: "Z",
-			N: "0",
-			H: "0",
-			C: "0",
-		},
-		Todo: "mutates flags",
-	},
-	{
-		Opcode:   "0xB1",
-		Mnemonic: "OR",
-		Size:     1,
-		Operands: []operand{
-			{
-				Name:         "C",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerC,
-			},
-		},
-		Flags: flags{
-			Z: "Z",
-			N: "0",
-			H: "0",
-			C: "0",
-		},
-		Todo: "mutates flags",
-	},
-	{
-		Opcode:   "0xB2",
-		Mnemonic: "OR",
-		Size:     1,
-		Operands: []operand{
-			{
-				Name:         "D",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerD,
-			},
-		},
-		Flags: flags{
-			Z: "Z",
-			N: "0",
-			H: "0",
-			C: "0",
-		},
-		Todo: "mutates flags",
-	},
-	{
-		Opcode:   "0xB3",
-		Mnemonic: "OR",
-		Size:     1,
-		Operands: []operand{
-			{
-				Name:         "E",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerE,
-			},
-		},
-		Flags: flags{
-			Z: "Z",
-			N: "0",
-			H: "0",
-			C: "0",
-		},
-		Todo: "mutates flags",
-	},
-	{
-		Opcode:   "0xB4",
-		Mnemonic: "OR",
-		Size:     1,
-		Operands: []operand{
-			{
-				Name:         "H",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerH,
-			},
-		},
-		Flags: flags{
-			Z: "Z",
-			N: "0",
-			H: "0",
-			C: "0",
-		},
-		Todo: "mutates flags",
-	},
-	{
-		Opcode:   "0xB5",
-		Mnemonic: "OR",
-		Size:     1,
-		Operands: []operand{
-			{
-				Name:         "L",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerL,
-			},
-		},
-		Flags: flags{
-			Z: "Z",
-			N: "0",
-			H: "0",
-			C: "0",
-		},
-		Todo: "mutates flags",
-	},
-	{
-		Opcode:   "0xB6",
-		Mnemonic: "OR",
-		Size:     1,
-		Operands: []operand{
-			{
-				Name:          "(HL)",
-				Type:          operandReg16Ptr,
-				Ref:           "",
-				RefRegister16: registerHL,
-			},
-		},
-		Flags: flags{
-			Z: "Z",
-			N: "0",
-			H: "0",
-			C: "0",
-		},
-		Todo: "mutates flags",
-	},
-	{
-		Opcode:   "0xB7",
-		Mnemonic: "OR",
-		Size:     1,
-		Operands: []operand{
 			{
 				Name:         "A",
 				Type:         operandReg8,
@@ -4291,7 +4227,215 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
+	},
+	{
+		Opcode:   "0xB0",
+		Mnemonic: "OR",
+		Size:     1,
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
+				Name:         "B",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerB,
+			},
+		},
+		Flags: flags{
+			Z: "Z",
+			N: "0",
+			H: "0",
+			C: "0",
+		},
+		Todo: "",
+	},
+	{
+		Opcode:   "0xB1",
+		Mnemonic: "OR",
+		Size:     1,
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
+				Name:         "C",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerC,
+			},
+		},
+		Flags: flags{
+			Z: "Z",
+			N: "0",
+			H: "0",
+			C: "0",
+		},
+		Todo: "",
+	},
+	{
+		Opcode:   "0xB2",
+		Mnemonic: "OR",
+		Size:     1,
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
+				Name:         "D",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerD,
+			},
+		},
+		Flags: flags{
+			Z: "Z",
+			N: "0",
+			H: "0",
+			C: "0",
+		},
+		Todo: "",
+	},
+	{
+		Opcode:   "0xB3",
+		Mnemonic: "OR",
+		Size:     1,
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
+				Name:         "E",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerE,
+			},
+		},
+		Flags: flags{
+			Z: "Z",
+			N: "0",
+			H: "0",
+			C: "0",
+		},
+		Todo: "",
+	},
+	{
+		Opcode:   "0xB4",
+		Mnemonic: "OR",
+		Size:     1,
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
+				Name:         "H",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerH,
+			},
+		},
+		Flags: flags{
+			Z: "Z",
+			N: "0",
+			H: "0",
+			C: "0",
+		},
+		Todo: "",
+	},
+	{
+		Opcode:   "0xB5",
+		Mnemonic: "OR",
+		Size:     1,
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
+				Name:         "L",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerL,
+			},
+		},
+		Flags: flags{
+			Z: "Z",
+			N: "0",
+			H: "0",
+			C: "0",
+		},
+		Todo: "",
+	},
+	{
+		Opcode:   "0xB6",
+		Mnemonic: "OR",
+		Size:     1,
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
+				Name:          "(HL)",
+				Type:          operandReg16Ptr,
+				Ref:           "",
+				RefRegister16: registerHL,
+			},
+		},
+		Flags: flags{
+			Z: "Z",
+			N: "0",
+			H: "0",
+			C: "0",
+		},
+		Todo: "",
+	},
+	{
+		Opcode:   "0xB7",
+		Mnemonic: "OR",
+		Size:     1,
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+		},
+		Flags: flags{
+			Z: "Z",
+			N: "0",
+			H: "0",
+			C: "0",
+		},
+		Todo: "",
 	},
 	{
 		Opcode:   "0xB8",
@@ -5228,6 +5372,12 @@ var instructions = []instruction{
 		Size:     2,
 		Operands: []operand{
 			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
 				Name: "d8",
 				Type: operandD8,
 				Ref:  "",
@@ -5239,7 +5389,7 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xE7",
@@ -5375,6 +5525,12 @@ var instructions = []instruction{
 		Size:     2,
 		Operands: []operand{
 			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
 				Name: "d8",
 				Type: operandD8,
 				Ref:  "",
@@ -5386,7 +5542,7 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xEF",
@@ -5530,6 +5686,12 @@ var instructions = []instruction{
 		Size:     2,
 		Operands: []operand{
 			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+			{
 				Name: "d8",
 				Type: operandD8,
 				Ref:  "",
@@ -5541,7 +5703,7 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xF7",

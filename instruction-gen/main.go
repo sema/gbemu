@@ -176,6 +176,31 @@ func postprocessSpec(instructionSpec *root) {
 	for opcode, inst := range instructionSpec.Unprefixed {
 		inst.Opcode = opcode
 
+		if inst.Mnemonic == "XOR" || inst.Mnemonic == "AND" || inst.Mnemonic == "OR" {
+			// 8bit logical instructions take two arguments, A and X (X=reg8|reg16Ptr).
+			// The spec does not include the implicit A argument. Adding the argument to
+			// make the emulator logic simpler.
+			inst.Operands = []*operand{
+				&operand{Name: "A", Immediate: true},
+				inst.Operands[0],
+			}
+		}
+
+		if (inst.Mnemonic == "JP" || inst.Mnemonic == "JR") && len(inst.Operands) == 2 {
+			// Swap the order of operands, such that operand-0 is always the
+			// destination and the second is an (optional) condition for the
+			// jump. This simplifies the emulator logic.
+			inst.Operands = []*operand{inst.Operands[1], inst.Operands[0]}
+		}
+
+		if strings.HasPrefix(inst.Mnemonic, "ILLEGAL") {
+			// Illegal instructions have mnemonics on the format
+			// ILLEGAL_{OPCODE}, which makes them difficult to switch on
+			// in the template. Normalize these into ILLEGAL to fit the format
+			// of other mnemonics.
+			inst.Mnemonic = "ILLEGAL"
+		}
+
 		for _, op := range inst.Operands {
 			// Infer a "type" for each operand, e.g. to differentiate between
 			// data following operands (d8, d16), registers (reg8, reg16), flags (flag),
@@ -209,7 +234,6 @@ func postprocessSpec(instructionSpec *root) {
 			} else if op.Decrement {
 				op.Name = fmt.Sprintf("%s-", op.Name)
 			}
-
 			if !op.Immediate {
 				op.Type = fmt.Sprintf("%sPtr", op.Type)
 				op.Name = fmt.Sprintf("(%s)", op.Name)
@@ -222,29 +246,14 @@ func postprocessSpec(instructionSpec *root) {
 			op.RWBits = rwBits
 		}
 
-		if strings.HasPrefix(inst.Mnemonic, "ILLEGAL") {
-			// Illegal instructions have mnemonics on the format
-			// ILLEGAL_{OPCODE}, which makes them difficult to switch on
-			// in the template. Normalize these into ILLEGAL to fit the format
-			// of other mnemonics.
-			inst.Mnemonic = "ILLEGAL"
-		}
-
 		if inst.Mnemonic == "LD" || inst.Mnemonic == "INC" || inst.Mnemonic == "DEC" {
 			// Differentiate between 8bit and 16bit instructions, as they
 			// differn between the amount of data they expect to read and write
 			inst.Mnemonic = fmt.Sprintf("%s%d", inst.Mnemonic, inst.Operands[0].RWBits)
 		}
 
-		if (inst.Mnemonic == "JP" || inst.Mnemonic == "JR") && len(inst.Operands) == 2 {
-			// Swap the order of operands, such that operand-0 is always the
-			// destination and the second is an (optional) condition for the
-			// jump. This simplifies the emulator logic.
-			inst.Operands = []*operand{inst.Operands[1], inst.Operands[0]}
-		}
-
 		if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
-			if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" {
+			if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" {
 				inst.Todo = "mutates flags"
 			}
 		}

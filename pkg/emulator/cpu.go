@@ -92,6 +92,42 @@ func (c *cpu) cycle() {
 			c.ProgramCounter = offsetAddress(c.ProgramCounter, offset)
 			autoIncrementPC = false
 		}
+	case "XOR":
+		// XOR $A $X; $A=$A^$X
+		assertOperandType(inst.Operands[0], operandReg8)
+		assertOperandType(inst.Operands[1], operandReg8, operandReg16Ptr, operandD8)
+
+		v := c.read8(inst.Operands[0]) ^ c.read8(inst.Operands[1])
+		c.write8(inst.Operands[0], v)
+
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, false)
+		c.Registers.Write1(flagC, false)
+	case "AND":
+		// AND $A $X; $A=$A&$X
+		assertOperandType(inst.Operands[0], operandReg8)
+		assertOperandType(inst.Operands[1], operandReg8, operandReg16Ptr, operandD8)
+
+		v := c.read8(inst.Operands[0]) & c.read8(inst.Operands[1])
+		c.write8(inst.Operands[0], v)
+
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, true)
+		c.Registers.Write1(flagC, false)
+	case "OR":
+		// OR $A $X; $A=$A|$X
+		assertOperandType(inst.Operands[0], operandReg8)
+		assertOperandType(inst.Operands[1], operandReg8, operandReg16Ptr, operandD8)
+
+		v := c.read8(inst.Operands[0]) | c.read8(inst.Operands[1])
+		c.write8(inst.Operands[0], v)
+
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, false)
+		c.Registers.Write1(flagC, false)
 	case "STOP":
 		// STOP; stop running
 		log.Println("POWER OFF")
