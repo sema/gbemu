@@ -97,6 +97,40 @@ func (c *cpu) cycle() {
 			offset := c.read8signed(inst.Operands[0])
 			c.ProgramCounter = offsetAddress(c.ProgramCounter, offset)
 		}
+	case "CALL":
+		// CALL $TARGET [$CONDITION]; PC=$TARGET if $CONDITION is true. Old PC is added to stack.
+		jump := true
+		if len(inst.Operands) > 1 {
+			assertOperandType(inst.Operands[1], operandFlag)
+			jump = c.isFlagSet(inst.Operands[1])
+		}
+
+		if jump {
+			assertOperandType(inst.Operands[0], operandA16)
+			c.stackPush(c.ProgramCounter)
+			c.ProgramCounter = c.read16(inst.Operands[0])
+		}
+	case "PUSH":
+		// PUSH RR; SP=SP-2, register RR pushed to stack
+		assertOperandType(inst.Operands[0], operandReg16)
+		v := c.read16(inst.Operands[0])
+		c.stackPush(v)
+	case "POP":
+		// POP RR; SP=SP+2, register RR restored from stack
+		assertOperandType(inst.Operands[0], operandReg16)
+		v := c.stackPop()
+		c.write16(inst.Operands[0], v)
+	case "RET":
+		// RET [$CONDITION]; restore PC from stack if $CONDITION is true
+		ret := true
+		if len(inst.Operands) > 0 {
+			assertOperandType(inst.Operands[0], operandFlag)
+			ret = c.isFlagSet(inst.Operands[0])
+		}
+
+		if ret {
+			c.ProgramCounter = c.stackPop()
+		}
 	case "XOR":
 		// XOR $A $X; $A=$A^$X
 		assertOperandType(inst.Operands[0], operandReg8)
@@ -268,6 +302,27 @@ func (c *cpu) isFlagSet(op operand) bool {
 		condition = !condition
 	}
 	return condition
+}
+
+// stackPush pushes a 16bit value onto the stck
+//
+// The value is represented by two bytes at SP-1 and SP-2.
+// The stack pointer is left pointing at the higher-order
+// byte of the value at SP-2.
+func (c *cpu) stackPush(v uint16) {
+	sp := c.Registers.Read16(registerSP)
+	c.Registers.Write16(registerSP, sp-2)
+	c.Memory.Write16(sp-2, v)
+}
+
+// stackPop pops a 16bit value from the stack
+//
+// The value is represented by two bytes at SP and SP+1).
+// The stack pointer is left pointing at the next value (SP+2).
+func (c *cpu) stackPop() uint16 {
+	sp := c.Registers.Read16(registerSP)
+	c.Registers.Write16(registerSP, sp+2)
+	return c.Memory.Read16(sp)
 }
 
 func notImplemented(msg string, args ...interface{}) {

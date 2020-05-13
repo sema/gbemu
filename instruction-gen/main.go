@@ -234,7 +234,7 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		}
 	}
 
-	if (inst.Mnemonic == "JP" || inst.Mnemonic == "JR") && len(inst.Operands) == 2 {
+	if (inst.Mnemonic == "JP" || inst.Mnemonic == "JR" || inst.Mnemonic == "CALL") && len(inst.Operands) == 2 {
 		// Swap the order of operands, such that operand-0 is always the
 		// destination and the second is an (optional) condition for the
 		// jump. This simplifies the emulator logic.

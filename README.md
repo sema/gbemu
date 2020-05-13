@@ -5,6 +5,7 @@ Toy Game Boy emulator, because why not.
 Built from scratch using only the following resources:
 - https://gbdev.io/pandocs/
 - https://gbdev.io/gb-opcodes/optables/
+- https://rednex.github.io/rgbds/gbz80.7.html
 
 
 ## Design Choices

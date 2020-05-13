@@ -82,3 +82,7 @@ func (m *memory) UnloadBootROM() {
 func (m *memory) Read16(address uint16) uint16 {
 	return binary.LittleEndian.Uint16(m.Data[address : address+2])
 }
+
+func (m *memory) Write16(address uint16, v uint16) {
+	binary.LittleEndian.PutUint16(m.Data[address:address+2], v)
+}

@@ -102,6 +102,10 @@ type registers struct {
 	// DE    D    E
 	// HL    H    L
 	// SP    -    -    Stack pointer. Can't be addressed in 8bit
+	//
+	// The stack pointer is usually initialized to point to 0xFFFE (second to last address in the
+	// memory space, just before the interrupt registers at 0xFFFF), and grows "down" towards
+	// lower addresses.
 	Data []byte
 }
 
