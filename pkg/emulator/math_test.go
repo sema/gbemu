@@ -1,8 +1,10 @@
 package emulator
 
-import "testing"
+import (
+	"testing"
+)
 
-func Test_offsetAddress(t *testing.T) {
+func TestOffsetAddress(t *testing.T) {
 	type args struct {
 		base   uint16
 		offset int8
@@ -41,6 +43,42 @@ func Test_offsetAddress(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := offsetAddress(tt.args.base, tt.args.offset); got != tt.want {
 				t.Errorf("offsetAddress() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReadBitN(t *testing.T) {
+	type args struct {
+		v      byte
+		offset uint8
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "return true if bit is set",
+			args: args{
+				v:      2,
+				offset: 1,
+			},
+			want: true,
+		},
+		{
+			name: "return false if bit is unset",
+			args: args{
+				v:      2,
+				offset: 3,
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ReadBitN(tt.args.v, tt.args.offset); got != tt.want {
+				t.Errorf("ReadBitN() = %v, want %v", got, tt.want)
 			}
 		})
 	}

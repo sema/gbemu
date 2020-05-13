@@ -27,6 +27,11 @@ func newCPU(memory *memory, registers *registers) *cpu {
 func (c *cpu) cycle() {
 	opcode := c.Memory.Data[c.ProgramCounter]
 	inst := instructions[opcode]
+	if opcode == 0xCB {
+		// 0xCB is a prefix for a 2-byte opcode. Lookup the 2nd byte.
+		opcode = c.Memory.Data[c.ProgramCounter+1]
+		inst = cbInstructions[opcode]
+	}
 
 	log.Printf("Execute %#04x %-30s %s", c.ProgramCounter, inst.String(), c.reprOperandValues(inst))
 
@@ -56,16 +61,18 @@ func (c *cpu) cycle() {
 		c.write8(inst.Operands[0], v)
 		c.Registers.Write1(flagZ, v == 0)
 		c.Registers.Write1(flagN, false)
-		lowerHalfInOverflowPosition := v&0b00001111 == 0
-		c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
+		// TODO calculate correctly
+		//lowerHalfInOverflowPosition := v&0b00001111 == 0
+		//c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
 	case "DEC8":
 		// DEC8 $OP; $OP--
 		v := c.read8(inst.Operands[0]) - 1
 		c.write8(inst.Operands[0], v)
 		c.Registers.Write1(flagZ, v == 0)
 		c.Registers.Write1(flagN, true)
-		lowerHalfInOverflowPosition := v&0b00001111 == 0 // TODO this is almost certainly incorrect
-		c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
+		// TODO calculate correctly
+		//lowerHalfInOverflowPosition := v&0b00001111 == 0 // TODO this is almost certainly incorrect
+		//c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
 	case "JP":
 		// JP $TO [$CONDITION]; PC=$TO
 		jump := true
@@ -83,6 +90,7 @@ func (c *cpu) cycle() {
 		// JR $OFFSET [$CONDITION]; PC=PC+-$OFFSET
 		jump := true
 		if len(inst.Operands) > 1 {
+			assertOperandType(inst.Operands[1], operandFlag)
 			jump = c.isFlagSet(inst.Operands[1])
 		}
 
@@ -128,6 +136,15 @@ func (c *cpu) cycle() {
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, false)
 		c.Registers.Write1(flagC, false)
+	case "BIT":
+		// BIT n X: z=true if the n'th bit in X is unset
+		assertOperandType(inst.Operands[0], operandConst8)
+		assertOperandType(inst.Operands[1], operandReg8, operandReg16Ptr)
+		v := ReadBitN(c.read8(inst.Operands[1]), inst.Operands[0].RefConst8)
+
+		c.Registers.Write1(flagZ, v == false)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, true)
 	case "STOP":
 		// STOP; stop running
 		log.Println("POWER OFF")

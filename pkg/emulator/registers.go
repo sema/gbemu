@@ -120,7 +120,7 @@ func (r *registers) Write16(register register16, v uint16) {
 }
 
 func (r *registers) Read1(flag flag) bool {
-	return r.Data[0]&(1<<flag) > 0
+	return ReadBitN(r.Data[0], uint8(flag))
 }
 
 func (r *registers) Write1(flag flag, v bool) {

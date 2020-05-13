@@ -10,3 +10,7 @@ func offsetAddress(base uint16, offset int8) uint16 {
 	offsetAbsolute := -offset
 	return base - uint16(offsetAbsolute)
 }
+
+func ReadBitN(v byte, offset uint8) bool {
+	return v&(1<<offset) > 0
+}

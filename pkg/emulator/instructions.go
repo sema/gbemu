@@ -27,6 +27,7 @@ type operand struct {
 	RefRegister16 register16
 	RefFlag       flag
 	RefFlagNegate bool
+	RefConst8     uint8
 
 	IncrementReg16 bool
 	DecrementReg16 bool
@@ -71,8 +72,8 @@ const (
 	// interpreted as a pointer into the memory space. Any reads/writes to this operand
 	// are done on the dereferenced pointer.
 	operandReg16Ptr
-	// operandHex is a static 8bit value associated with the opcode.
-	operandHex
+	// operandConst8 is a static 8bit value associated with the opcode.
+	operandConst8
 )
 
 var operandTypeNames = map[operandType]string{
@@ -88,7 +89,7 @@ var operandTypeNames = map[operandType]string{
 	operandReg8Ptr:  "reg8ptr",
 	operandReg16:    "reg16",
 	operandReg16Ptr: "reg16ptr",
-	operandHex:      "hex",
+	operandConst8:   "const8",
 }
 
 func (o operandType) String() string {
@@ -106,5 +107,5 @@ func (inst instruction) String() string {
 		operandStrs = append(operandStrs, fmt.Sprintf("%-5s", op.Name))
 	}
 
-	return fmt.Sprintf("[%s] %-4s %s", inst.Opcode, inst.Mnemonic, strings.Join(operandStrs, " "))
+	return fmt.Sprintf("[%5s] %-6s %s", inst.Opcode, inst.Mnemonic, strings.Join(operandStrs, " "))
 }
