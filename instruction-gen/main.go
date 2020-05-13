@@ -234,6 +234,13 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		}
 	}
 
+	if inst.Mnemonic == "RLA" || inst.Mnemonic == "RLCA" || inst.Mnemonic == "RRA" || inst.Mnemonic == "RRCA" {
+		// Instructions that take A as an operand, but does not declare so in the spec
+		inst.Operands = []*operand{
+			&operand{Name: "A", Immediate: true},
+		}
+	}
+
 	if (inst.Mnemonic == "JP" || inst.Mnemonic == "JR" || inst.Mnemonic == "CALL") && len(inst.Operands) == 2 {
 		// Swap the order of operands, such that operand-0 is always the
 		// destination and the second is an (optional) condition for the
@@ -319,7 +326,7 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 	}
 
 	if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
-		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" {
+		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" {
 			inst.Todo = "mutates flags"
 		}
 	}

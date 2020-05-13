@@ -159,14 +159,21 @@ var instructions = []instruction{
 		Opcode:   "0x07",
 		Mnemonic: "RLCA",
 		Size:     1,
-		Operands: []operand{},
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+		},
 		Flags: flags{
 			Z: "0",
 			N: "0",
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x08",
@@ -334,14 +341,21 @@ var instructions = []instruction{
 		Opcode:   "0x0F",
 		Mnemonic: "RRCA",
 		Size:     1,
-		Operands: []operand{},
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+		},
 		Flags: flags{
 			Z: "0",
 			N: "0",
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x10",
@@ -496,14 +510,21 @@ var instructions = []instruction{
 		Opcode:   "0x17",
 		Mnemonic: "RLA",
 		Size:     1,
-		Operands: []operand{},
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+		},
 		Flags: flags{
 			Z: "0",
 			N: "0",
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x18",
@@ -665,14 +686,21 @@ var instructions = []instruction{
 		Opcode:   "0x1F",
 		Mnemonic: "RRA",
 		Size:     1,
-		Operands: []operand{},
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+		},
 		Flags: flags{
 			Z: "0",
 			N: "0",
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x20",
@@ -4689,16 +4717,16 @@ var instructions = []instruction{
 		Size:     3,
 		Operands: []operand{
 			{
+				Name: "a16",
+				Type: operandA16,
+				Ref:  "",
+			},
+			{
 				Name:          "NZ",
 				Type:          operandFlag,
 				Ref:           "",
 				RefFlag:       flagZ,
 				RefFlagNegate: true,
-			},
-			{
-				Name: "a16",
-				Type: operandA16,
-				Ref:  "",
 			},
 		},
 		Flags: flags{
@@ -4850,15 +4878,15 @@ var instructions = []instruction{
 		Size:     3,
 		Operands: []operand{
 			{
+				Name: "a16",
+				Type: operandA16,
+				Ref:  "",
+			},
+			{
 				Name:    "Z",
 				Type:    operandFlag,
 				Ref:     "",
 				RefFlag: flagZ,
-			},
-			{
-				Name: "a16",
-				Type: operandA16,
-				Ref:  "",
 			},
 		},
 		Flags: flags{
@@ -5019,16 +5047,16 @@ var instructions = []instruction{
 		Size:     3,
 		Operands: []operand{
 			{
+				Name: "a16",
+				Type: operandA16,
+				Ref:  "",
+			},
+			{
 				Name:          "NC",
 				Type:          operandFlag,
 				Ref:           "",
 				RefFlag:       flagC,
 				RefFlagNegate: true,
-			},
-			{
-				Name: "a16",
-				Type: operandA16,
-				Ref:  "",
 			},
 		},
 		Flags: flags{
@@ -5175,15 +5203,15 @@ var instructions = []instruction{
 		Size:     3,
 		Operands: []operand{
 			{
+				Name: "a16",
+				Type: operandA16,
+				Ref:  "",
+			},
+			{
 				Name:         "C",
 				Type:         operandReg8,
 				Ref:          "",
 				RefRegister8: registerC,
-			},
-			{
-				Name: "a16",
-				Type: operandA16,
-				Ref:  "",
 			},
 		},
 		Flags: flags{
@@ -5907,7 +5935,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x01",
@@ -5927,7 +5955,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x02",
@@ -5947,7 +5975,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x03",
@@ -5967,7 +5995,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x04",
@@ -5987,7 +6015,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x05",
@@ -6007,7 +6035,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x06",
@@ -6027,7 +6055,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x07",
@@ -6047,7 +6075,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x08",
@@ -6227,7 +6255,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x11",
@@ -6247,7 +6275,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x12",
@@ -6267,7 +6295,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x13",
@@ -6287,7 +6315,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x14",
@@ -6307,7 +6335,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x15",
@@ -6327,7 +6355,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x16",
@@ -6347,7 +6375,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x17",
@@ -6367,7 +6395,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x18",
@@ -6387,7 +6415,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x19",
@@ -6407,7 +6435,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x1A",
@@ -6427,7 +6455,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x1B",
@@ -6447,7 +6475,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x1C",
@@ -6467,7 +6495,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x1D",
@@ -6487,7 +6515,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x1E",
@@ -6507,7 +6535,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x1F",
@@ -6527,7 +6555,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x20",
@@ -6547,7 +6575,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x21",
@@ -6567,7 +6595,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x22",
@@ -6587,7 +6615,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x23",
@@ -6607,7 +6635,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x24",
@@ -6627,7 +6655,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x25",
@@ -6647,7 +6675,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x26",
@@ -6667,7 +6695,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x27",
@@ -6687,7 +6715,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x28",
@@ -6707,7 +6735,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x29",
@@ -6727,7 +6755,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x2A",
@@ -6747,7 +6775,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x2B",
@@ -6767,7 +6795,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x2C",
@@ -6787,7 +6815,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x2D",
@@ -6807,7 +6835,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x2E",
@@ -6827,7 +6855,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x2F",
@@ -6847,7 +6875,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x30",
@@ -7027,7 +7055,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x39",
@@ -7047,7 +7075,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x3A",
@@ -7067,7 +7095,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x3B",
@@ -7087,7 +7115,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x3C",
@@ -7107,7 +7135,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x3D",
@@ -7127,7 +7155,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x3E",
@@ -7147,7 +7175,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x3F",
@@ -7167,7 +7195,7 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "*0x40",

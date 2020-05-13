@@ -167,11 +167,59 @@ func (c *cpu) cycle() {
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, false)
 		c.Registers.Write1(flagC, false)
+	case "RL", "RLA", "RLC", "RLCA", "RR", "RRA", "RRCA", "SLA", "SRA", "SRL":
+		// RL   R; rotate bits left          C <- [7 <- 0] <- C
+		// RLC  R; rotate bits left          C <- [7 <- 0] <- [7]
+		// RR-- R; variants rotate right
+		// R--A R; RR/RL/RRC/RLC with different flagZ semantic
+		// SLA  R; shift bits left           C <- [7 <- 0] <- 0
+		// SRA  R; arithmetic right shift  [7] -> [7 -> 1] -> C
+		// SRL  R; logical right shift       0 -> [7 -> 1] -> C
+
+		assertOperandType(inst.Operands[0], operandReg8, operandReg16Ptr)
+
+		v := c.read8(inst.Operands[0])
+		var carry bool
+
+		switch inst.Mnemonic {
+		case "RL", "RLA":
+			in := c.Registers.Read1(flagC)
+			v, carry = shiftByteLeft(v, in)
+		case "RR":
+			in := c.Registers.Read1(flagC)
+			v, carry = shiftByteRight(v, in)
+		case "RLC", "RLCA":
+			in := readBitN(v, 7)
+			v, carry = shiftByteLeft(v, in)
+		case "RRC":
+			in := readBitN(v, 0)
+			v, carry = shiftByteRight(v, in)
+		case "SLA":
+			v, carry = shiftByteLeft(v, false)
+		case "SRA":
+			in := readBitN(v, 7)
+			v, carry = shiftByteRight(v, in)
+		case "SRL":
+			v, carry = shiftByteRight(v, false)
+		default:
+			log.Panicf("unhandled shift and rotate instruction (%s)", inst.Mnemonic)
+		}
+
+		c.write8(inst.Operands[0], v)
+
+		if inst.Mnemonic == "RLA" || inst.Mnemonic == "RLCA" {
+			c.Registers.Write1(flagZ, false)
+		} else {
+			c.Registers.Write1(flagZ, v == 0)
+		}
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, false)
+		c.Registers.Write1(flagC, carry)
 	case "BIT":
 		// BIT n X: z=true if the n'th bit in X is unset
 		assertOperandType(inst.Operands[0], operandConst8)
 		assertOperandType(inst.Operands[1], operandReg8, operandReg16Ptr)
-		v := ReadBitN(c.read8(inst.Operands[1]), inst.Operands[0].RefConst8)
+		v := readBitN(c.read8(inst.Operands[1]), inst.Operands[0].RefConst8)
 
 		c.Registers.Write1(flagZ, v == false)
 		c.Registers.Write1(flagN, false)
