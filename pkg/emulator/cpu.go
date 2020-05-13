@@ -56,6 +56,7 @@ func (c *cpu) cycle() {
 		c.write16(inst.Operands[0], v)
 	case "INC8":
 		// INC8 $OP; $OP++
+		assertOperandType(inst.Operands[0], operandReg8, operandReg16Ptr)
 		v := c.read8(inst.Operands[0]) + 1
 		c.write8(inst.Operands[0], v)
 		c.Registers.Write1(flagZ, v == 0)
@@ -63,8 +64,14 @@ func (c *cpu) cycle() {
 		// TODO calculate correctly
 		//lowerHalfInOverflowPosition := v&0b00001111 == 0
 		//c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
+	case "INC16":
+		// INC16 $OP; $OP++
+		assertOperandType(inst.Operands[0], operandReg16)
+		v := c.read16(inst.Operands[0]) + 1
+		c.write16(inst.Operands[0], v)
 	case "DEC8":
 		// DEC8 $OP; $OP--
+		assertOperandType(inst.Operands[0], operandReg8, operandReg16Ptr)
 		v := c.read8(inst.Operands[0]) - 1
 		c.write8(inst.Operands[0], v)
 		c.Registers.Write1(flagZ, v == 0)
@@ -72,6 +79,11 @@ func (c *cpu) cycle() {
 		// TODO calculate correctly
 		//lowerHalfInOverflowPosition := v&0b00001111 == 0 // TODO this is almost certainly incorrect
 		//c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
+	case "DEC16":
+		// DEC16 $OP; $OP--
+		assertOperandType(inst.Operands[0], operandReg16)
+		v := c.read16(inst.Operands[0]) - 1
+		c.write16(inst.Operands[0], v)
 	case "JP":
 		// JP $TO [$CONDITION]; PC=$TO
 		jump := true
