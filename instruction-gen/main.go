@@ -224,8 +224,8 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		inst.Opcode = fmt.Sprintf("*%s", opcode)
 	}
 
-	if inst.Mnemonic == "XOR" || inst.Mnemonic == "AND" || inst.Mnemonic == "OR" {
-		// 8bit logical instructions take two arguments, A and X (X=reg8|reg16Ptr).
+	if inst.Mnemonic == "XOR" || inst.Mnemonic == "AND" || inst.Mnemonic == "OR" || inst.Mnemonic == "CP" || inst.Mnemonic == "SUB" {
+		// 8bit logical and arithmetic instructions take two arguments, A and X (X=reg8|reg16Ptr).
 		// The spec does not include the implicit A argument. Adding the argument to
 		// make the emulator logic simpler.
 		inst.Operands = []*operand{
@@ -326,7 +326,7 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 	}
 
 	if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
-		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" {
+		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" {
 			inst.Todo = "mutates flags"
 		}
 	}

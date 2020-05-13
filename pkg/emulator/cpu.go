@@ -84,6 +84,25 @@ func (c *cpu) cycle() {
 		assertOperandType(inst.Operands[0], operandReg16)
 		v := c.read16(inst.Operands[0]) - 1
 		c.write16(inst.Operands[0], v)
+	case "SUB":
+		// SUB A $V; A=A-$V
+		assertOperandType(inst.Operands[0], operandReg8)
+		assertOperandType(inst.Operands[1], operandReg8, operandD8, operandReg16Ptr)
+		v, carry, halfcarry := subtract(c.read8(inst.Operands[0]), c.read8(inst.Operands[1]))
+		c.write8(inst.Operands[0], v)
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, true)
+		c.Registers.Write1(flagH, halfcarry)
+		c.Registers.Write1(flagC, carry)
+	case "CP":
+		// CP A $V; A-$V - don't store result but set flags based on calculation
+		assertOperandType(inst.Operands[0], operandReg8)
+		assertOperandType(inst.Operands[1], operandReg8, operandD8, operandReg16Ptr)
+		v, carry, halfcarry := subtract(c.read8(inst.Operands[0]), c.read8(inst.Operands[1]))
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, true)
+		c.Registers.Write1(flagH, halfcarry)
+		c.Registers.Write1(flagC, carry)
 	case "JP":
 		// JP $TO [$CONDITION]; PC=$TO
 		jump := true

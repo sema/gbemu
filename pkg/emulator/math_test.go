@@ -212,3 +212,62 @@ func TestShiftByteRight(t *testing.T) {
 		})
 	}
 }
+
+func TestSubtract(t *testing.T) {
+	type args struct {
+		v1 uint8
+		v2 uint8
+	}
+	tests := []struct {
+		name           string
+		args           args
+		wantResult     uint8
+		wantBorrow     bool
+		wantHalfborrow bool
+	}{
+		{
+			name: "subtract without underflow returns subtracted number",
+			args: args{
+				v1: 4,
+				v2: 1,
+			},
+			wantResult:     3,
+			wantBorrow:     false,
+			wantHalfborrow: false,
+		},
+		{
+			name: "subtract with 4bit underflow returns halfborrow as true",
+			args: args{
+				v1: 16,
+				v2: 1,
+			},
+			wantResult:     15,
+			wantBorrow:     false,
+			wantHalfborrow: true,
+		},
+		{
+			name: "subtract with 4bit underflow returns halfborrow as true",
+			args: args{
+				v1: 1,
+				v2: 255,
+			},
+			wantResult:     2,
+			wantBorrow:     true,
+			wantHalfborrow: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotResult, gotBorrow, gotHalfborrow := subtract(tt.args.v1, tt.args.v2)
+			if gotResult != tt.wantResult {
+				t.Errorf("subtract() gotResult = %v, want %v", gotResult, tt.wantResult)
+			}
+			if gotBorrow != tt.wantBorrow {
+				t.Errorf("subtract() gotBorrow = %v, want %v", gotBorrow, tt.wantBorrow)
+			}
+			if gotHalfborrow != tt.wantHalfborrow {
+				t.Errorf("subtract() gotHalfborrow = %v, want %v", gotHalfborrow, tt.wantHalfborrow)
+			}
+		})
+	}
+}

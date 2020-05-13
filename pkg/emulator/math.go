@@ -1,5 +1,16 @@
 package emulator
 
+// subtract v2 from v1 (v1-v2)
+//
+// Borrow is true if the computation caused an underflow (v2 > v1)
+// Borrow is true if the subtract borrowed from bit 4 (i.e. underflow in the lower 4 bits)
+func subtract(v1, v2 uint8) (result uint8, borrow bool, halfborrow bool) {
+	result = v1 - v2
+	borrow = v1 < v2
+	halfborrow = v1>>4 != result>>4 || borrow // check if upper 4 bits are unchanged
+	return
+}
+
 // offsetAddress adjusts a base address by a signed offset
 //
 // Beware the operation may over/under-flow the base address.
