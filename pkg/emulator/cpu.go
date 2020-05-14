@@ -287,6 +287,9 @@ func (c *cpu) read16(op operand) uint16 {
 		return c.Memory.Read16(c.ProgramCounter - 2)
 	case operandReg16:
 		return c.Registers.Read16(op.RefRegister16)
+	case operandA8:
+		offset := c.Memory.Data[c.ProgramCounter-1]
+		return 0xFF00 + uint16(offset)
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 16bit value", op.Type.String())
 		return 0
@@ -356,13 +359,37 @@ func (c *cpu) write8(op operand, v byte) {
 }
 
 func (c *cpu) reprOperandValues(inst instruction) string {
-	var builder strings.Builder
+	var operands []operand
 	for _, op := range inst.Operands {
+		switch op.Type {
+		case operandA8Ptr, operandA16Ptr, operandReg8Ptr, operandReg16Ptr:
+			// Also print the non-pointer variant of the operand for easier debugging
+			ptr := operand(op)
+			ptr.Name = ptr.Name[1 : len(ptr.Name)-1]
+			switch op.Type {
+			case operandA8Ptr:
+				ptr.Type = operandA8
+			case operandA16Ptr:
+				ptr.Type = operandA16
+			case operandReg8Ptr:
+				ptr.Type = operandReg8
+			case operandReg16Ptr:
+				ptr.Type = operandReg16
+			}
+			operands = append(operands, ptr)
+			operands = append(operands, op)
+		default:
+			operands = append(operands, op)
+		}
+	}
+
+	var builder strings.Builder
+	for _, op := range operands {
 		var value string
 		switch op.Type {
-		case operandA16, operandD16, operandReg16:
+		case operandA16, operandD16, operandReg16, operandA8:
 			value = fmt.Sprintf("%#04x", c.read16(op))
-		case operandD8, operandReg8, operandReg8Ptr, operandReg16Ptr, operandA8Ptr:
+		case operandD8, operandReg8, operandReg8Ptr, operandReg16Ptr, operandA8Ptr, operandA16Ptr:
 			value = fmt.Sprintf("%#02x", c.read8(op))
 		case operandFlag:
 			value = fmt.Sprintf("%t", c.isFlagSet(op))
