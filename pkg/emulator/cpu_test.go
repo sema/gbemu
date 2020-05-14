@@ -1,6 +1,10 @@
 package emulator
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/require"
+)
 
 func TestIsFlagSet(t *testing.T) {
 	type args struct {
@@ -75,4 +79,15 @@ func TestIsFlagSet(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestStackPushPopReturnsSameValue(t *testing.T) {
+	registers := newRegisters()
+	memory := newMemory()
+	cpu := newCPU(memory, registers)
+
+	registers.Write16(registerSP, 0xFFFE) // Initialize SP
+
+	cpu.stackPush(0x1005)
+	require.Equal(t, uint16(0x1005), cpu.stackPop())
 }

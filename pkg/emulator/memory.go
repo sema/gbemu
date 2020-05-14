@@ -342,5 +342,5 @@ func (m *memory) Read16(address uint16) uint16 {
 // NOTE: uses little-endian
 func (m *memory) Write16(address uint16, v uint16) {
 	m.Write8(address, byte(v))
-	m.Write8(address, byte(v>>8))
+	m.Write8(address+1, byte(v>>8))
 }
