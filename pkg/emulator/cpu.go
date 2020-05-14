@@ -4,7 +4,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 )
 
@@ -25,11 +24,11 @@ func newCPU(memory *memory, registers *registers) *cpu {
 }
 
 func (c *cpu) cycle() {
-	opcode := c.Memory.Data[c.ProgramCounter]
+	opcode := c.Memory.Read8(c.ProgramCounter)
 	inst := instructions[opcode]
 	if opcode == 0xCB {
 		// 0xCB is a prefix for a 2-byte opcode. Lookup the 2nd byte.
-		opcode = c.Memory.Data[c.ProgramCounter+1]
+		opcode = c.Memory.Read8(c.ProgramCounter + 1)
 		inst = cbInstructions[opcode]
 	}
 	c.ProgramCounter += inst.Size
@@ -288,7 +287,7 @@ func (c *cpu) read16(op operand) uint16 {
 	case operandReg16:
 		return c.Registers.Read16(op.RefRegister16)
 	case operandA8:
-		offset := c.Memory.Data[c.ProgramCounter-1]
+		offset := c.Memory.Read8(c.ProgramCounter - 1)
 		return 0xFF00 + uint16(offset)
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 16bit value", op.Type.String())
@@ -308,18 +307,18 @@ func (c *cpu) write16(op operand, v uint16) {
 func (c *cpu) read8(op operand) byte {
 	switch op.Type {
 	case operandD8:
-		return c.Memory.Data[c.ProgramCounter-1]
+		return c.Memory.Read8(c.ProgramCounter - 1)
 	case operandReg8:
 		return c.Registers.Data[op.RefRegister8]
 	case operandReg16Ptr:
 		address := c.Registers.Read16(op.RefRegister16)
-		return c.Memory.Data[address]
+		return c.Memory.Read8(address)
 	case operandReg8Ptr:
 		offset := c.Registers.Data[op.RefRegister8]
-		return c.Memory.Data[0xFF00+uint16(offset)]
+		return c.Memory.Read8(0xFF00 + uint16(offset))
 	case operandA8Ptr:
-		offset := c.Memory.Data[c.ProgramCounter-1]
-		return c.Memory.Data[0xFF00+uint16(offset)]
+		offset := c.Memory.Read8(c.ProgramCounter - 1)
+		return c.Memory.Read8(0xFF00 + uint16(offset))
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 8bit value", op.Type.String())
 		return 0
@@ -329,7 +328,7 @@ func (c *cpu) read8(op operand) byte {
 func (c *cpu) read8signed(op operand) int8 {
 	switch op.Type {
 	case operandR8:
-		return int8(c.Memory.Data[c.ProgramCounter-1])
+		return int8(c.Memory.Read8(c.ProgramCounter - 1))
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading signed 8bit value", op.Type.String())
 		return 0
@@ -343,16 +342,16 @@ func (c *cpu) write8(op operand, v byte) {
 	case operandReg16Ptr:
 		data := c.Registers.Data[op.RefRegister16 : op.RefRegister16+2]
 		address := toAddress(data)
-		c.Memory.Data[address] = v
+		c.Memory.Write8(address, v)
 	case operandReg8Ptr:
 		offset := c.Registers.Data[op.RefRegister8]
-		c.Memory.Data[0xFF00+uint16(offset)] = v
+		c.Memory.Write8(0xFF00+uint16(offset), v)
 	case operandA8Ptr:
-		offset := c.Memory.Data[c.ProgramCounter-1]
-		c.Memory.Data[0xFF00+uint16(offset)] = v
+		offset := c.Memory.Read8(c.ProgramCounter - 1)
+		c.Memory.Write8(0xFF00+uint16(offset), v)
 	case operandA16Ptr:
 		address := c.Memory.Read16(c.ProgramCounter - 2)
-		c.Memory.Data[address] = v
+		c.Memory.Write8(address, v)
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 8bit value", op.Type.String())
 	}
@@ -385,23 +384,35 @@ func (c *cpu) reprOperandValues(inst instruction) string {
 
 	var builder strings.Builder
 	for _, op := range operands {
-		var value string
-		switch op.Type {
-		case operandA16, operandD16, operandReg16, operandA8:
-			value = fmt.Sprintf("%#04x", c.read16(op))
-		case operandD8, operandReg8, operandReg8Ptr, operandReg16Ptr, operandA8Ptr, operandA16Ptr:
-			value = fmt.Sprintf("%#02x", c.read8(op))
-		case operandFlag:
-			value = fmt.Sprintf("%t", c.isFlagSet(op))
-		case operandR8:
-			value = fmt.Sprintf("%d", c.read8signed(op))
-		}
-		if value != "" {
-			fmt.Fprintf(&builder, "%-5s= %6s  ", op.Name, value)
-		}
+		v := c.reprOperandValue(op)
+		fmt.Fprintf(&builder, "%-5s= %6s  ", op.Name, v)
 	}
 
 	return builder.String()
+}
+
+func (c *cpu) reprOperandValue(op operand) (v string) {
+	defer func() {
+		// Handle invalid memory lookups
+		if r := recover(); r != nil {
+			v = "ERR"
+		}
+	}()
+
+	switch op.Type {
+	case operandA16, operandD16, operandReg16, operandA8:
+		v = fmt.Sprintf("%#04x", c.read16(op))
+	case operandD8, operandReg8, operandReg8Ptr, operandReg16Ptr, operandA8Ptr, operandA16Ptr:
+		v = fmt.Sprintf("%#02x", c.read8(op))
+	case operandFlag:
+		v = fmt.Sprintf("%t", c.isFlagSet(op))
+	case operandR8:
+		v = fmt.Sprintf("%d", c.read8signed(op))
+	default:
+		v = "?"
+	}
+
+	return
 }
 
 func (c *cpu) isFlagSet(op operand) bool {
@@ -435,8 +446,7 @@ func (c *cpu) stackPop() uint16 {
 }
 
 func notImplemented(msg string, args ...interface{}) {
-	log.Printf(msg, args...)
-	os.Exit(1)
+	log.Panicf(msg, args...)
 }
 
 func toAddress(bytes []byte) uint16 {
