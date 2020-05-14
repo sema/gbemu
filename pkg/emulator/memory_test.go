@@ -6,6 +6,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestNewMemoryPlacesVRAMAtCorrectOffset(t *testing.T) {
+	memory := newMemory()
+	require.Equal(t, memory.vRAM, memory.pages[0x80])
+	require.Equal(t, memory.vRAM, memory.pages[0x97])
+}
+
 func TestLoadAndUnloadBootROM(t *testing.T) {
 	memory := newMemory()
 

@@ -16,6 +16,7 @@ const (
 type memoryPage interface {
 	Read8(address uint16) byte
 	Write8(address uint16, v byte)
+	String() string
 }
 
 type rom struct {
@@ -36,6 +37,10 @@ func (r *rom) Read8(address uint16) byte {
 func (r *rom) Write8(address uint16, v byte) {
 	// TODO write only allowed for MBC
 	notImplemented("writes to MBC not implemented")
+}
+
+func (r *rom) String() string {
+	return "ROM"
 }
 
 func (r *rom) LoadROM(path string) error {
@@ -91,6 +96,42 @@ func (b *bootROM) LoadBootROM(path string) error {
 	return nil
 }
 
+func (b *bootROM) String() string {
+	return "Boot ROM"
+}
+
+// vRAM manages the VRAM (Video RAM)
+//
+// Memory offset: 0x8000 - 0x9FFF
+//
+// 8000 - 87FF  Block 0
+// 8080 - 8FFF  Block 1
+// 9000 - 97FF  Block 2
+// Info: https://gbdev.io/pandocs/#vram-tile-data
+type vRAM struct {
+	data []byte
+}
+
+func newVRAM() *vRAM {
+	return &vRAM{
+		data: make([]byte, bytes32k),
+	}
+}
+
+func (r *vRAM) Read8(address uint16) byte {
+	// as the ROM is placed at the beginning of the address space we don't need to offset the input address
+	return r.data[address-0x8000]
+}
+
+func (r *vRAM) Write8(address uint16, v byte) {
+	// TODO implement blocking of writes when not allowed
+	r.data[address-0x8000] = v
+}
+
+func (r *vRAM) String() string {
+	return "VRAM"
+}
+
 type memory struct {
 	// Data contains the current addressable memory (ROM(s), RAM(s), I/O)
 	//
@@ -114,6 +155,7 @@ type memory struct {
 
 	rom     *rom
 	bootROM *bootROM
+	vRAM    *vRAM
 
 	// IsBootROMLoaded is true if the Boot ROM is currently loaded
 	IsBootROMLoaded bool
@@ -122,14 +164,15 @@ type memory struct {
 func newMemory() *memory {
 	rom := newROM()
 	bootROM := newBootROM()
+	vRAM := newVRAM()
 
 	layout := []struct {
 		Controller memoryPage
 		End        uint8
 	}{
 		{End: 0x7F, Controller: rom},
-		{End: 0x9F, Controller: nil}, // VRAM, not implemented yet
-		{End: 0xBF, Controller: nil}, // External RAM
+		{End: 0x9F, Controller: vRAM}, // VRAM, not implemented yet
+		{End: 0xBF, Controller: nil},  // External RAM
 		{End: 0xDF, Controller: nil},
 		{End: 0xFD, Controller: nil}, // ECHO RAM
 		{End: 0xFE, Controller: nil}, // OAM
@@ -142,11 +185,13 @@ func newMemory() *memory {
 		for i := uint16(next); i <= uint16(entry.End); i++ {
 			pages[i] = entry.Controller
 		}
+		next = entry.End + 1
 	}
 
 	return &memory{
 		pages:   pages,
 		rom:     rom,
+		vRAM:    vRAM,
 		bootROM: bootROM,
 	}
 }
