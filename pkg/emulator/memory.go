@@ -167,8 +167,9 @@ type ffPage struct {
 }
 
 func newFFPage() *ffPage {
-	hram := newRAM("HRAM", 0xFE-0x7F, 0x80)
+	hram := newRAM("HRAM", 0xFE-0x7F, 0xFF80)
 	sound := newSoundController()
+	video := newVideoController()
 
 	layout := []struct {
 		Controller memoryPage
@@ -176,6 +177,7 @@ func newFFPage() *ffPage {
 	}{
 		{End: 0x0F, Controller: nil},
 		{End: 0x3F, Controller: sound},
+		{End: 0x49, Controller: video},
 		{End: 0x7F, Controller: nil},
 		{End: 0xFE, Controller: hram},
 		{End: 0xFF, Controller: nil}, // IE register
