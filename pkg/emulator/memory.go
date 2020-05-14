@@ -100,6 +100,32 @@ func (b *bootROM) String() string {
 	return "Boot ROM"
 }
 
+type ram struct {
+	data   []byte
+	offset uint16
+	name   string
+}
+
+func newRAM(name string, size uint16, offset uint16) *ram {
+	return &ram{
+		data:   make([]byte, size),
+		offset: offset,
+		name:   name,
+	}
+}
+
+func (r *ram) Read8(address uint16) byte {
+	return r.data[address-r.offset]
+}
+
+func (r *ram) Write8(address uint16, v byte) {
+	r.data[address-r.offset] = v
+}
+
+func (r *ram) String() string {
+	return r.name
+}
+
 // vRAM manages the VRAM (Video RAM)
 //
 // Memory offset: 0x8000 - 0x9FFF
@@ -119,7 +145,6 @@ func newVRAM() *vRAM {
 }
 
 func (r *vRAM) Read8(address uint16) byte {
-	// as the ROM is placed at the beginning of the address space we don't need to offset the input address
 	return r.data[address-0x8000]
 }
 
@@ -130,6 +155,66 @@ func (r *vRAM) Write8(address uint16, v byte) {
 
 func (r *vRAM) String() string {
 	return "VRAM"
+}
+
+//https://gbdev.io/pandocs/#ff26-nr52-sound-on-off
+// ffPage represents the last page in the address space (0xFF00-0xFFFF), contiaining various IO registers and HRAM
+//
+// The page dispatches to other more specialized memoryPages based on the accessed address. See `memory` for
+// a high-level overview of the structure of 0xFFXX or `newFFPage` for details.
+type ffPage struct {
+	entries []memoryPage
+}
+
+func newFFPage() *ffPage {
+	hram := newRAM("HRAM", 0xFE-0x7F, 0x80)
+	sound := newSoundController()
+
+	layout := []struct {
+		Controller memoryPage
+		End        uint8
+	}{
+		{End: 0x0F, Controller: nil},
+		{End: 0x3F, Controller: sound},
+		{End: 0x7F, Controller: nil},
+		{End: 0xFE, Controller: hram},
+		{End: 0xFF, Controller: nil}, // IE register
+	}
+
+	entries := make([]memoryPage, 256)
+	next := uint8(0x00)
+	for _, entry := range layout {
+		for i := uint16(next); i <= uint16(entry.End); i++ {
+			entries[i] = entry.Controller
+		}
+		next = entry.End + 1
+	}
+
+	return &ffPage{
+		entries: entries,
+	}
+}
+
+func (f *ffPage) Read8(address uint16) byte {
+	entry := f.entries[address-0xFF00]
+	if entry == nil {
+		notImplemented("memory operations at address %#04x not implemented", address)
+	}
+
+	return entry.Read8(address)
+}
+
+func (f *ffPage) Write8(address uint16, v byte) {
+	entry := f.entries[address-0xFF00]
+	if entry == nil {
+		notImplemented("memory operations at address %#04x not implemented", address)
+	}
+
+	entry.Write8(address, v)
+}
+
+func (f *ffPage) String() string {
+	return "0xFFXX"
 }
 
 type memory struct {
@@ -165,6 +250,7 @@ func newMemory() *memory {
 	rom := newROM()
 	bootROM := newBootROM()
 	vRAM := newVRAM()
+	ffPage := newFFPage()
 
 	layout := []struct {
 		Controller memoryPage
@@ -176,7 +262,7 @@ func newMemory() *memory {
 		{End: 0xDF, Controller: nil},
 		{End: 0xFD, Controller: nil}, // ECHO RAM
 		{End: 0xFE, Controller: nil}, // OAM
-		{End: 0xFF, Controller: nil}, // Registers, HRAM, IE
+		{End: 0xFF, Controller: ffPage},
 	}
 
 	pages := make([]memoryPage, 265)
