@@ -71,13 +71,12 @@ func (c *cpu) cycle() {
 	case "DEC8":
 		// DEC8 $OP; $OP--
 		assertOperandType(inst.Operands[0], operandReg8, operandReg16Ptr)
-		v := c.read8(inst.Operands[0]) - 1
+		v, _, halfborrow := subtract(c.read8(inst.Operands[0]), 1)
 		c.write8(inst.Operands[0], v)
+
 		c.Registers.Write1(flagZ, v == 0)
 		c.Registers.Write1(flagN, true)
-		// TODO calculate correctly
-		//lowerHalfInOverflowPosition := v&0b00001111 == 0 // TODO this is almost certainly incorrect
-		//c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
+		c.Registers.Write1(flagH, halfborrow)
 	case "DEC16":
 		// DEC16 $OP; $OP--
 		assertOperandType(inst.Operands[0], operandReg16)
