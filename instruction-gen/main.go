@@ -31,6 +31,9 @@ var instructions = []instruction{
 		Opcode: "{{ .Opcode }}",
 		Mnemonic:  "{{ .Mnemonic }}",
 		Size:     {{ .Bytes }},
+		Cycles:   []int{
+			{{- range .Cycles}}{{ . }},{{ printf "\n" }}{{ end -}}
+		},
 		Operands:  []operand{
 			{{ range .Operands -}}
 			{
@@ -63,6 +66,9 @@ var cbInstructions = []instruction{
 			Opcode: "{{ .Opcode }}",
 			Mnemonic:  "{{ .Mnemonic }}",
 			Size:     {{ .Bytes }},
+			Cycles:   []int{
+				{{- range .Cycles}}{{ . }},{{ printf "\n" }}{{ end -}}
+			},
 			Operands:  []operand{
 				{{ range .Operands -}}
 				{
@@ -247,6 +253,18 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		// jump. This simplifies the emulator logic.
 		inst.Operands = []*operand{inst.Operands[1], inst.Operands[0]}
 	}
+
+	if len(inst.Cycles) == 2 {
+		// Simplify emulator logic by listing the "action taken" cycle count last rather than first
+		inst.Cycles = []int{inst.Cycles[1], inst.Cycles[0]}
+	}
+
+	// Record cycles in "machine cycles" and not "clock cycles"
+	var scaledCycles []int
+	for _, cycle := range inst.Cycles {
+		scaledCycles = append(scaledCycles, cycle/4)
+	}
+	inst.Cycles = scaledCycles
 
 	if strings.HasPrefix(inst.Mnemonic, "ILLEGAL") {
 		// Illegal instructions have mnemonics on the format

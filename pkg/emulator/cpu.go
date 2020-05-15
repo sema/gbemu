@@ -23,7 +23,7 @@ func newCPU(memory *memory, registers *registers) *cpu {
 	}
 }
 
-func (c *cpu) Cycle() {
+func (c *cpu) Cycle() int {
 	opcode := c.Memory.Read8(c.ProgramCounter)
 	inst := instructions[opcode]
 	if opcode == 0xCB {
@@ -31,6 +31,7 @@ func (c *cpu) Cycle() {
 		opcode = c.Memory.Read8(c.ProgramCounter + 1)
 		inst = cbInstructions[opcode]
 	}
+
 	c.ProgramCounter += inst.Size
 
 	log.Printf("Execute %#04x %-30s %s", c.ProgramCounter-inst.Size, inst.String(), c.reprOperandValues(inst))
@@ -39,6 +40,8 @@ func (c *cpu) Cycle() {
 	if inst.Todo != "" {
 		notImplemented("Unsupported instruction [%s] %s called: %s", inst.Opcode, inst.Mnemonic, inst.Todo)
 	}
+
+	actionTaken := false
 
 	switch inst.Mnemonic {
 	case "ILLEGAL":
@@ -119,6 +122,7 @@ func (c *cpu) Cycle() {
 		}
 
 		if jump {
+			actionTaken = true
 			assertOperandType(inst.Operands[0], operandA16, operandReg16)
 			addr := c.read16(inst.Operands[0])
 			c.ProgramCounter = addr
@@ -132,6 +136,7 @@ func (c *cpu) Cycle() {
 		}
 
 		if jump {
+			actionTaken = true
 			assertOperandType(inst.Operands[0], operandR8)
 			offset := c.read8signed(inst.Operands[0])
 			c.ProgramCounter = offsetAddress(c.ProgramCounter, offset)
@@ -145,6 +150,7 @@ func (c *cpu) Cycle() {
 		}
 
 		if jump {
+			actionTaken = true
 			assertOperandType(inst.Operands[0], operandA16)
 			c.stackPush(c.ProgramCounter)
 			c.ProgramCounter = c.read16(inst.Operands[0])
@@ -168,6 +174,7 @@ func (c *cpu) Cycle() {
 		}
 
 		if ret {
+			actionTaken = true
 			c.ProgramCounter = c.stackPop()
 		}
 	case "XOR":
@@ -284,6 +291,12 @@ func (c *cpu) Cycle() {
 			c.Registers.Write16(op.RefRegister16, address)
 		}
 	}
+
+	if actionTaken && len(inst.Cycles) > 1 {
+		return inst.Cycles[1]
+	}
+
+	return inst.Cycles[0]
 }
 
 func (c *cpu) read16(op operand) uint16 {

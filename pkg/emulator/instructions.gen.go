@@ -10,6 +10,7 @@ var instructions = []instruction{
 		Opcode:   "0x00",
 		Mnemonic: "NOP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -23,6 +24,7 @@ var instructions = []instruction{
 		Opcode:   "0x01",
 		Mnemonic: "LD16",
 		Size:     3,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "BC",
@@ -48,6 +50,7 @@ var instructions = []instruction{
 		Opcode:   "0x02",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "(BC)",
@@ -74,6 +77,7 @@ var instructions = []instruction{
 		Opcode:   "0x03",
 		Mnemonic: "INC16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "BC",
@@ -94,6 +98,7 @@ var instructions = []instruction{
 		Opcode:   "0x04",
 		Mnemonic: "INC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -114,6 +119,7 @@ var instructions = []instruction{
 		Opcode:   "0x05",
 		Mnemonic: "DEC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -134,6 +140,7 @@ var instructions = []instruction{
 		Opcode:   "0x06",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -159,6 +166,7 @@ var instructions = []instruction{
 		Opcode:   "0x07",
 		Mnemonic: "RLCA",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -179,6 +187,7 @@ var instructions = []instruction{
 		Opcode:   "0x08",
 		Mnemonic: "LD8",
 		Size:     3,
+		Cycles:   []int{5},
 		Operands: []operand{
 			{
 				Name: "(a16)",
@@ -204,6 +213,7 @@ var instructions = []instruction{
 		Opcode:   "0x09",
 		Mnemonic: "ADD16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -230,6 +240,7 @@ var instructions = []instruction{
 		Opcode:   "0x0A",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -256,6 +267,7 @@ var instructions = []instruction{
 		Opcode:   "0x0B",
 		Mnemonic: "DEC16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "BC",
@@ -276,6 +288,7 @@ var instructions = []instruction{
 		Opcode:   "0x0C",
 		Mnemonic: "INC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -296,6 +309,7 @@ var instructions = []instruction{
 		Opcode:   "0x0D",
 		Mnemonic: "DEC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -316,6 +330,7 @@ var instructions = []instruction{
 		Opcode:   "0x0E",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -341,6 +356,7 @@ var instructions = []instruction{
 		Opcode:   "0x0F",
 		Mnemonic: "RRCA",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -361,6 +377,7 @@ var instructions = []instruction{
 		Opcode:   "0x10",
 		Mnemonic: "STOP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -374,6 +391,7 @@ var instructions = []instruction{
 		Opcode:   "0x11",
 		Mnemonic: "LD16",
 		Size:     3,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "DE",
@@ -399,6 +417,7 @@ var instructions = []instruction{
 		Opcode:   "0x12",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "(DE)",
@@ -425,6 +444,7 @@ var instructions = []instruction{
 		Opcode:   "0x13",
 		Mnemonic: "INC16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "DE",
@@ -445,6 +465,7 @@ var instructions = []instruction{
 		Opcode:   "0x14",
 		Mnemonic: "INC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -465,6 +486,7 @@ var instructions = []instruction{
 		Opcode:   "0x15",
 		Mnemonic: "DEC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -485,6 +507,7 @@ var instructions = []instruction{
 		Opcode:   "0x16",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -510,6 +533,7 @@ var instructions = []instruction{
 		Opcode:   "0x17",
 		Mnemonic: "RLA",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -530,6 +554,7 @@ var instructions = []instruction{
 		Opcode:   "0x18",
 		Mnemonic: "JR",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name: "r8",
@@ -549,6 +574,7 @@ var instructions = []instruction{
 		Opcode:   "0x19",
 		Mnemonic: "ADD16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -575,6 +601,7 @@ var instructions = []instruction{
 		Opcode:   "0x1A",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -601,6 +628,7 @@ var instructions = []instruction{
 		Opcode:   "0x1B",
 		Mnemonic: "DEC16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "DE",
@@ -621,6 +649,7 @@ var instructions = []instruction{
 		Opcode:   "0x1C",
 		Mnemonic: "INC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -641,6 +670,7 @@ var instructions = []instruction{
 		Opcode:   "0x1D",
 		Mnemonic: "DEC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -661,6 +691,7 @@ var instructions = []instruction{
 		Opcode:   "0x1E",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -686,6 +717,7 @@ var instructions = []instruction{
 		Opcode:   "0x1F",
 		Mnemonic: "RRA",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -706,6 +738,9 @@ var instructions = []instruction{
 		Opcode:   "0x20",
 		Mnemonic: "JR",
 		Size:     2,
+		Cycles: []int{2,
+			3,
+		},
 		Operands: []operand{
 			{
 				Name: "r8",
@@ -732,6 +767,7 @@ var instructions = []instruction{
 		Opcode:   "0x21",
 		Mnemonic: "LD16",
 		Size:     3,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -757,6 +793,7 @@ var instructions = []instruction{
 		Opcode:   "0x22",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:           "(HL+)",
@@ -784,6 +821,7 @@ var instructions = []instruction{
 		Opcode:   "0x23",
 		Mnemonic: "INC16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -804,6 +842,7 @@ var instructions = []instruction{
 		Opcode:   "0x24",
 		Mnemonic: "INC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -824,6 +863,7 @@ var instructions = []instruction{
 		Opcode:   "0x25",
 		Mnemonic: "DEC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -844,6 +884,7 @@ var instructions = []instruction{
 		Opcode:   "0x26",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -869,6 +910,7 @@ var instructions = []instruction{
 		Opcode:   "0x27",
 		Mnemonic: "DAA",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "Z",
@@ -882,6 +924,9 @@ var instructions = []instruction{
 		Opcode:   "0x28",
 		Mnemonic: "JR",
 		Size:     2,
+		Cycles: []int{2,
+			3,
+		},
 		Operands: []operand{
 			{
 				Name: "r8",
@@ -907,6 +952,7 @@ var instructions = []instruction{
 		Opcode:   "0x29",
 		Mnemonic: "ADD16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -933,6 +979,7 @@ var instructions = []instruction{
 		Opcode:   "0x2A",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -960,6 +1007,7 @@ var instructions = []instruction{
 		Opcode:   "0x2B",
 		Mnemonic: "DEC16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -980,6 +1028,7 @@ var instructions = []instruction{
 		Opcode:   "0x2C",
 		Mnemonic: "INC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -1000,6 +1049,7 @@ var instructions = []instruction{
 		Opcode:   "0x2D",
 		Mnemonic: "DEC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -1020,6 +1070,7 @@ var instructions = []instruction{
 		Opcode:   "0x2E",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -1045,6 +1096,7 @@ var instructions = []instruction{
 		Opcode:   "0x2F",
 		Mnemonic: "CPL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -1058,6 +1110,9 @@ var instructions = []instruction{
 		Opcode:   "0x30",
 		Mnemonic: "JR",
 		Size:     2,
+		Cycles: []int{2,
+			3,
+		},
 		Operands: []operand{
 			{
 				Name: "r8",
@@ -1084,6 +1139,7 @@ var instructions = []instruction{
 		Opcode:   "0x31",
 		Mnemonic: "LD16",
 		Size:     3,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "SP",
@@ -1109,6 +1165,7 @@ var instructions = []instruction{
 		Opcode:   "0x32",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:           "(HL-)",
@@ -1136,6 +1193,7 @@ var instructions = []instruction{
 		Opcode:   "0x33",
 		Mnemonic: "INC16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "SP",
@@ -1156,6 +1214,7 @@ var instructions = []instruction{
 		Opcode:   "0x34",
 		Mnemonic: "INC8",
 		Size:     1,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -1176,6 +1235,7 @@ var instructions = []instruction{
 		Opcode:   "0x35",
 		Mnemonic: "DEC8",
 		Size:     1,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -1196,6 +1256,7 @@ var instructions = []instruction{
 		Opcode:   "0x36",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -1221,6 +1282,7 @@ var instructions = []instruction{
 		Opcode:   "0x37",
 		Mnemonic: "SCF",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -1234,6 +1296,9 @@ var instructions = []instruction{
 		Opcode:   "0x38",
 		Mnemonic: "JR",
 		Size:     2,
+		Cycles: []int{2,
+			3,
+		},
 		Operands: []operand{
 			{
 				Name: "r8",
@@ -1259,6 +1324,7 @@ var instructions = []instruction{
 		Opcode:   "0x39",
 		Mnemonic: "ADD16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -1285,6 +1351,7 @@ var instructions = []instruction{
 		Opcode:   "0x3A",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -1312,6 +1379,7 @@ var instructions = []instruction{
 		Opcode:   "0x3B",
 		Mnemonic: "DEC16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "SP",
@@ -1332,6 +1400,7 @@ var instructions = []instruction{
 		Opcode:   "0x3C",
 		Mnemonic: "INC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -1352,6 +1421,7 @@ var instructions = []instruction{
 		Opcode:   "0x3D",
 		Mnemonic: "DEC8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -1372,6 +1442,7 @@ var instructions = []instruction{
 		Opcode:   "0x3E",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -1397,6 +1468,7 @@ var instructions = []instruction{
 		Opcode:   "0x3F",
 		Mnemonic: "CCF",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -1410,6 +1482,7 @@ var instructions = []instruction{
 		Opcode:   "0x40",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -1436,6 +1509,7 @@ var instructions = []instruction{
 		Opcode:   "0x41",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -1462,6 +1536,7 @@ var instructions = []instruction{
 		Opcode:   "0x42",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -1488,6 +1563,7 @@ var instructions = []instruction{
 		Opcode:   "0x43",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -1514,6 +1590,7 @@ var instructions = []instruction{
 		Opcode:   "0x44",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -1540,6 +1617,7 @@ var instructions = []instruction{
 		Opcode:   "0x45",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -1566,6 +1644,7 @@ var instructions = []instruction{
 		Opcode:   "0x46",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -1592,6 +1671,7 @@ var instructions = []instruction{
 		Opcode:   "0x47",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -1618,6 +1698,7 @@ var instructions = []instruction{
 		Opcode:   "0x48",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -1644,6 +1725,7 @@ var instructions = []instruction{
 		Opcode:   "0x49",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -1670,6 +1752,7 @@ var instructions = []instruction{
 		Opcode:   "0x4A",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -1696,6 +1779,7 @@ var instructions = []instruction{
 		Opcode:   "0x4B",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -1722,6 +1806,7 @@ var instructions = []instruction{
 		Opcode:   "0x4C",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -1748,6 +1833,7 @@ var instructions = []instruction{
 		Opcode:   "0x4D",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -1774,6 +1860,7 @@ var instructions = []instruction{
 		Opcode:   "0x4E",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -1800,6 +1887,7 @@ var instructions = []instruction{
 		Opcode:   "0x4F",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -1826,6 +1914,7 @@ var instructions = []instruction{
 		Opcode:   "0x50",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -1852,6 +1941,7 @@ var instructions = []instruction{
 		Opcode:   "0x51",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -1878,6 +1968,7 @@ var instructions = []instruction{
 		Opcode:   "0x52",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -1904,6 +1995,7 @@ var instructions = []instruction{
 		Opcode:   "0x53",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -1930,6 +2022,7 @@ var instructions = []instruction{
 		Opcode:   "0x54",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -1956,6 +2049,7 @@ var instructions = []instruction{
 		Opcode:   "0x55",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -1982,6 +2076,7 @@ var instructions = []instruction{
 		Opcode:   "0x56",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -2008,6 +2103,7 @@ var instructions = []instruction{
 		Opcode:   "0x57",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -2034,6 +2130,7 @@ var instructions = []instruction{
 		Opcode:   "0x58",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -2060,6 +2157,7 @@ var instructions = []instruction{
 		Opcode:   "0x59",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -2086,6 +2184,7 @@ var instructions = []instruction{
 		Opcode:   "0x5A",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -2112,6 +2211,7 @@ var instructions = []instruction{
 		Opcode:   "0x5B",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -2138,6 +2238,7 @@ var instructions = []instruction{
 		Opcode:   "0x5C",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -2164,6 +2265,7 @@ var instructions = []instruction{
 		Opcode:   "0x5D",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -2190,6 +2292,7 @@ var instructions = []instruction{
 		Opcode:   "0x5E",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -2216,6 +2319,7 @@ var instructions = []instruction{
 		Opcode:   "0x5F",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -2242,6 +2346,7 @@ var instructions = []instruction{
 		Opcode:   "0x60",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -2268,6 +2373,7 @@ var instructions = []instruction{
 		Opcode:   "0x61",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -2294,6 +2400,7 @@ var instructions = []instruction{
 		Opcode:   "0x62",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -2320,6 +2427,7 @@ var instructions = []instruction{
 		Opcode:   "0x63",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -2346,6 +2454,7 @@ var instructions = []instruction{
 		Opcode:   "0x64",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -2372,6 +2481,7 @@ var instructions = []instruction{
 		Opcode:   "0x65",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -2398,6 +2508,7 @@ var instructions = []instruction{
 		Opcode:   "0x66",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -2424,6 +2535,7 @@ var instructions = []instruction{
 		Opcode:   "0x67",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -2450,6 +2562,7 @@ var instructions = []instruction{
 		Opcode:   "0x68",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -2476,6 +2589,7 @@ var instructions = []instruction{
 		Opcode:   "0x69",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -2502,6 +2616,7 @@ var instructions = []instruction{
 		Opcode:   "0x6A",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -2528,6 +2643,7 @@ var instructions = []instruction{
 		Opcode:   "0x6B",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -2554,6 +2670,7 @@ var instructions = []instruction{
 		Opcode:   "0x6C",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -2580,6 +2697,7 @@ var instructions = []instruction{
 		Opcode:   "0x6D",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -2606,6 +2724,7 @@ var instructions = []instruction{
 		Opcode:   "0x6E",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -2632,6 +2751,7 @@ var instructions = []instruction{
 		Opcode:   "0x6F",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -2658,6 +2778,7 @@ var instructions = []instruction{
 		Opcode:   "0x70",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -2684,6 +2805,7 @@ var instructions = []instruction{
 		Opcode:   "0x71",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -2710,6 +2832,7 @@ var instructions = []instruction{
 		Opcode:   "0x72",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -2736,6 +2859,7 @@ var instructions = []instruction{
 		Opcode:   "0x73",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -2762,6 +2886,7 @@ var instructions = []instruction{
 		Opcode:   "0x74",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -2788,6 +2913,7 @@ var instructions = []instruction{
 		Opcode:   "0x75",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -2814,6 +2940,7 @@ var instructions = []instruction{
 		Opcode:   "0x76",
 		Mnemonic: "HALT",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -2827,6 +2954,7 @@ var instructions = []instruction{
 		Opcode:   "0x77",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -2853,6 +2981,7 @@ var instructions = []instruction{
 		Opcode:   "0x78",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -2879,6 +3008,7 @@ var instructions = []instruction{
 		Opcode:   "0x79",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -2905,6 +3035,7 @@ var instructions = []instruction{
 		Opcode:   "0x7A",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -2931,6 +3062,7 @@ var instructions = []instruction{
 		Opcode:   "0x7B",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -2957,6 +3089,7 @@ var instructions = []instruction{
 		Opcode:   "0x7C",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -2983,6 +3116,7 @@ var instructions = []instruction{
 		Opcode:   "0x7D",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3009,6 +3143,7 @@ var instructions = []instruction{
 		Opcode:   "0x7E",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3035,6 +3170,7 @@ var instructions = []instruction{
 		Opcode:   "0x7F",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3061,6 +3197,7 @@ var instructions = []instruction{
 		Opcode:   "0x80",
 		Mnemonic: "ADD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3087,6 +3224,7 @@ var instructions = []instruction{
 		Opcode:   "0x81",
 		Mnemonic: "ADD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3113,6 +3251,7 @@ var instructions = []instruction{
 		Opcode:   "0x82",
 		Mnemonic: "ADD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3139,6 +3278,7 @@ var instructions = []instruction{
 		Opcode:   "0x83",
 		Mnemonic: "ADD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3165,6 +3305,7 @@ var instructions = []instruction{
 		Opcode:   "0x84",
 		Mnemonic: "ADD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3191,6 +3332,7 @@ var instructions = []instruction{
 		Opcode:   "0x85",
 		Mnemonic: "ADD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3217,6 +3359,7 @@ var instructions = []instruction{
 		Opcode:   "0x86",
 		Mnemonic: "ADD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3243,6 +3386,7 @@ var instructions = []instruction{
 		Opcode:   "0x87",
 		Mnemonic: "ADD8",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3269,6 +3413,7 @@ var instructions = []instruction{
 		Opcode:   "0x88",
 		Mnemonic: "ADC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3295,6 +3440,7 @@ var instructions = []instruction{
 		Opcode:   "0x89",
 		Mnemonic: "ADC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3321,6 +3467,7 @@ var instructions = []instruction{
 		Opcode:   "0x8A",
 		Mnemonic: "ADC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3347,6 +3494,7 @@ var instructions = []instruction{
 		Opcode:   "0x8B",
 		Mnemonic: "ADC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3373,6 +3521,7 @@ var instructions = []instruction{
 		Opcode:   "0x8C",
 		Mnemonic: "ADC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3399,6 +3548,7 @@ var instructions = []instruction{
 		Opcode:   "0x8D",
 		Mnemonic: "ADC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3425,6 +3575,7 @@ var instructions = []instruction{
 		Opcode:   "0x8E",
 		Mnemonic: "ADC",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3451,6 +3602,7 @@ var instructions = []instruction{
 		Opcode:   "0x8F",
 		Mnemonic: "ADC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3477,6 +3629,7 @@ var instructions = []instruction{
 		Opcode:   "0x90",
 		Mnemonic: "SUB",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3503,6 +3656,7 @@ var instructions = []instruction{
 		Opcode:   "0x91",
 		Mnemonic: "SUB",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3529,6 +3683,7 @@ var instructions = []instruction{
 		Opcode:   "0x92",
 		Mnemonic: "SUB",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3555,6 +3710,7 @@ var instructions = []instruction{
 		Opcode:   "0x93",
 		Mnemonic: "SUB",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3581,6 +3737,7 @@ var instructions = []instruction{
 		Opcode:   "0x94",
 		Mnemonic: "SUB",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3607,6 +3764,7 @@ var instructions = []instruction{
 		Opcode:   "0x95",
 		Mnemonic: "SUB",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3633,6 +3791,7 @@ var instructions = []instruction{
 		Opcode:   "0x96",
 		Mnemonic: "SUB",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3659,6 +3818,7 @@ var instructions = []instruction{
 		Opcode:   "0x97",
 		Mnemonic: "SUB",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3685,6 +3845,7 @@ var instructions = []instruction{
 		Opcode:   "0x98",
 		Mnemonic: "SBC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3711,6 +3872,7 @@ var instructions = []instruction{
 		Opcode:   "0x99",
 		Mnemonic: "SBC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3737,6 +3899,7 @@ var instructions = []instruction{
 		Opcode:   "0x9A",
 		Mnemonic: "SBC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3763,6 +3926,7 @@ var instructions = []instruction{
 		Opcode:   "0x9B",
 		Mnemonic: "SBC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3789,6 +3953,7 @@ var instructions = []instruction{
 		Opcode:   "0x9C",
 		Mnemonic: "SBC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3815,6 +3980,7 @@ var instructions = []instruction{
 		Opcode:   "0x9D",
 		Mnemonic: "SBC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3841,6 +4007,7 @@ var instructions = []instruction{
 		Opcode:   "0x9E",
 		Mnemonic: "SBC",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3867,6 +4034,7 @@ var instructions = []instruction{
 		Opcode:   "0x9F",
 		Mnemonic: "SBC",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3893,6 +4061,7 @@ var instructions = []instruction{
 		Opcode:   "0xA0",
 		Mnemonic: "AND",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3919,6 +4088,7 @@ var instructions = []instruction{
 		Opcode:   "0xA1",
 		Mnemonic: "AND",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3945,6 +4115,7 @@ var instructions = []instruction{
 		Opcode:   "0xA2",
 		Mnemonic: "AND",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3971,6 +4142,7 @@ var instructions = []instruction{
 		Opcode:   "0xA3",
 		Mnemonic: "AND",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -3997,6 +4169,7 @@ var instructions = []instruction{
 		Opcode:   "0xA4",
 		Mnemonic: "AND",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4023,6 +4196,7 @@ var instructions = []instruction{
 		Opcode:   "0xA5",
 		Mnemonic: "AND",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4049,6 +4223,7 @@ var instructions = []instruction{
 		Opcode:   "0xA6",
 		Mnemonic: "AND",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4075,6 +4250,7 @@ var instructions = []instruction{
 		Opcode:   "0xA7",
 		Mnemonic: "AND",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4101,6 +4277,7 @@ var instructions = []instruction{
 		Opcode:   "0xA8",
 		Mnemonic: "XOR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4127,6 +4304,7 @@ var instructions = []instruction{
 		Opcode:   "0xA9",
 		Mnemonic: "XOR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4153,6 +4331,7 @@ var instructions = []instruction{
 		Opcode:   "0xAA",
 		Mnemonic: "XOR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4179,6 +4358,7 @@ var instructions = []instruction{
 		Opcode:   "0xAB",
 		Mnemonic: "XOR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4205,6 +4385,7 @@ var instructions = []instruction{
 		Opcode:   "0xAC",
 		Mnemonic: "XOR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4231,6 +4412,7 @@ var instructions = []instruction{
 		Opcode:   "0xAD",
 		Mnemonic: "XOR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4257,6 +4439,7 @@ var instructions = []instruction{
 		Opcode:   "0xAE",
 		Mnemonic: "XOR",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4283,6 +4466,7 @@ var instructions = []instruction{
 		Opcode:   "0xAF",
 		Mnemonic: "XOR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4309,6 +4493,7 @@ var instructions = []instruction{
 		Opcode:   "0xB0",
 		Mnemonic: "OR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4335,6 +4520,7 @@ var instructions = []instruction{
 		Opcode:   "0xB1",
 		Mnemonic: "OR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4361,6 +4547,7 @@ var instructions = []instruction{
 		Opcode:   "0xB2",
 		Mnemonic: "OR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4387,6 +4574,7 @@ var instructions = []instruction{
 		Opcode:   "0xB3",
 		Mnemonic: "OR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4413,6 +4601,7 @@ var instructions = []instruction{
 		Opcode:   "0xB4",
 		Mnemonic: "OR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4439,6 +4628,7 @@ var instructions = []instruction{
 		Opcode:   "0xB5",
 		Mnemonic: "OR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4465,6 +4655,7 @@ var instructions = []instruction{
 		Opcode:   "0xB6",
 		Mnemonic: "OR",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4491,6 +4682,7 @@ var instructions = []instruction{
 		Opcode:   "0xB7",
 		Mnemonic: "OR",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4517,6 +4709,7 @@ var instructions = []instruction{
 		Opcode:   "0xB8",
 		Mnemonic: "CP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4543,6 +4736,7 @@ var instructions = []instruction{
 		Opcode:   "0xB9",
 		Mnemonic: "CP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4569,6 +4763,7 @@ var instructions = []instruction{
 		Opcode:   "0xBA",
 		Mnemonic: "CP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4595,6 +4790,7 @@ var instructions = []instruction{
 		Opcode:   "0xBB",
 		Mnemonic: "CP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4621,6 +4817,7 @@ var instructions = []instruction{
 		Opcode:   "0xBC",
 		Mnemonic: "CP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4647,6 +4844,7 @@ var instructions = []instruction{
 		Opcode:   "0xBD",
 		Mnemonic: "CP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4673,6 +4871,7 @@ var instructions = []instruction{
 		Opcode:   "0xBE",
 		Mnemonic: "CP",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4699,6 +4898,7 @@ var instructions = []instruction{
 		Opcode:   "0xBF",
 		Mnemonic: "CP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4725,6 +4925,9 @@ var instructions = []instruction{
 		Opcode:   "0xC0",
 		Mnemonic: "RET",
 		Size:     1,
+		Cycles: []int{2,
+			5,
+		},
 		Operands: []operand{
 			{
 				Name:          "NZ",
@@ -4746,6 +4949,7 @@ var instructions = []instruction{
 		Opcode:   "0xC1",
 		Mnemonic: "POP",
 		Size:     1,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "BC",
@@ -4766,6 +4970,9 @@ var instructions = []instruction{
 		Opcode:   "0xC2",
 		Mnemonic: "JP",
 		Size:     3,
+		Cycles: []int{3,
+			4,
+		},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -4792,6 +4999,7 @@ var instructions = []instruction{
 		Opcode:   "0xC3",
 		Mnemonic: "JP",
 		Size:     3,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -4811,6 +5019,9 @@ var instructions = []instruction{
 		Opcode:   "0xC4",
 		Mnemonic: "CALL",
 		Size:     3,
+		Cycles: []int{3,
+			6,
+		},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -4837,6 +5048,7 @@ var instructions = []instruction{
 		Opcode:   "0xC5",
 		Mnemonic: "PUSH",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "BC",
@@ -4857,6 +5069,7 @@ var instructions = []instruction{
 		Opcode:   "0xC6",
 		Mnemonic: "ADD8",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -4882,6 +5095,7 @@ var instructions = []instruction{
 		Opcode:   "0xC7",
 		Mnemonic: "RST",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name: "00H",
@@ -4901,6 +5115,9 @@ var instructions = []instruction{
 		Opcode:   "0xC8",
 		Mnemonic: "RET",
 		Size:     1,
+		Cycles: []int{2,
+			5,
+		},
 		Operands: []operand{
 			{
 				Name:    "Z",
@@ -4921,6 +5138,7 @@ var instructions = []instruction{
 		Opcode:   "0xC9",
 		Mnemonic: "RET",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -4934,6 +5152,9 @@ var instructions = []instruction{
 		Opcode:   "0xCA",
 		Mnemonic: "JP",
 		Size:     3,
+		Cycles: []int{3,
+			4,
+		},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -4959,6 +5180,7 @@ var instructions = []instruction{
 		Opcode:   "0xCB",
 		Mnemonic: "PREFIX",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -4972,6 +5194,9 @@ var instructions = []instruction{
 		Opcode:   "0xCC",
 		Mnemonic: "CALL",
 		Size:     3,
+		Cycles: []int{3,
+			6,
+		},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -4997,6 +5222,7 @@ var instructions = []instruction{
 		Opcode:   "0xCD",
 		Mnemonic: "CALL",
 		Size:     3,
+		Cycles:   []int{6},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -5016,6 +5242,7 @@ var instructions = []instruction{
 		Opcode:   "0xCE",
 		Mnemonic: "ADC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -5041,6 +5268,7 @@ var instructions = []instruction{
 		Opcode:   "0xCF",
 		Mnemonic: "RST",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "08H",
@@ -5061,6 +5289,9 @@ var instructions = []instruction{
 		Opcode:   "0xD0",
 		Mnemonic: "RET",
 		Size:     1,
+		Cycles: []int{2,
+			5,
+		},
 		Operands: []operand{
 			{
 				Name:          "NC",
@@ -5082,6 +5313,7 @@ var instructions = []instruction{
 		Opcode:   "0xD1",
 		Mnemonic: "POP",
 		Size:     1,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "DE",
@@ -5102,6 +5334,9 @@ var instructions = []instruction{
 		Opcode:   "0xD2",
 		Mnemonic: "JP",
 		Size:     3,
+		Cycles: []int{3,
+			4,
+		},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -5128,6 +5363,7 @@ var instructions = []instruction{
 		Opcode:   "0xD3",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5141,6 +5377,9 @@ var instructions = []instruction{
 		Opcode:   "0xD4",
 		Mnemonic: "CALL",
 		Size:     3,
+		Cycles: []int{3,
+			6,
+		},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -5167,6 +5406,7 @@ var instructions = []instruction{
 		Opcode:   "0xD5",
 		Mnemonic: "PUSH",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "DE",
@@ -5187,6 +5427,7 @@ var instructions = []instruction{
 		Opcode:   "0xD6",
 		Mnemonic: "SUB",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -5212,6 +5453,7 @@ var instructions = []instruction{
 		Opcode:   "0xD7",
 		Mnemonic: "RST",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "10H",
@@ -5232,6 +5474,9 @@ var instructions = []instruction{
 		Opcode:   "0xD8",
 		Mnemonic: "RET",
 		Size:     1,
+		Cycles: []int{2,
+			5,
+		},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -5252,6 +5497,7 @@ var instructions = []instruction{
 		Opcode:   "0xD9",
 		Mnemonic: "RETI",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5265,6 +5511,9 @@ var instructions = []instruction{
 		Opcode:   "0xDA",
 		Mnemonic: "JP",
 		Size:     3,
+		Cycles: []int{3,
+			4,
+		},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -5290,6 +5539,7 @@ var instructions = []instruction{
 		Opcode:   "0xDB",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5303,6 +5553,9 @@ var instructions = []instruction{
 		Opcode:   "0xDC",
 		Mnemonic: "CALL",
 		Size:     3,
+		Cycles: []int{3,
+			6,
+		},
 		Operands: []operand{
 			{
 				Name: "a16",
@@ -5328,6 +5581,7 @@ var instructions = []instruction{
 		Opcode:   "0xDD",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5341,6 +5595,7 @@ var instructions = []instruction{
 		Opcode:   "0xDE",
 		Mnemonic: "SBC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -5366,6 +5621,7 @@ var instructions = []instruction{
 		Opcode:   "0xDF",
 		Mnemonic: "RST",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "18H",
@@ -5386,6 +5642,7 @@ var instructions = []instruction{
 		Opcode:   "0xE0",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name: "(a8)",
@@ -5411,6 +5668,7 @@ var instructions = []instruction{
 		Opcode:   "0xE1",
 		Mnemonic: "POP",
 		Size:     1,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -5431,6 +5689,7 @@ var instructions = []instruction{
 		Opcode:   "0xE2",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "(C)",
@@ -5457,6 +5716,7 @@ var instructions = []instruction{
 		Opcode:   "0xE3",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5470,6 +5730,7 @@ var instructions = []instruction{
 		Opcode:   "0xE4",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5483,6 +5744,7 @@ var instructions = []instruction{
 		Opcode:   "0xE5",
 		Mnemonic: "PUSH",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -5503,6 +5765,7 @@ var instructions = []instruction{
 		Opcode:   "0xE6",
 		Mnemonic: "AND",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -5528,6 +5791,7 @@ var instructions = []instruction{
 		Opcode:   "0xE7",
 		Mnemonic: "RST",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "20H",
@@ -5548,6 +5812,7 @@ var instructions = []instruction{
 		Opcode:   "0xE8",
 		Mnemonic: "ADD16",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "SP",
@@ -5573,6 +5838,7 @@ var instructions = []instruction{
 		Opcode:   "0xE9",
 		Mnemonic: "JP",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -5593,6 +5859,7 @@ var instructions = []instruction{
 		Opcode:   "0xEA",
 		Mnemonic: "LD8",
 		Size:     3,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name: "(a16)",
@@ -5618,6 +5885,7 @@ var instructions = []instruction{
 		Opcode:   "0xEB",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5631,6 +5899,7 @@ var instructions = []instruction{
 		Opcode:   "0xEC",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5644,6 +5913,7 @@ var instructions = []instruction{
 		Opcode:   "0xED",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5657,6 +5927,7 @@ var instructions = []instruction{
 		Opcode:   "0xEE",
 		Mnemonic: "XOR",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -5682,6 +5953,7 @@ var instructions = []instruction{
 		Opcode:   "0xEF",
 		Mnemonic: "RST",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "28H",
@@ -5702,6 +5974,7 @@ var instructions = []instruction{
 		Opcode:   "0xF0",
 		Mnemonic: "LD8",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -5727,6 +6000,7 @@ var instructions = []instruction{
 		Opcode:   "0xF1",
 		Mnemonic: "POP",
 		Size:     1,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "AF",
@@ -5747,6 +6021,7 @@ var instructions = []instruction{
 		Opcode:   "0xF2",
 		Mnemonic: "LD8",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -5773,6 +6048,7 @@ var instructions = []instruction{
 		Opcode:   "0xF3",
 		Mnemonic: "DI",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5786,6 +6062,7 @@ var instructions = []instruction{
 		Opcode:   "0xF4",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5799,6 +6076,7 @@ var instructions = []instruction{
 		Opcode:   "0xF5",
 		Mnemonic: "PUSH",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "AF",
@@ -5819,6 +6097,7 @@ var instructions = []instruction{
 		Opcode:   "0xF6",
 		Mnemonic: "OR",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -5844,6 +6123,7 @@ var instructions = []instruction{
 		Opcode:   "0xF7",
 		Mnemonic: "RST",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "30H",
@@ -5864,6 +6144,7 @@ var instructions = []instruction{
 		Opcode:   "0xF8",
 		Mnemonic: "LD16",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:          "HL",
@@ -5891,6 +6172,7 @@ var instructions = []instruction{
 		Opcode:   "0xF9",
 		Mnemonic: "LD16",
 		Size:     1,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:          "SP",
@@ -5917,6 +6199,7 @@ var instructions = []instruction{
 		Opcode:   "0xFA",
 		Mnemonic: "LD8",
 		Size:     3,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -5942,6 +6225,7 @@ var instructions = []instruction{
 		Opcode:   "0xFB",
 		Mnemonic: "EI",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5955,6 +6239,7 @@ var instructions = []instruction{
 		Opcode:   "0xFC",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5968,6 +6253,7 @@ var instructions = []instruction{
 		Opcode:   "0xFD",
 		Mnemonic: "ILLEGAL",
 		Size:     1,
+		Cycles:   []int{1},
 		Operands: []operand{},
 		Flags: flags{
 			Z: "-",
@@ -5981,6 +6267,7 @@ var instructions = []instruction{
 		Opcode:   "0xFE",
 		Mnemonic: "CP",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -6006,6 +6293,7 @@ var instructions = []instruction{
 		Opcode:   "0xFF",
 		Mnemonic: "RST",
 		Size:     1,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "38H",
@@ -6029,6 +6317,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x00",
 		Mnemonic: "RLC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -6049,6 +6338,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x01",
 		Mnemonic: "RLC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -6069,6 +6359,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x02",
 		Mnemonic: "RLC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -6089,6 +6380,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x03",
 		Mnemonic: "RLC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -6109,6 +6401,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x04",
 		Mnemonic: "RLC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -6129,6 +6422,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x05",
 		Mnemonic: "RLC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -6149,6 +6443,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x06",
 		Mnemonic: "RLC",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -6169,6 +6464,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x07",
 		Mnemonic: "RLC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -6189,6 +6485,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x08",
 		Mnemonic: "RRC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -6209,6 +6506,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x09",
 		Mnemonic: "RRC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -6229,6 +6527,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x0A",
 		Mnemonic: "RRC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -6249,6 +6548,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x0B",
 		Mnemonic: "RRC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -6269,6 +6569,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x0C",
 		Mnemonic: "RRC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -6289,6 +6590,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x0D",
 		Mnemonic: "RRC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -6309,6 +6611,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x0E",
 		Mnemonic: "RRC",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -6329,6 +6632,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x0F",
 		Mnemonic: "RRC",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -6349,6 +6653,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x10",
 		Mnemonic: "RL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -6369,6 +6674,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x11",
 		Mnemonic: "RL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -6389,6 +6695,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x12",
 		Mnemonic: "RL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -6409,6 +6716,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x13",
 		Mnemonic: "RL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -6429,6 +6737,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x14",
 		Mnemonic: "RL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -6449,6 +6758,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x15",
 		Mnemonic: "RL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -6469,6 +6779,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x16",
 		Mnemonic: "RL",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -6489,6 +6800,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x17",
 		Mnemonic: "RL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -6509,6 +6821,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x18",
 		Mnemonic: "RR",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -6529,6 +6842,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x19",
 		Mnemonic: "RR",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -6549,6 +6863,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x1A",
 		Mnemonic: "RR",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -6569,6 +6884,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x1B",
 		Mnemonic: "RR",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -6589,6 +6905,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x1C",
 		Mnemonic: "RR",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -6609,6 +6926,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x1D",
 		Mnemonic: "RR",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -6629,6 +6947,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x1E",
 		Mnemonic: "RR",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -6649,6 +6968,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x1F",
 		Mnemonic: "RR",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -6669,6 +6989,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x20",
 		Mnemonic: "SLA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -6689,6 +7010,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x21",
 		Mnemonic: "SLA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -6709,6 +7031,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x22",
 		Mnemonic: "SLA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -6729,6 +7052,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x23",
 		Mnemonic: "SLA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -6749,6 +7073,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x24",
 		Mnemonic: "SLA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -6769,6 +7094,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x25",
 		Mnemonic: "SLA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -6789,6 +7115,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x26",
 		Mnemonic: "SLA",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -6809,6 +7136,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x27",
 		Mnemonic: "SLA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -6829,6 +7157,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x28",
 		Mnemonic: "SRA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -6849,6 +7178,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x29",
 		Mnemonic: "SRA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -6869,6 +7199,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x2A",
 		Mnemonic: "SRA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -6889,6 +7220,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x2B",
 		Mnemonic: "SRA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -6909,6 +7241,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x2C",
 		Mnemonic: "SRA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -6929,6 +7262,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x2D",
 		Mnemonic: "SRA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -6949,6 +7283,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x2E",
 		Mnemonic: "SRA",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -6969,6 +7304,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x2F",
 		Mnemonic: "SRA",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -6989,6 +7325,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x30",
 		Mnemonic: "SWAP",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -7009,6 +7346,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x31",
 		Mnemonic: "SWAP",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -7029,6 +7367,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x32",
 		Mnemonic: "SWAP",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -7049,6 +7388,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x33",
 		Mnemonic: "SWAP",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -7069,6 +7409,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x34",
 		Mnemonic: "SWAP",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -7089,6 +7430,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x35",
 		Mnemonic: "SWAP",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -7109,6 +7451,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x36",
 		Mnemonic: "SWAP",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -7129,6 +7472,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x37",
 		Mnemonic: "SWAP",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -7149,6 +7493,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x38",
 		Mnemonic: "SRL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "B",
@@ -7169,6 +7514,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x39",
 		Mnemonic: "SRL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "C",
@@ -7189,6 +7535,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x3A",
 		Mnemonic: "SRL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "D",
@@ -7209,6 +7556,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x3B",
 		Mnemonic: "SRL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "E",
@@ -7229,6 +7577,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x3C",
 		Mnemonic: "SRL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "H",
@@ -7249,6 +7598,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x3D",
 		Mnemonic: "SRL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "L",
@@ -7269,6 +7619,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x3E",
 		Mnemonic: "SRL",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:          "(HL)",
@@ -7289,6 +7640,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x3F",
 		Mnemonic: "SRL",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:         "A",
@@ -7309,6 +7661,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x40",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -7334,6 +7687,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x41",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -7359,6 +7713,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x42",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -7384,6 +7739,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x43",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -7409,6 +7765,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x44",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -7434,6 +7791,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x45",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -7459,6 +7817,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x46",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -7484,6 +7843,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x47",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -7509,6 +7869,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x48",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -7535,6 +7896,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x49",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -7561,6 +7923,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x4A",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -7587,6 +7950,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x4B",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -7613,6 +7977,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x4C",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -7639,6 +8004,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x4D",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -7665,6 +8031,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x4E",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -7691,6 +8058,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x4F",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -7717,6 +8085,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x50",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -7743,6 +8112,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x51",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -7769,6 +8139,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x52",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -7795,6 +8166,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x53",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -7821,6 +8193,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x54",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -7847,6 +8220,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x55",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -7873,6 +8247,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x56",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -7899,6 +8274,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x57",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -7925,6 +8301,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x58",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -7951,6 +8328,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x59",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -7977,6 +8355,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x5A",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -8003,6 +8382,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x5B",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -8029,6 +8409,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x5C",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -8055,6 +8436,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x5D",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -8081,6 +8463,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x5E",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -8107,6 +8490,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x5F",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -8133,6 +8517,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x60",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -8159,6 +8544,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x61",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -8185,6 +8571,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x62",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -8211,6 +8598,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x63",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -8237,6 +8625,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x64",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -8263,6 +8652,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x65",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -8289,6 +8679,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x66",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -8315,6 +8706,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x67",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -8341,6 +8733,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x68",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -8367,6 +8760,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x69",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -8393,6 +8787,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x6A",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -8419,6 +8814,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x6B",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -8445,6 +8841,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x6C",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -8471,6 +8868,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x6D",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -8497,6 +8895,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x6E",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -8523,6 +8922,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x6F",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -8549,6 +8949,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x70",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -8575,6 +8976,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x71",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -8601,6 +9003,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x72",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -8627,6 +9030,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x73",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -8653,6 +9057,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x74",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -8679,6 +9084,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x75",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -8705,6 +9111,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x76",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -8731,6 +9138,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x77",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -8757,6 +9165,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x78",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -8783,6 +9192,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x79",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -8809,6 +9219,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x7A",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -8835,6 +9246,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x7B",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -8861,6 +9273,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x7C",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -8887,6 +9300,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x7D",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -8913,6 +9327,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x7E",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{3},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -8939,6 +9354,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x7F",
 		Mnemonic: "BIT",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -8965,6 +9381,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x80",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -8990,6 +9407,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x81",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -9015,6 +9433,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x82",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -9040,6 +9459,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x83",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -9065,6 +9485,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x84",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -9090,6 +9511,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x85",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -9115,6 +9537,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x86",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -9140,6 +9563,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x87",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -9165,6 +9589,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x88",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -9191,6 +9616,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x89",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -9217,6 +9643,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x8A",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -9243,6 +9670,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x8B",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -9269,6 +9697,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x8C",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -9295,6 +9724,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x8D",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -9321,6 +9751,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x8E",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -9347,6 +9778,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x8F",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -9373,6 +9805,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x90",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -9399,6 +9832,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x91",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -9425,6 +9859,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x92",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -9451,6 +9886,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x93",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -9477,6 +9913,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x94",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -9503,6 +9940,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x95",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -9529,6 +9967,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x96",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -9555,6 +9994,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x97",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -9581,6 +10021,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x98",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -9607,6 +10048,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x99",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -9633,6 +10075,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x9A",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -9659,6 +10102,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x9B",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -9685,6 +10129,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x9C",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -9711,6 +10156,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x9D",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -9737,6 +10183,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x9E",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -9763,6 +10210,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0x9F",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -9789,6 +10237,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA0",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -9815,6 +10264,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA1",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -9841,6 +10291,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA2",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -9867,6 +10318,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA3",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -9893,6 +10345,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA4",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -9919,6 +10372,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA5",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -9945,6 +10399,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA6",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -9971,6 +10426,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA7",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -9997,6 +10453,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA8",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -10023,6 +10480,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xA9",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -10049,6 +10507,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xAA",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -10075,6 +10534,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xAB",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -10101,6 +10561,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xAC",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -10127,6 +10588,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xAD",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -10153,6 +10615,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xAE",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -10179,6 +10642,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xAF",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -10205,6 +10669,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB0",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -10231,6 +10696,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB1",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -10257,6 +10723,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB2",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -10283,6 +10750,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB3",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -10309,6 +10777,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB4",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -10335,6 +10804,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB5",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -10361,6 +10831,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB6",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -10387,6 +10858,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB7",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -10413,6 +10885,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB8",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -10439,6 +10912,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xB9",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -10465,6 +10939,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xBA",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -10491,6 +10966,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xBB",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -10517,6 +10993,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xBC",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -10543,6 +11020,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xBD",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -10569,6 +11047,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xBE",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -10595,6 +11074,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xBF",
 		Mnemonic: "RES",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -10621,6 +11101,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC0",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -10646,6 +11127,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC1",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -10671,6 +11153,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC2",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -10696,6 +11179,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC3",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -10721,6 +11205,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC4",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -10746,6 +11231,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC5",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -10771,6 +11257,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC6",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -10796,6 +11283,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC7",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name: "0",
@@ -10821,6 +11309,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC8",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -10847,6 +11336,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xC9",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -10873,6 +11363,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xCA",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -10899,6 +11390,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xCB",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -10925,6 +11417,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xCC",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -10951,6 +11444,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xCD",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -10977,6 +11471,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xCE",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -11003,6 +11498,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xCF",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "1",
@@ -11029,6 +11525,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD0",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -11055,6 +11552,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD1",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -11081,6 +11579,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD2",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -11107,6 +11606,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD3",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -11133,6 +11633,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD4",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -11159,6 +11660,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD5",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -11185,6 +11687,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD6",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -11211,6 +11714,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD7",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "2",
@@ -11237,6 +11741,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD8",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -11263,6 +11768,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xD9",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -11289,6 +11795,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xDA",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -11315,6 +11822,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xDB",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -11341,6 +11849,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xDC",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -11367,6 +11876,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xDD",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -11393,6 +11903,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xDE",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -11419,6 +11930,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xDF",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "3",
@@ -11445,6 +11957,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE0",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -11471,6 +11984,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE1",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -11497,6 +12011,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE2",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -11523,6 +12038,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE3",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -11549,6 +12065,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE4",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -11575,6 +12092,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE5",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -11601,6 +12119,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE6",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -11627,6 +12146,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE7",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "4",
@@ -11653,6 +12173,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE8",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -11679,6 +12200,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xE9",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -11705,6 +12227,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xEA",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -11731,6 +12254,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xEB",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -11757,6 +12281,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xEC",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -11783,6 +12308,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xED",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -11809,6 +12335,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xEE",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -11835,6 +12362,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xEF",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "5",
@@ -11861,6 +12389,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF0",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -11887,6 +12416,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF1",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -11913,6 +12443,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF2",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -11939,6 +12470,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF3",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -11965,6 +12497,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF4",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -11991,6 +12524,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF5",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -12017,6 +12551,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF6",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -12043,6 +12578,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF7",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "6",
@@ -12069,6 +12605,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF8",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -12095,6 +12632,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xF9",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -12121,6 +12659,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xFA",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -12147,6 +12686,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xFB",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -12173,6 +12713,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xFC",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -12199,6 +12740,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xFD",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -12225,6 +12767,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xFE",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{4},
 		Operands: []operand{
 			{
 				Name:      "7",
@@ -12251,6 +12794,7 @@ var cbInstructions = []instruction{
 		Opcode:   "*0xFF",
 		Mnemonic: "SET",
 		Size:     2,
+		Cycles:   []int{2},
 		Operands: []operand{
 			{
 				Name:      "7",

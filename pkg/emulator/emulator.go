@@ -38,9 +38,14 @@ func (e *emulator) Run(path string, bootPath string) error {
 		e.CPU.ProgramCounter = 0x0100 // skip past boot rom and run ROM directly
 	}
 
+	cpuIdleCycles := 0
 	for e.CPU.PowerOn {
-		// TODO CPU instructions may take more than 1 cycle
-		e.CPU.Cycle()
+		if cpuIdleCycles > 0 {
+			cpuIdleCycles--
+		} else {
+			cpuIdleCycles = e.CPU.Cycle() - 1
+		}
+
 		e.Video.Cycle()
 	}
 
