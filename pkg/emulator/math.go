@@ -3,11 +3,22 @@ package emulator
 // subtract v2 from v1 (v1-v2)
 //
 // Borrow is true if the computation caused an underflow (v2 > v1)
-// Borrow is true if the subtract borrowed from bit 4 (i.e. underflow in the lower 4 bits)
+// Borrow is true if the subtract borrowed from bit 3 (i.e. underflow in the lower 4 bits)
 func subtract(v1, v2 uint8) (result uint8, borrow bool, halfborrow bool) {
 	result = v1 - v2
 	borrow = v1 < v2
 	halfborrow = v1>>4 != result>>4 || borrow // check if upper 4 bits are unchanged
+	return
+}
+
+// add v1 and v2 (v1+v2)
+//
+// Overflow is true if the computation caused an overflow
+// Half overflow is true if the addition overflows from bit 3 (i.e. underflow in the lower 4 bits)
+func add(v1, v2 uint8) (result uint8, overflow bool, halfoverflow bool) {
+	result = v1 + v2
+	overflow = v1 > (0xFF - v2)
+	halfoverflow = v1>>4 != result>>4 || overflow // check if upper 4 bits are unchanged
 	return
 }
 

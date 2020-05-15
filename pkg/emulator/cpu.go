@@ -82,6 +82,16 @@ func (c *cpu) Cycle() {
 		assertOperandType(inst.Operands[0], operandReg16)
 		v := c.read16(inst.Operands[0]) - 1
 		c.write16(inst.Operands[0], v)
+	case "ADD8":
+		// ADD8 A $V; A=A+$V
+		assertOperandType(inst.Operands[0], operandReg8)
+		assertOperandType(inst.Operands[1], operandReg8, operandD8, operandReg16Ptr)
+		v, carry, halfcarry := add(c.read8(inst.Operands[0]), c.read8(inst.Operands[1]))
+		c.write8(inst.Operands[0], v)
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, halfcarry)
+		c.Registers.Write1(flagC, carry)
 	case "SUB":
 		// SUB A $V; A=A-$V
 		assertOperandType(inst.Operands[0], operandReg8)

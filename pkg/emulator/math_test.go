@@ -246,7 +246,7 @@ func TestSubtract(t *testing.T) {
 			wantHalfborrow: true,
 		},
 		{
-			name: "subtract with 4bit underflow returns halfborrow as true",
+			name: "subtract with underflow returns borrow as true",
 			args: args{
 				v1: 1,
 				v2: 255,
@@ -267,6 +267,65 @@ func TestSubtract(t *testing.T) {
 			}
 			if gotHalfborrow != tt.wantHalfborrow {
 				t.Errorf("subtract() gotHalfborrow = %v, want %v", gotHalfborrow, tt.wantHalfborrow)
+			}
+		})
+	}
+}
+
+func TestAdd(t *testing.T) {
+	type args struct {
+		v1 uint8
+		v2 uint8
+	}
+	tests := []struct {
+		name             string
+		args             args
+		wantResult       uint8
+		wantOverflow     bool
+		wantHalfoverflow bool
+	}{
+		{
+			name: "add without overflow returns sum",
+			args: args{
+				v1: 4,
+				v2: 1,
+			},
+			wantResult:       5,
+			wantOverflow:     false,
+			wantHalfoverflow: false,
+		},
+		{
+			name: "add with 4bit overflow returns halfoverflow as true",
+			args: args{
+				v1: 15,
+				v2: 1,
+			},
+			wantResult:       16,
+			wantOverflow:     false,
+			wantHalfoverflow: true,
+		},
+		{
+			name: "add with overflow returns overflow as true",
+			args: args{
+				v1: 255,
+				v2: 1,
+			},
+			wantResult:       0,
+			wantOverflow:     true,
+			wantHalfoverflow: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotResult, gotBorrow, gotHalfborrow := add(tt.args.v1, tt.args.v2)
+			if gotResult != tt.wantResult {
+				t.Errorf("add() gotResult = %v, want %v", gotResult, tt.wantResult)
+			}
+			if gotBorrow != tt.wantOverflow {
+				t.Errorf("add() gotOverflow = %v, want %v", gotBorrow, tt.wantOverflow)
+			}
+			if gotHalfborrow != tt.wantHalfoverflow {
+				t.Errorf("add() gotHalfoverflow = %v, want %v", gotHalfborrow, tt.wantHalfoverflow)
 			}
 		})
 	}

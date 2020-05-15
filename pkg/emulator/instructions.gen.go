@@ -202,7 +202,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x09",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD16",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -547,7 +547,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x19",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD16",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -905,7 +905,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x29",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD16",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -1257,7 +1257,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x39",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD16",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -3059,7 +3059,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x80",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -3081,11 +3081,11 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x81",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -3107,11 +3107,11 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x82",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -3133,11 +3133,11 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x83",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -3159,11 +3159,11 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x84",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -3185,11 +3185,11 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x85",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -3211,11 +3211,11 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x86",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -3237,11 +3237,11 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x87",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD8",
 		Size:     1,
 		Operands: []operand{
 			{
@@ -3263,7 +3263,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x88",
@@ -4855,7 +4855,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0xC6",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD8",
 		Size:     2,
 		Operands: []operand{
 			{
@@ -4876,7 +4876,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xC7",
@@ -5546,7 +5546,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0xE8",
-		Mnemonic: "ADD",
+		Mnemonic: "ADD16",
 		Size:     2,
 		Operands: []operand{
 			{
