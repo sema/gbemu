@@ -23,7 +23,7 @@ func newCPU(memory *memory, registers *registers) *cpu {
 	}
 }
 
-func (c *cpu) cycle() {
+func (c *cpu) Cycle() {
 	opcode := c.Memory.Read8(c.ProgramCounter)
 	inst := instructions[opcode]
 	if opcode == 0xCB {

@@ -271,3 +271,42 @@ func TestSubtract(t *testing.T) {
 		})
 	}
 }
+
+func TestCopyBits(t *testing.T) {
+	type args struct {
+		to      byte
+		from    byte
+		offsets []uint8
+	}
+	tests := []struct {
+		name string
+		args args
+		want byte
+	}{
+		{
+			name: "copy true bits sets bits to true",
+			args: args{
+				to:      0x00, // 00000000
+				from:    0xFF, // 11111111
+				offsets: []uint8{0, 2},
+			},
+			want: 0x05, // 00000101
+		},
+		{
+			name: "copy false bits sets bits to false",
+			args: args{
+				to:      0xFF, // 11111111
+				from:    0x00, // 00000000
+				offsets: []uint8{0, 2},
+			},
+			want: 0xFA, // 11111010
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := copyBits(tt.args.to, tt.args.from, tt.args.offsets...); got != tt.want {
+				t.Errorf("copyBits() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

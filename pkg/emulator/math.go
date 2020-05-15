@@ -36,6 +36,14 @@ func writeBitN(b byte, offset uint8, v bool) byte {
 	return b & ^(1 << offset)
 }
 
+func copyBits(to byte, from byte, offsets ...uint8) byte {
+	for _, offset := range offsets {
+		to = writeBitN(to, offset, readBitN(from, offset))
+	}
+
+	return to
+}
+
 // shiftByteLeft shifts all bits to the left, adding a new bit to the right and returning the left most bit
 //
 // out <- [7 <- 0] <- in

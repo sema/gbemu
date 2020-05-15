@@ -7,13 +7,15 @@ import (
 )
 
 func TestNewMemoryPlacesVRAMAtCorrectOffset(t *testing.T) {
-	memory := newMemory()
-	require.Equal(t, memory.vRAM, memory.pages[0x80])
-	require.Equal(t, memory.vRAM, memory.pages[0x97])
+	video := newVideoController()
+	memory := newMemory(video)
+	require.Equal(t, memory.video, memory.pages[0x80])
+	require.Equal(t, memory.video, memory.pages[0x97])
 }
 
 func TestLoadAndUnloadBootROM(t *testing.T) {
-	memory := newMemory()
+	video := newVideoController()
+	memory := newMemory(video)
 
 	// the whiteout.gb ROM contains only 0x01s for the entire ROM (32kb)
 	err := memory.LoadROM("testdata/roms/whiteout.gb")

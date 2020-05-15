@@ -210,15 +210,15 @@ type memory struct {
 
 	rom     *rom
 	bootROM *bootROM
+	video   *videoController
 
 	// IsBootROMLoaded is true if the Boot ROM is currently loaded
 	IsBootROMLoaded bool
 }
 
-func newMemory() *memory {
+func newMemory(video *videoController) *memory {
 	rom := newROM()
 	bootROM := newBootROM()
-	video := newVideoController()
 	ffPage := newFFPage(video)
 
 	layout := []struct {
@@ -247,6 +247,7 @@ func newMemory() *memory {
 		pages:   pages,
 		rom:     rom,
 		bootROM: bootROM,
+		video:   video,
 	}
 }
 
