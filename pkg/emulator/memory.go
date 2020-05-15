@@ -276,6 +276,12 @@ func (m *memory) UnloadBootROM() {
 }
 
 func (m *memory) Read8(address uint16) byte {
+	if address == 0xFF50 { // Boot ROM loaded register
+		// TODO the current design makes it difficult to catch this signal in a page
+		// controller assigned to this exact address. Should be improved.
+		return 0
+	}
+
 	pageIdx := uint8(address >> 8)
 	page := m.pages[pageIdx]
 	if page == nil {
@@ -286,6 +292,13 @@ func (m *memory) Read8(address uint16) byte {
 }
 
 func (m *memory) Write8(address uint16, v byte) {
+	if address == 0xFF50 && v == 0x01 {
+		// TODO the current design makes it difficult to catch this signal in a page
+		// controller assigned to this exact address. Should be improved.
+		m.UnloadBootROM()
+		return
+	}
+
 	pageIdx := uint8(address >> 8)
 	page := m.pages[pageIdx]
 	if page == nil {

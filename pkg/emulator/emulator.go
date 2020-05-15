@@ -34,17 +34,13 @@ func (e *emulator) Run(path string, bootPath string) error {
 		e.Memory.LoadBootROM(bootPath)
 		e.CPU.ProgramCounter = 0 // execute the boot rom
 	} else {
+		// TODO set registers if we skip
 		e.CPU.ProgramCounter = 0x0100 // skip past boot rom and run ROM directly
 	}
 
 	for e.CPU.PowerOn {
 		// TODO CPU instructions may take more than 1 cycle
 		e.CPU.Cycle()
-
-		if e.Memory.IsBootROMLoaded && e.CPU.ProgramCounter == 0x0100 {
-			e.Memory.UnloadBootROM()
-		}
-
 		e.Video.Cycle()
 	}
 
