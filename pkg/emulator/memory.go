@@ -126,37 +126,6 @@ func (r *ram) String() string {
 	return r.name
 }
 
-// vRAM manages the VRAM (Video RAM)
-//
-// Memory offset: 0x8000 - 0x9FFF
-//
-// 8000 - 87FF  Block 0
-// 8080 - 8FFF  Block 1
-// 9000 - 97FF  Block 2
-// Info: https://gbdev.io/pandocs/#vram-tile-data
-type vRAM struct {
-	data []byte
-}
-
-func newVRAM() *vRAM {
-	return &vRAM{
-		data: make([]byte, bytes32k),
-	}
-}
-
-func (r *vRAM) Read8(address uint16) byte {
-	return r.data[address-0x8000]
-}
-
-func (r *vRAM) Write8(address uint16, v byte) {
-	// TODO implement blocking of writes when not allowed
-	r.data[address-0x8000] = v
-}
-
-func (r *vRAM) String() string {
-	return "VRAM"
-}
-
 //https://gbdev.io/pandocs/#ff26-nr52-sound-on-off
 // ffPage represents the last page in the address space (0xFF00-0xFFFF), contiaining various IO registers and HRAM
 //
@@ -166,10 +135,9 @@ type ffPage struct {
 	entries []memoryPage
 }
 
-func newFFPage() *ffPage {
+func newFFPage(video *videoController) *ffPage {
 	hram := newRAM("HRAM", 0xFE-0x7F, 0xFF80)
 	sound := newSoundController()
-	video := newVideoController()
 
 	layout := []struct {
 		Controller memoryPage
@@ -242,7 +210,6 @@ type memory struct {
 
 	rom     *rom
 	bootROM *bootROM
-	vRAM    *vRAM
 
 	// IsBootROMLoaded is true if the Boot ROM is currently loaded
 	IsBootROMLoaded bool
@@ -251,16 +218,16 @@ type memory struct {
 func newMemory() *memory {
 	rom := newROM()
 	bootROM := newBootROM()
-	vRAM := newVRAM()
-	ffPage := newFFPage()
+	video := newVideoController()
+	ffPage := newFFPage(video)
 
 	layout := []struct {
 		Controller memoryPage
 		End        uint8
 	}{
 		{End: 0x7F, Controller: rom},
-		{End: 0x9F, Controller: vRAM}, // VRAM, not implemented yet
-		{End: 0xBF, Controller: nil},  // External RAM
+		{End: 0x9F, Controller: video}, // VRAM
+		{End: 0xBF, Controller: nil},   // External RAM
 		{End: 0xDF, Controller: nil},
 		{End: 0xFD, Controller: nil}, // ECHO RAM
 		{End: 0xFE, Controller: nil}, // OAM
@@ -279,7 +246,6 @@ func newMemory() *memory {
 	return &memory{
 		pages:   pages,
 		rom:     rom,
-		vRAM:    vRAM,
 		bootROM: bootROM,
 	}
 }
