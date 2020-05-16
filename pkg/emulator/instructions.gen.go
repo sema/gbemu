@@ -1290,7 +1290,7 @@ var instructions = []instruction{
 			H: "0",
 			C: "1",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x38",
@@ -1476,7 +1476,7 @@ var instructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x40",

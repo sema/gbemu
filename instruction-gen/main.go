@@ -344,7 +344,7 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 	}
 
 	if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
-		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" && inst.Mnemonic != "ADD8" {
+		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" && inst.Mnemonic != "ADD8" && inst.Mnemonic != "SCF" && inst.Mnemonic != "CCF" {
 			inst.Todo = "mutates flags"
 		}
 	}

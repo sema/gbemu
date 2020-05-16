@@ -270,6 +270,14 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagZ, v == false)
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, true)
+	case "SCF":
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, false)
+		c.Registers.Write1(flagC, true)
+	case "CCF":
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, false)
+		c.Registers.Write1(flagC, !c.Registers.Read1(flagC))
 	case "STOP":
 		// STOP; stop running
 		log.Println("POWER OFF")
