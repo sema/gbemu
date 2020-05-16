@@ -74,3 +74,12 @@ func shiftByteRight(v byte, in bool) (vout byte, out bool) {
 	vout = writeBitN(vout, 7, in)
 	return vout, out
 }
+
+// swapByte swaps the upper 4 bits and lower 4 bits
+//
+// For exaxmple, 00001111 -> 11110000
+func swapByte(v byte) byte {
+	upper := v << 4
+	lower := v >> 4
+	return upper | lower
+}

@@ -369,3 +369,36 @@ func TestCopyBits(t *testing.T) {
 		})
 	}
 }
+
+func TestSwapByte(t *testing.T) {
+	type args struct {
+		v byte
+	}
+	tests := []struct {
+		name string
+		args args
+		want byte
+	}{
+		{
+			name: "moves upper 4 bits to lower 4 bits",
+			args: args{
+				v: 0xF0, // 11110000
+			},
+			want: 0x0F, // 00001111
+		},
+		{
+			name: "moves lower 4 bits to upper 4 bits",
+			args: args{
+				v: 0x0F, // 00001111
+			},
+			want: 0xF0, // 11110000
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := swapByte(tt.args.v); got != tt.want {
+				t.Errorf("swapByte() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

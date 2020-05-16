@@ -213,6 +213,14 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, false)
 		c.Registers.Write1(flagC, false)
+	case "SWAP":
+		assertOperandType(inst.Operands[0], operandReg8, operandReg16Ptr)
+		v := swapByte(c.read8(inst.Operands[0]))
+		c.write8(inst.Operands[0], v)
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, false)
+		c.Registers.Write1(flagC, false)
 	case "RL", "RLA", "RLC", "RLCA", "RR", "RRA", "RRCA", "SLA", "SRA", "SRL":
 		// RL   R; rotate bits left          C <- [7 <- 0] <- C
 		// RLC  R; rotate bits left          C <- [7 <- 0] <- [7]
