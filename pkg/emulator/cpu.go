@@ -213,6 +213,26 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, false)
 		c.Registers.Write1(flagC, false)
+	case "RES":
+		// RES $C $R; Set bit $C in $R to 0
+		assertOperandType(inst.Operands[0], operandConst8)
+		assertOperandType(inst.Operands[1], operandReg8, operandReg16Ptr)
+		v := writeBitN(c.read8(inst.Operands[1]), inst.Operands[0].RefConst8, false)
+		c.write8(inst.Operands[1], v)
+	case "SET":
+		// SET $C $R; Set bit $C in $R to 1
+		assertOperandType(inst.Operands[0], operandConst8)
+		assertOperandType(inst.Operands[1], operandReg8, operandReg16Ptr)
+		v := writeBitN(c.read8(inst.Operands[1]), inst.Operands[0].RefConst8, true)
+		c.write8(inst.Operands[1], v)
+	case "BIT":
+		// BIT $C $R; Set Zero flag to true if bit $C in $R is false
+		assertOperandType(inst.Operands[0], operandConst8)
+		assertOperandType(inst.Operands[1], operandReg8, operandReg16Ptr)
+		v := readBitN(c.read8(inst.Operands[1]), inst.Operands[0].RefConst8)
+		c.Registers.Write1(flagZ, v == false)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, true)
 	case "SWAP":
 		assertOperandType(inst.Operands[0], operandReg8, operandReg16Ptr)
 		v := swapByte(c.read8(inst.Operands[0]))
@@ -269,15 +289,6 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, false)
 		c.Registers.Write1(flagC, carry)
-	case "BIT":
-		// BIT n X: z=true if the n'th bit in X is unset
-		assertOperandType(inst.Operands[0], operandConst8)
-		assertOperandType(inst.Operands[1], operandReg8, operandReg16Ptr)
-		v := readBitN(c.read8(inst.Operands[1]), inst.Operands[0].RefConst8)
-
-		c.Registers.Write1(flagZ, v == false)
-		c.Registers.Write1(flagN, false)
-		c.Registers.Write1(flagH, true)
 	case "SCF":
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, false)
