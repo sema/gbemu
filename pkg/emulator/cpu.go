@@ -34,7 +34,8 @@ func (c *cpu) Cycle() int {
 
 	c.ProgramCounter += inst.Size
 
-	log.Printf("Execute %#04x %-30s %s", c.ProgramCounter-inst.Size, inst.String(), c.reprOperandValues(inst))
+	// TODO for debugging - expose in CLI
+	//log.Printf("Execute %#04x %-30s %s", c.ProgramCounter-inst.Size, inst.String(), c.reprOperandValues(inst))
 
 	// TODO remove when we support everything
 	if inst.Todo != "" {
@@ -139,7 +140,7 @@ func (c *cpu) Cycle() int {
 			actionTaken = true
 			assertOperandType(inst.Operands[0], operandR8)
 			offset := c.read8signed(inst.Operands[0])
-			c.ProgramCounter = offsetAddress(c.ProgramCounter, offset)
+			c.ProgramCounter = offsetAddress(c.ProgramCounter, int16(offset))
 		}
 	case "CALL":
 		// CALL $TARGET [$CONDITION]; PC=$TARGET if $CONDITION is true. Old PC is added to stack.

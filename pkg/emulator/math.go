@@ -25,7 +25,7 @@ func add(v1, v2 uint8) (result uint8, overflow bool, halfoverflow bool) {
 // offsetAddress adjusts a base address by a signed offset
 //
 // Beware the operation may over/under-flow the base address.
-func offsetAddress(base uint16, offset int8) uint16 {
+func offsetAddress(base uint16, offset int16) uint16 {
 	if offset > 0 {
 		return base + uint16(offset)
 	}
