@@ -7,11 +7,22 @@ import (
 	"strings"
 )
 
+type imeState int
+
+const (
+	interruptsDisabled imeState = iota
+	interruptsEnabled
+	interruptsEnabledAfterCycle     // Enable interrupts when current cycle completes
+	interruptsEnabledAfterNextCycle // Enable interrupts when next cycle completes
+)
+
 type cpu struct {
 	Memory         *memory
 	Registers      *registers
 	ProgramCounter uint16
 	PowerOn        bool
+
+	Interrupts imeState
 }
 
 func newCPU(memory *memory, registers *registers) *cpu {
@@ -298,6 +309,10 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, false)
 		c.Registers.Write1(flagC, !c.Registers.Read1(flagC))
+	case "DI":
+		c.Interrupts = interruptsDisabled
+	case "EI":
+		c.Interrupts = interruptsEnabledAfterNextCycle
 	case "STOP":
 		// STOP; stop running
 		log.Println("POWER OFF")
@@ -322,6 +337,12 @@ func (c *cpu) Cycle() int {
 
 	if actionTaken && len(inst.Cycles) > 1 {
 		return inst.Cycles[1]
+	}
+
+	if c.Interrupts == interruptsEnabledAfterNextCycle {
+		c.Interrupts = interruptsEnabledAfterCycle
+	} else if c.Interrupts == interruptsEnabledAfterCycle {
+		c.Interrupts = interruptsEnabled
 	}
 
 	return inst.Cycles[0]
