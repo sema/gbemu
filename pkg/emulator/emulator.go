@@ -3,27 +3,34 @@ package emulator
 import (
 	"encoding/json"
 	"io/ioutil"
+	"time"
 )
 
-type emulator struct {
-	Video  *videoController
-	Memory *memory
-	CPU    *cpu
+// Emulator emulates a game Game Boy (DMG-01) machine
+type Emulator struct {
+	Video     *videoController
+	Memory    *memory
+	CPU       *cpu
+	FrameChan chan Frame
 }
 
-func New() emulator {
+// New returns an instance of Emulator
+func New() *Emulator {
 	video := newVideoController()
 	memory := newMemory(video)
 	registers := newRegisters()
 	cpu := newCPU(memory, registers)
-	return emulator{
-		CPU:    cpu,
-		Memory: memory,
-		Video:  video,
+
+	return &Emulator{
+		CPU:       cpu,
+		Memory:    memory,
+		Video:     video,
+		FrameChan: make(chan Frame),
 	}
 }
 
-func (e *emulator) Run(path string, bootPath string) error {
+// Run runs the ROM in the emulator, and returns when the emulator halts
+func (e *Emulator) Run(path string, bootPath string) error {
 	if err := e.Memory.LoadROM(path); err != nil {
 		return err
 	}
@@ -38,6 +45,7 @@ func (e *emulator) Run(path string, bootPath string) error {
 		e.CPU.ProgramCounter = 0x0100 // skip past boot rom and run ROM directly
 	}
 
+	frameSync := time.NewTicker(time.Second / 60)
 	cpuIdleCycles := 0
 	for e.CPU.PowerOn {
 		if cpuIdleCycles > 0 {
@@ -47,12 +55,19 @@ func (e *emulator) Run(path string, bootPath string) error {
 		}
 
 		e.Video.Cycle()
+
+		if e.Video.FrameReady {
+			// Lock rendering to 60 fps
+			<-frameSync.C
+
+			e.FrameChan <- e.Video.Frame
+		}
 	}
 
 	return nil
 }
 
-func (e *emulator) Snapshot(path string) error {
+func (e *Emulator) snapshot(path string) error {
 	data, err := json.Marshal(e)
 	if err != nil {
 		return err

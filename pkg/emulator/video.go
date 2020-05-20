@@ -5,6 +5,11 @@ import (
 	"strings"
 )
 
+// Frame represent a drawn frame on the LCD screen
+//
+// The frame has 144 rows (outer array) and 160 columns (inner array)
+type Frame [][]Shade
+
 type videoRegister uint16
 
 const (
@@ -64,10 +69,11 @@ type videoFlag struct {
 	bitOffset uint8
 }
 
-type shade uint8
+// Shade is the shade of gray shown in a cell on the LCD screen
+type Shade uint8
 
 const (
-	white shade = iota
+	white Shade = iota
 	grayLight
 	grayDark
 	black
@@ -130,23 +136,31 @@ type videoController struct {
 	windowY uint8
 	windowX uint8
 
-	lcd [][]shade // row -> col -> color
+	Frame Frame // row -> col -> color
 
-	frameCounter int // TODO remove
+	// True once every frame has been calculated, such that it can be flushed
+	// to screen.
+	FrameReady bool
 }
 
 func newVideoController() *videoController {
-	lcd := make([][]shade, 144)
-	for row := 0; row < 144; row++ {
-		lcd[row] = make([]shade, 160)
-	}
-
-	return &videoController{
+	v := &videoController{
 		registers:      make([]byte, 0xFF4B-0xFF40+1),
 		vram:           make([]byte, 0x9FFF-0x8000+1),
 		vramAccessible: true,
-		lcd:            lcd,
 	}
+	v.clearFrame()
+
+	return v
+}
+
+func (s *videoController) clearFrame() {
+	frame := make([][]Shade, 144)
+	for row := 0; row < 144; row++ {
+		frame[row] = make([]Shade, 160)
+	}
+
+	s.Frame = frame
 }
 
 // Read8 is exposed in the address space, and may be read by the program
@@ -221,7 +235,9 @@ func (s *videoController) Cycle() {
 			s.windowY = s.readRegister(registerFF4A)
 			s.windowX = s.readRegister(registerFF4B)
 
-			// s.debugPrintScreen()
+			s.FrameReady = true
+		} else {
+			s.FrameReady = false
 		}
 		mode = 2
 		s.vramAccessible = true
@@ -229,7 +245,7 @@ func (s *videoController) Cycle() {
 		y := uint8(line)
 		x := uint8(dot - 80)
 		if x < 160 {
-			s.lcd[y][x] = s.calculateShade(y, x)
+			s.Frame[y][x] = s.calculateShade(y, x)
 		}
 
 		mode = 3
@@ -250,7 +266,7 @@ func (s *videoController) Cycle() {
 	// TODO support 0xFF45 - LY COMPARE
 }
 
-func (s *videoController) calculateShade(y uint8, x uint8) shade {
+func (s *videoController) calculateShade(y uint8, x uint8) Shade {
 	// TODO use viewport
 
 	// Find tile # in Background Tile Map. Every tile in the background tile map
@@ -286,7 +302,7 @@ func (s *videoController) calculateShade(y uint8, x uint8) shade {
 	// lower two bits, and use a bitmask (0x03 = b00000011) to
 	// ignore all other bits.
 	colorToShade := s.readRegister(registerFF47)
-	return shade((colorToShade >> 2 * colorNum) & 0x03)
+	return Shade((colorToShade >> 2 * colorNum) & 0x03)
 }
 
 func (s *videoController) readVRAM(address uint16) byte {
@@ -313,15 +329,10 @@ func (s *videoController) String() string {
 	return "VIDEO"
 }
 
-func (s *videoController) debugPrintScreen() {
-	// TODO remove
-	s.frameCounter = (s.frameCounter + 1) % 60
-	if s.frameCounter != 0 {
-		return
-	}
-
+// Render renders the frame as a string for debugging
+func (f Frame) Render() string {
 	sb := strings.Builder{}
-	for _, row := range s.lcd {
+	for _, row := range f {
 		for _, shade := range row {
 			sb.WriteString(fmt.Sprintf("%d", shade))
 		}
@@ -329,5 +340,5 @@ func (s *videoController) debugPrintScreen() {
 	}
 	sb.WriteString("==============================\n")
 
-	fmt.Println(sb.String())
+	return sb.String()
 }

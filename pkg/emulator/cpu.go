@@ -35,7 +35,7 @@ func (c *cpu) Cycle() int {
 	c.ProgramCounter += inst.Size
 
 	// TODO for debugging - expose in CLI
-	//log.Printf("Execute %#04x %-30s %s", c.ProgramCounter-inst.Size, inst.String(), c.reprOperandValues(inst))
+	// log.Printf("Execute %#04x %-30s %s", c.ProgramCounter-inst.Size, inst.String(), c.reprOperandValues(inst))
 
 	// TODO remove when we support everything
 	if inst.Todo != "" {
