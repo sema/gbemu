@@ -57,7 +57,7 @@ func (e *Emulator) Run(path string, bootPath string) error {
 		e.Video.Cycle()
 
 		if e.Video.FrameReady {
-			// Lock rendering to 60 fps
+			// Cap rendering to 60 fps
 			<-frameSync.C
 
 			e.FrameChan <- e.Video.Frame

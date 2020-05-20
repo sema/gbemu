@@ -276,7 +276,10 @@ func (s *videoController) calculateShade(y uint8, x uint8) Shade {
 
 	// Find tile # in Background Tile Map. Every tile in the background tile map
 	// represent a 8x8 pixel area.
-	tileOffset := uint16(y)/8*32 + uint16(x)/8
+	adjustedX := (uint16(s.screenX) + uint16(x)) % 255
+	adjustedY := (uint16(s.screenY) + uint16(y)) % 255
+
+	tileOffset := adjustedY/8*32 + adjustedX/8
 	tileNumber := s.readVRAM(0x9800 + tileOffset)
 	// TODO ^ 0xx9800 is configurable in 0xFF40
 
@@ -289,8 +292,8 @@ func (s *videoController) calculateShade(y uint8, x uint8) Shade {
 		tileAddress = offsetAddress(0x9000, int16(16*int8(tileNumber)))
 	}
 
-	tileY := y % 8
-	tileX := x % 8
+	tileY := uint8((uint16(s.screenY) + uint16(y)) % 8)
+	tileX := uint8((uint16(s.screenX) + uint16(x)) % 8)
 
 	rowAddress := offsetAddress(tileAddress, 2*int16(tileY))
 	lowerByte := s.readVRAM(rowAddress)
