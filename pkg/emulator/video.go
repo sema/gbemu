@@ -102,10 +102,12 @@ type videoController struct {
 	//   of the pixels' color number, and the second byte represent
 	//   the higher bits.
 	//
-	//   10101010 01010101
-	//   Pixel 1: b01
-	//   Pixel 2: b10
-	//   etc.
+	//   Bytes:
+	//   Lower    Higher
+	//   1010101Y 0101010X
+	//
+	//   Pixels
+	//   b01 b10 b01 b10 b01 b10 b01 bYX
 	//
 	// Addressing modes:
 	// 8000: 0x8000 as the base pointer, and the tile number in the
@@ -291,8 +293,9 @@ func (s *videoController) calculateShade(y uint8, x uint8) Shade {
 	lowerByte := s.readVRAM(rowAddress)
 	higherByte := s.readVRAM(rowAddress + 1)
 
-	lowerBit := readBitN(lowerByte, tileX)
-	higherBit := readBitN(higherByte, tileX)
+	// The leftmost pixel is represented by the rightmost (index-0) bit, thus the "7-"
+	lowerBit := readBitN(lowerByte, 7-tileX)
+	higherBit := readBitN(higherByte, 7-tileX)
 
 	colorNum := uint8(0)
 	colorNum = writeBitN(colorNum, 0, lowerBit)
