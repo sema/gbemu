@@ -9,6 +9,7 @@ import (
 // Emulator emulates a game Game Boy (DMG-01) machine
 type Emulator struct {
 	Video     *videoController
+	Timer     *timerController
 	Memory    *memory
 	CPU       *cpu
 	FrameChan chan Frame
@@ -16,8 +17,9 @@ type Emulator struct {
 
 // New returns an instance of Emulator
 func New() *Emulator {
+	timer := newTimerController()
 	video := newVideoController()
-	memory := newMemory(video)
+	memory := newMemory(video, timer)
 	registers := newRegisters()
 	cpu := newCPU(memory, registers)
 
@@ -25,6 +27,7 @@ func New() *Emulator {
 		CPU:       cpu,
 		Memory:    memory,
 		Video:     video,
+		Timer:     timer,
 		FrameChan: make(chan Frame),
 	}
 }
@@ -55,6 +58,7 @@ func (e *Emulator) Run(path string, bootPath string) error {
 		}
 
 		e.Video.Cycle()
+		e.Timer.Cycle()
 
 		if e.Video.FrameReady {
 			// Cap rendering to 60 fps

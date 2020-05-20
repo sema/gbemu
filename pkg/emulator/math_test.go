@@ -9,7 +9,7 @@ import (
 func TestOffsetAddress(t *testing.T) {
 	type args struct {
 		base   uint16
-		offset int8
+		offset int16
 	}
 	tests := []struct {
 		name string
