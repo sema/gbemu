@@ -223,10 +223,16 @@ func (s *videoController) Cycle() {
 	dot := s.nextCycle % 456
 	s.nextCycle = (s.nextCycle + 1) % (456 * 154)
 
+	s.FrameReady = false
+
 	var mode uint8
 
 	switch {
 	case line >= 144: // VBLANK
+		if line == 144 && dot == 0 {
+			// Entered VBLANK, signal that we have a complete frame ready
+			s.FrameReady = true
+		}
 		mode = 1
 		s.vramAccessible = true
 	case dot < 80: // Scanning OAM
@@ -237,9 +243,6 @@ func (s *videoController) Cycle() {
 			s.windowY = s.readRegister(registerFF4A)
 			s.windowX = s.readRegister(registerFF4B)
 
-			s.FrameReady = true
-		} else {
-			s.FrameReady = false
 		}
 		mode = 2
 		s.vramAccessible = true
