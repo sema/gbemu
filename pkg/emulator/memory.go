@@ -220,6 +220,9 @@ func newMemory(video *videoController) *memory {
 	rom := newROM()
 	bootROM := newBootROM()
 	ffPage := newFFPage(video)
+	externalRAM := newRAM("EXTERNAL RAM", 0xC000-0xA000, 0xA000)
+	wRAM0 := newRAM("WRAM[0]", 0xD000-0xC000, 0xC000)
+	wRAM1 := newRAM("WRAM[1]", 0xE000-0xD000, 0xD000)
 
 	layout := []struct {
 		Controller memoryPage
@@ -227,8 +230,9 @@ func newMemory(video *videoController) *memory {
 	}{
 		{End: 0x7F, Controller: rom},
 		{End: 0x9F, Controller: video}, // VRAM
-		{End: 0xBF, Controller: nil},   // External RAM
-		{End: 0xDF, Controller: nil},
+		{End: 0xBF, Controller: externalRAM},
+		{End: 0xCF, Controller: wRAM0},
+		{End: 0xDF, Controller: wRAM1},
 		{End: 0xFD, Controller: nil}, // ECHO RAM
 		{End: 0xFE, Controller: nil}, // OAM
 		{End: 0xFF, Controller: ffPage},
