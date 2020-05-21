@@ -23,8 +23,8 @@ func TestVideoYLineResetsBackToZeroAfterFullFrame(t *testing.T) {
 
 	video.Write8(uint16(registerFF40), 0x80) // Enable Video
 
-	progressCycles(video, 456*154)
-	require.Equal(t, uint8(0), video.Read8(registerFF44))
+	progressCycles(video, 456*154+1)
+	require.Equal(t, uint8(0), video.Read8(registerFF44)) // FF44 = Y-offset
 }
 
 func progressCycles(v *videoController, cycles uint) {

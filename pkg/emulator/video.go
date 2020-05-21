@@ -272,8 +272,6 @@ func (s *videoController) Cycle() {
 }
 
 func (s *videoController) calculateShade(y uint8, x uint8) Shade {
-	// TODO use viewport
-
 	// Find tile # in Background Tile Map. Every tile in the background tile map
 	// represent a 8x8 pixel area.
 	adjustedX := (uint16(s.screenX) + uint16(x)) % 255
