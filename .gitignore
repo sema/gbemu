@@ -1,5 +1,6 @@
 .vscode
 *.code-workspace
 gbemu
+__debug_bin
 localroms
 *.dump
