@@ -3434,7 +3434,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x89",
@@ -3461,7 +3461,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x8A",
@@ -3488,7 +3488,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x8B",
@@ -3515,7 +3515,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x8C",
@@ -3542,7 +3542,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x8D",
@@ -3569,7 +3569,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x8E",
@@ -3596,7 +3596,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x8F",
@@ -3623,7 +3623,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x90",
@@ -3866,7 +3866,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x99",
@@ -3893,7 +3893,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x9A",
@@ -3920,7 +3920,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x9B",
@@ -3947,7 +3947,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x9C",
@@ -3974,7 +3974,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x9D",
@@ -4001,7 +4001,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x9E",
@@ -4028,7 +4028,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x9F",
@@ -4055,7 +4055,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xA0",
@@ -5262,7 +5262,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xCF",
@@ -5615,7 +5615,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xDF",

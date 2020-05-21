@@ -123,6 +123,24 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, halfcarry)
 		c.Registers.Write1(flagC, carry)
+	case "ADC":
+		// ADC A $V; A=A+$V+C (C = carry flag)
+		assertOperandType(inst.Operands[0], operandReg8)
+		assertOperandType(inst.Operands[1], operandReg8, operandD8, operandReg16Ptr)
+
+		cadd := uint8(0)
+		if c.Registers.Read1(flagC) {
+			cadd = 1
+		}
+
+		v, carry1, halfcarry1 := add(c.read8(inst.Operands[0]), c.read8(inst.Operands[1]))
+		v, carry2, halfcarry2 := add(v, cadd)
+
+		c.write8(inst.Operands[0], v)
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, halfcarry1 || halfcarry2)
+		c.Registers.Write1(flagC, carry1 || carry2)
 	case "SUB":
 		// SUB A $V; A=A-$V
 		assertOperandType(inst.Operands[0], operandReg8)
@@ -133,6 +151,24 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagN, true)
 		c.Registers.Write1(flagH, halfcarry)
 		c.Registers.Write1(flagC, carry)
+	case "SBC":
+		// SBC A $V; A=A-$V-C (C = carry flag)
+		assertOperandType(inst.Operands[0], operandReg8)
+		assertOperandType(inst.Operands[1], operandReg8, operandD8, operandReg16Ptr)
+
+		csub := uint8(0)
+		if c.Registers.Read1(flagC) {
+			csub = 1
+		}
+
+		v, carry1, halfcarry1 := subtract(c.read8(inst.Operands[0]), c.read8(inst.Operands[1]))
+		v, carry2, halfcarry2 := subtract(v, csub)
+
+		c.write8(inst.Operands[0], v)
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagN, true)
+		c.Registers.Write1(flagH, halfcarry1 || halfcarry2)
+		c.Registers.Write1(flagC, carry1 || carry2)
 	case "CP":
 		// CP A $V; A-$V - don't store result but set flags based on calculation
 		assertOperandType(inst.Operands[0], operandReg8)
