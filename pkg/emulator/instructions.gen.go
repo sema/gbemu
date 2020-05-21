@@ -6015,7 +6015,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xF2",

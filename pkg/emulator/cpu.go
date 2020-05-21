@@ -406,6 +406,9 @@ func (c *cpu) read8(op operand) byte {
 	case operandA8Ptr:
 		offset := c.Memory.Read8(c.ProgramCounter - 1)
 		return c.Memory.Read8(0xFF00 + uint16(offset))
+	case operandA16Ptr:
+		address := c.Memory.Read16(c.ProgramCounter - 2)
+		return c.Memory.Read8(address)
 	default:
 		log.Panicf("unexpected operand (%s) encountered while reading 8bit value", op.Type.String())
 		return 0
