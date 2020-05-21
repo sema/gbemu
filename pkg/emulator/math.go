@@ -14,11 +14,22 @@ func subtract(v1, v2 uint8) (result uint8, borrow bool, halfborrow bool) {
 // add v1 and v2 (v1+v2)
 //
 // Overflow is true if the computation caused an overflow
-// Half overflow is true if the addition overflows from bit 3 (i.e. underflow in the lower 4 bits)
+// Half overflow is true if the addition overflows from bit 3 (i.e. overflow in the lower 4 bits)
 func add(v1, v2 uint8) (result uint8, overflow bool, halfoverflow bool) {
 	result = v1 + v2
 	overflow = v1 > (0xFF - v2)
 	halfoverflow = v1>>4 != result>>4 || overflow // check if upper 4 bits are unchanged
+	return
+}
+
+// add16 v1 and v2 (v1+v2)  (16bit)
+//
+// Overflow is true if the computation caused an overflow
+// Half overflow is true if the addition overflows from bit 11 (i.e. overflow in the lower 12 bits)
+func add16(v1, v2 uint16) (result uint16, overflow bool, halfoverflow bool) {
+	result = v1 + v2
+	overflow = v1 > (0xFFFF - v2)
+	halfoverflow = v1>>12 != result>>12 || overflow // check if upper 4 bits are unchanged
 	return
 }
 

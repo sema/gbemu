@@ -234,7 +234,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x0A",
@@ -595,7 +595,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x1A",
@@ -973,7 +973,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x2A",
@@ -1306,10 +1306,10 @@ var instructions = []instruction{
 				Ref:  "",
 			},
 			{
-				Name:         "C",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerC,
+				Name:    "C",
+				Type:    operandFlag,
+				Ref:     "",
+				RefFlag: flagC,
 			},
 		},
 		Flags: flags{
@@ -1345,7 +1345,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x3A",
@@ -5479,10 +5479,10 @@ var instructions = []instruction{
 		},
 		Operands: []operand{
 			{
-				Name:         "C",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerC,
+				Name:    "C",
+				Type:    operandFlag,
+				Ref:     "",
+				RefFlag: flagC,
 			},
 		},
 		Flags: flags{
@@ -5521,10 +5521,10 @@ var instructions = []instruction{
 				Ref:  "",
 			},
 			{
-				Name:         "C",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerC,
+				Name:    "C",
+				Type:    operandFlag,
+				Ref:     "",
+				RefFlag: flagC,
 			},
 		},
 		Flags: flags{
@@ -5563,10 +5563,10 @@ var instructions = []instruction{
 				Ref:  "",
 			},
 			{
-				Name:         "C",
-				Type:         operandReg8,
-				Ref:          "",
-				RefRegister8: registerC,
+				Name:    "C",
+				Type:    operandFlag,
+				Ref:     "",
+				RefFlag: flagC,
 			},
 		},
 		Flags: flags{
@@ -5810,7 +5810,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0xE8",
-		Mnemonic: "ADD16",
+		Mnemonic: "ADDSP",
 		Size:     2,
 		Cycles:   []int{4},
 		Operands: []operand{
@@ -5832,7 +5832,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xE9",

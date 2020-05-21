@@ -178,6 +178,39 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagN, true)
 		c.Registers.Write1(flagH, halfcarry)
 		c.Registers.Write1(flagC, carry)
+	case "ADD16":
+		// ADD16 $V1 $V2; $V1=$V1+$V2
+		assertOperandType(inst.Operands[0], operandReg16)
+		assertOperandType(inst.Operands[1], operandReg16)
+
+		v, carry, halfcarry := add16(c.read16(inst.Operands[0]), c.read16(inst.Operands[1]))
+		c.write16(inst.Operands[0], v)
+
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, halfcarry)
+		c.Registers.Write1(flagC, carry)
+	case "ADDSP":
+		// ADDSP SP r8; SP=SP+r8
+		assertOperandType(inst.Operands[0], operandReg16)
+		assertOperandType(inst.Operands[1], operandR8)
+
+		offset := c.read8signed(inst.Operands[1])
+		old := c.read16(inst.Operands[0])
+		new := offsetAddress(old, int16(offset))
+
+		carry := false
+		halfcarry := false
+		if offset > 0 {
+			// carry/halfcarry follow 8bit addition rules
+			_, carry, halfcarry = add(uint8(old), uint8(offset))
+		}
+
+		c.write16(inst.Operands[0], new)
+
+		c.Registers.Write1(flagZ, false)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, halfcarry)
+		c.Registers.Write1(flagC, carry)
 	case "JP":
 		// JP $TO [$CONDITION]; PC=$TO
 		jump := true

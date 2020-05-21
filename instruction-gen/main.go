@@ -281,19 +281,23 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		inst.Mnemonic = "LD"
 	}
 
+	// The C flag and C register are used interchangably in the spec file. Use this hint to determine
+	// when to interpret C as a flag and not a register.
+	takesFlagNotRegister := inst.Mnemonic == "CALL" || inst.Mnemonic == "RET" || inst.Mnemonic == "JP" || inst.Mnemonic == "JR"
+
 	for _, op := range inst.Operands {
 		// Infer a "type" for each operand, e.g. to differentiate between
 		// data following operands (d8, d16), registers (reg8, reg16), flags (flag),
 		// etc. The Ref* fields are used depending on the type to further specify
 		// what the operand references (e.g. the exact flag).
 		//
-		if len(op.Name) == 1 && strings.Contains("ABCDEHL", op.Name) {
+		if len(op.Name) == 1 && strings.Contains("ABCDEHL", op.Name) && !takesFlagNotRegister {
 			op.Type = "operandReg8"
 			op.RefRegister8 = fmt.Sprintf("register%s", op.Name)
 		} else if op.Name == "AF" || op.Name == "BC" || op.Name == "DE" || op.Name == "HL" || op.Name == "SP" {
 			op.Type = "operandReg16"
 			op.RefRegister16 = fmt.Sprintf("register%s", op.Name)
-		} else if len(op.Name) == 1 && strings.Contains("ZNHC", op.Name) {
+		} else if len(op.Name) == 1 && strings.Contains("ZNHC", op.Name) && takesFlagNotRegister {
 			op.Type = "operandFlag"
 			op.RefFlag = fmt.Sprintf("flag%s", op.Name)
 		} else if op.Name == "NC" || op.Name == "NZ" {
@@ -337,14 +341,17 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		op.RWBits = rwBits
 	}
 
-	if inst.Mnemonic == "LD" || inst.Mnemonic == "INC" || inst.Mnemonic == "DEC" || inst.Mnemonic == "ADD" {
+	if inst.Mnemonic == "ADD" && inst.Operands[0].RefRegister16 == "registerSP" {
+		// ADDSP is different from ADD8 and ADD16, as we add a signed value to the current SP
+		inst.Mnemonic = "ADDSP"
+	} else if inst.Mnemonic == "LD" || inst.Mnemonic == "INC" || inst.Mnemonic == "DEC" || inst.Mnemonic == "ADD" {
 		// Differentiate between 8bit and 16bit instructions, as they
 		// differn between the amount of data they expect to read and write
 		inst.Mnemonic = fmt.Sprintf("%s%d", inst.Mnemonic, inst.Operands[0].RWBits)
 	}
 
 	if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
-		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" && inst.Mnemonic != "ADD8" && inst.Mnemonic != "SCF" && inst.Mnemonic != "CCF" && inst.Mnemonic != "SWAP" && inst.Mnemonic != "BIT" && inst.Mnemonic != "POP" && inst.Mnemonic != "ADC" && inst.Mnemonic != "SBC" {
+		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" && inst.Mnemonic != "ADD8" && inst.Mnemonic != "SCF" && inst.Mnemonic != "CCF" && inst.Mnemonic != "SWAP" && inst.Mnemonic != "BIT" && inst.Mnemonic != "POP" && inst.Mnemonic != "ADC" && inst.Mnemonic != "SBC" && inst.Mnemonic != "ADD16" && inst.Mnemonic != "ADDSP" {
 			inst.Todo = "mutates flags"
 		}
 	}
