@@ -84,9 +84,10 @@ func TestIsFlagSet(t *testing.T) {
 func TestStackPushPopReturnsSameValue(t *testing.T) {
 	video := newVideoController()
 	timer := newTimerController()
+	serial := newSerialController()
 	interrupt := newInterruptController()
 	registers := newRegisters()
-	memory := newMemory(video, timer, interrupt)
+	memory := newMemory(video, timer, interrupt, serial)
 	cpu := newCPU(memory, registers)
 
 	registers.Write16(registerSP, 0xFFFE) // Initialize SP

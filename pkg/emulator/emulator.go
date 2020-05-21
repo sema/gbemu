@@ -10,6 +10,7 @@ import (
 type Emulator struct {
 	Video     *videoController
 	Timer     *timerController
+	Serial    *serialController
 	Interrupt *interruptController
 	Memory    *memory
 	CPU       *cpu
@@ -21,14 +22,15 @@ func New() *Emulator {
 	timer := newTimerController()
 	video := newVideoController()
 	interrupt := newInterruptController()
-	memory := newMemory(video, timer, interrupt)
+	serial := newSerialController()
+	memory := newMemory(video, timer, interrupt, serial)
 	registers := newRegisters()
 	cpu := newCPU(memory, registers)
 
 	interrupt.registerSource(0, nil) // VBLANK
 	interrupt.registerSource(1, nil) // LCD stat
 	interrupt.registerSource(2, timer.Interrupt)
-	interrupt.registerSource(3, nil) // Serial
+	interrupt.registerSource(3, serial.Interrupt)
 	interrupt.registerSource(4, nil) // Joypad
 
 	return &Emulator{
@@ -36,6 +38,7 @@ func New() *Emulator {
 		Memory:    memory,
 		Video:     video,
 		Timer:     timer,
+		Serial:    serial,
 		Interrupt: interrupt,
 		FrameChan: make(chan Frame),
 	}
@@ -68,6 +71,7 @@ func (e *Emulator) Run(path string, bootPath string) error {
 
 		e.Video.Cycle()
 		e.Timer.Cycle()
+		e.Serial.Cycle()
 
 		e.Interrupt.CheckSourcesForInterrupts()
 
