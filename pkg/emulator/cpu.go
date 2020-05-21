@@ -16,6 +16,14 @@ const (
 	interruptsEnabledAfterNextCycle // Enable interrupts when next cycle completes
 )
 
+var interruptAddresses = []uint16{
+	0x0040, // VBLANK
+	0x0048, // LCD STAT
+	0x0050, // Timer
+	0x0058, // Serial
+	0x0060, // Joypad
+}
+
 type cpu struct {
 	Memory         *memory
 	Registers      *registers
@@ -35,6 +43,14 @@ func newCPU(memory *memory, registers *registers) *cpu {
 }
 
 func (c *cpu) Cycle() int {
+	address, ok := c.readAndClearInterrupt()
+	if ok {
+		c.Interrupts = interruptsDisabled
+		c.stackPush(c.ProgramCounter)
+		c.ProgramCounter = address
+		return 5
+	}
+
 	opcode := c.Memory.Read8(c.ProgramCounter)
 	inst := instructions[opcode]
 	if opcode == 0xCB {
@@ -484,6 +500,29 @@ func (c *cpu) reprOperandValue(op operand) (v string) {
 	}
 
 	return
+}
+
+func (c *cpu) readAndClearInterrupt() (address uint16, ok bool) {
+	if c.Interrupts != interruptsEnabled {
+		return 0, false
+	}
+
+	interruptEnabled := c.Memory.Read8(0xFFFF)
+	interruptPending := c.Memory.Read8(0xFF0F)
+
+	enabledAndPending := interruptEnabled & interruptPending
+	if enabledAndPending == 0 {
+		return 0, false
+	}
+
+	for i := uint8(0); i <= 4; i++ {
+		if readBitN(enabledAndPending, i) {
+			c.Memory.Write8(0xFF0F, writeBitN(interruptPending, i, false))
+			return interruptAddresses[i], true
+		}
+	}
+
+	return 0, false
 }
 
 func (c *cpu) isFlagSet(op operand) bool {

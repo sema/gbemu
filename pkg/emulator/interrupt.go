@@ -99,7 +99,3 @@ func (i *interruptController) CheckSourcesForInterrupts() {
 func (i *interruptController) String() string {
 	return "INTERRUPT"
 }
-
-// TODO check flag in CPU and trigger interrupt logic
-// - remember to implement interrupt priority
-// TODO tests
