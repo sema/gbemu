@@ -10,6 +10,7 @@ import (
 type Emulator struct {
 	Video     *videoController
 	Timer     *timerController
+	Interrupt *interruptController
 	Memory    *memory
 	CPU       *cpu
 	FrameChan chan Frame
@@ -19,15 +20,23 @@ type Emulator struct {
 func New() *Emulator {
 	timer := newTimerController()
 	video := newVideoController()
-	memory := newMemory(video, timer)
+	interrupt := newInterruptController()
+	memory := newMemory(video, timer, interrupt)
 	registers := newRegisters()
 	cpu := newCPU(memory, registers)
+
+	interrupt.registerSource(0, nil) // VBLANK
+	interrupt.registerSource(1, nil) // LCD stat
+	interrupt.registerSource(2, timer.Interrupt)
+	interrupt.registerSource(3, nil) // Serial
+	interrupt.registerSource(4, nil) // Joypad
 
 	return &Emulator{
 		CPU:       cpu,
 		Memory:    memory,
 		Video:     video,
 		Timer:     timer,
+		Interrupt: interrupt,
 		FrameChan: make(chan Frame),
 	}
 }
@@ -59,6 +68,8 @@ func (e *Emulator) Run(path string, bootPath string) error {
 
 		e.Video.Cycle()
 		e.Timer.Cycle()
+
+		e.Interrupt.CheckSourcesForInterrupts()
 
 		if e.Video.FrameReady {
 			// Cap rendering to 60 fps

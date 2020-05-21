@@ -50,13 +50,14 @@ type timerController struct {
 	// incrementDivider counts increments towards increasing the divider counter (see registerFF04)
 	incrementalDivider int
 
-	// hasInterrupt is true if the timer wants to trigger the INT 50 interrupt
-	hasInterrupt bool
+	// Interrupt is true if the timer wants to trigger the INT 50 interrupt
+	Interrupt *interruptSource
 }
 
 func newTimerController() *timerController {
 	return &timerController{
 		registers: make([]byte, 0xFF07-0xFF04+1),
+		Interrupt: newInterruptSource(),
 	}
 }
 
@@ -130,17 +131,10 @@ func (t *timerController) Cycle() {
 			interruptTriggered := t.readRegister(registerFF05) == 0
 			if interruptTriggered {
 				t.writeRegister(registerFF05, t.readRegister(registerFF06))
-				t.hasInterrupt = true
+				t.Interrupt.Set()
 			}
 		}
 	}
-}
-
-// ReadAndClearInterrupt returns true if an interrupt has been requested, resetting the value to false
-func (t *timerController) ReadAndClearInterrupt() bool {
-	i := t.hasInterrupt
-	t.hasInterrupt = false
-	return i
 }
 
 func (t *timerController) readRegister(r timerRegister) byte {

@@ -137,7 +137,7 @@ type ffPage struct {
 	timer *timerController
 }
 
-func newFFPage(video *videoController, timer *timerController) *ffPage {
+func newFFPage(video *videoController, timer *timerController, interrupt *interruptController) *ffPage {
 	hram := newRAM("HRAM", 0xFE-0x7F, 0xFF80)
 	sound := newSoundController()
 
@@ -147,12 +147,13 @@ func newFFPage(video *videoController, timer *timerController) *ffPage {
 	}{
 		{End: 0x03, Controller: nil},
 		{End: 0x07, Controller: timer},
-		{End: 0x0F, Controller: nil},
+		{End: 0x0E, Controller: nil},
+		{End: 0x0F, Controller: interrupt},
 		{End: 0x3F, Controller: sound},
 		{End: 0x49, Controller: video},
 		{End: 0x7F, Controller: nil},
 		{End: 0xFE, Controller: hram},
-		{End: 0xFF, Controller: nil}, // IE register
+		{End: 0xFF, Controller: interrupt},
 	}
 
 	entries := make([]memoryPage, 256)
@@ -221,10 +222,10 @@ type memory struct {
 	IsBootROMLoaded bool
 }
 
-func newMemory(video *videoController, timer *timerController) *memory {
+func newMemory(video *videoController, timer *timerController, interrupt *interruptController) *memory {
 	rom := newROM()
 	bootROM := newBootROM()
-	ffPage := newFFPage(video, timer)
+	ffPage := newFFPage(video, timer, interrupt)
 	externalRAM := newRAM("EXTERNAL RAM", 0xC000-0xA000, 0xA000)
 	wRAM0 := newRAM("WRAM[0]", 0xD000-0xC000, 0xC000)
 	wRAM1 := newRAM("WRAM[1]", 0xE000-0xD000, 0xD000)
