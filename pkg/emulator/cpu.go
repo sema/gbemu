@@ -273,7 +273,7 @@ func (c *cpu) Cycle() int {
 		// RL   R; rotate bits left          C <- [7 <- 0] <- C
 		// RLC  R; rotate bits left          C <- [7 <- 0] <- [7]
 		// RR-- R; variants rotate right
-		// R--A R; RR/RL/RRC/RLC with different flagZ semantic
+		// R--A R; RR/RL/RRC/RLC(A) with different flagZ semantic
 		// SLA  R; shift bits left           C <- [7 <- 0] <- 0
 		// SRA  R; arithmetic right shift  [7] -> [7 -> 1] -> C
 		// SRL  R; logical right shift       0 -> [7 -> 1] -> C
@@ -287,13 +287,13 @@ func (c *cpu) Cycle() int {
 		case "RL", "RLA":
 			in := c.Registers.Read1(flagC)
 			v, carry = shiftByteLeft(v, in)
-		case "RR":
+		case "RR", "RRA":
 			in := c.Registers.Read1(flagC)
 			v, carry = shiftByteRight(v, in)
 		case "RLC", "RLCA":
 			in := readBitN(v, 7)
 			v, carry = shiftByteLeft(v, in)
-		case "RRC":
+		case "RRC", "RRCA":
 			in := readBitN(v, 0)
 			v, carry = shiftByteRight(v, in)
 		case "SLA":
