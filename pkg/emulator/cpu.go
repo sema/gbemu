@@ -211,6 +211,18 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, halfcarry)
 		c.Registers.Write1(flagC, carry)
+	case "DAA":
+		// DAA A; Adjust value of A after addition/subtraction operation as if the
+		// addition/subtraction was done between BCD (binary coded decimal) values
+		assertOperandType(inst.Operands[0], operandReg8)
+
+		v := c.read8(inst.Operands[0])
+		v, carry := bcdConversion(v, c.Registers.Read1(flagN), c.Registers.Read1(flagH), c.Registers.Read1(flagC))
+
+		c.Registers.Write1(flagZ, v == 0)
+		c.Registers.Write1(flagH, false)
+		c.Registers.Write1(flagC, carry)
+
 	case "JP":
 		// JP $TO [$CONDITION]; PC=$TO
 		jump := true

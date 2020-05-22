@@ -402,3 +402,99 @@ func TestSwapByte(t *testing.T) {
 		})
 	}
 }
+
+func Test_BCDConversion(t *testing.T) {
+	tests := []struct {
+		name         string
+		v1           uint8
+		v2           uint8
+		op           string
+		wantVOut     uint8
+		wantCarryOut bool
+	}{
+		{
+			name:         "overflow of major digit loops to 0x00",
+			v1:           0x99,
+			v2:           0x01,
+			op:           "addition",
+			wantVOut:     0x00,
+			wantCarryOut: true,
+		},
+		{
+			name:         "overflow of minor digit loops to 0x(+1)0",
+			v1:           0x89,
+			v2:           0x01,
+			op:           "addition",
+			wantVOut:     0x90,
+			wantCarryOut: false,
+		},
+		{
+			name:         "underflow of major digit loops to 0x99",
+			v1:           0x00,
+			v2:           0x01,
+			op:           "subtraction",
+			wantVOut:     0x99,
+			wantCarryOut: true,
+		},
+		{
+			name:         "underflow of minor digit loops to 0x(-1)9",
+			v1:           0x90,
+			v2:           0x01,
+			op:           "subtraction",
+			wantVOut:     0x89,
+			wantCarryOut: false,
+		},
+		{
+			name:         "addition within max of minor digit adds as expected",
+			v1:           0x55,
+			v2:           0x04,
+			op:           "addition",
+			wantVOut:     0x59,
+			wantCarryOut: false,
+		},
+		{
+			name:         "addition within max of major digit adds as expected",
+			v1:           0x55,
+			v2:           0x10,
+			op:           "addition",
+			wantVOut:     0x65,
+			wantCarryOut: false,
+		},
+		{
+			name:         "subtraction within max of minor digit subtracts as expected",
+			v1:           0x55,
+			v2:           0x04,
+			op:           "subtraction",
+			wantVOut:     0x51,
+			wantCarryOut: false,
+		},
+		{
+			name:         "subtraction within max of major digit subtracts as expected",
+			v1:           0x55,
+			v2:           0x10,
+			op:           "subtraction",
+			wantVOut:     0x45,
+			wantCarryOut: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			op := add
+			wasSubtraction := false
+			if tt.op == "subtraction" {
+				op = subtract
+				wasSubtraction = true
+			}
+
+			v, overflow, halfoverflow := op(tt.v1, tt.v2)
+
+			gotVOut, gotCarryOut := bcdConversion(v, wasSubtraction, halfoverflow, overflow)
+			if gotVOut != tt.wantVOut {
+				t.Errorf("bcdConversion() gotVOut = %v, want %v", gotVOut, tt.wantVOut)
+			}
+			if gotCarryOut != tt.wantCarryOut {
+				t.Errorf("bcdConversion() gotCarryOut = %v, want %v", gotCarryOut, tt.wantCarryOut)
+			}
+		})
+	}
+}

@@ -240,7 +240,7 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		}
 	}
 
-	if inst.Mnemonic == "RLA" || inst.Mnemonic == "RLCA" || inst.Mnemonic == "RRA" || inst.Mnemonic == "RRCA" {
+	if inst.Mnemonic == "RLA" || inst.Mnemonic == "RLCA" || inst.Mnemonic == "RRA" || inst.Mnemonic == "RRCA" || inst.Mnemonic == "DAA" {
 		// Instructions that take A as an operand, but does not declare so in the spec
 		inst.Operands = []*operand{
 			&operand{Name: "A", Immediate: true},
@@ -351,7 +351,7 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 	}
 
 	if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
-		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" && inst.Mnemonic != "ADD8" && inst.Mnemonic != "SCF" && inst.Mnemonic != "CCF" && inst.Mnemonic != "SWAP" && inst.Mnemonic != "POP" && inst.Mnemonic != "ADC" && inst.Mnemonic != "SBC" && inst.Mnemonic != "ADD16" && inst.Mnemonic != "ADDSP" {
+		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" && inst.Mnemonic != "ADD8" && inst.Mnemonic != "SCF" && inst.Mnemonic != "CCF" && inst.Mnemonic != "SWAP" && inst.Mnemonic != "POP" && inst.Mnemonic != "ADC" && inst.Mnemonic != "SBC" && inst.Mnemonic != "ADD16" && inst.Mnemonic != "ADDSP" && inst.Mnemonic != "DAA" {
 			inst.Todo = "mutates flags"
 		}
 	}

@@ -911,14 +911,21 @@ var instructions = []instruction{
 		Mnemonic: "DAA",
 		Size:     1,
 		Cycles:   []int{1},
-		Operands: []operand{},
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+		},
 		Flags: flags{
 			Z: "Z",
 			N: "-",
 			H: "0",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x28",
