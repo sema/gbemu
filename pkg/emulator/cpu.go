@@ -358,7 +358,7 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagN, false)
 		c.Registers.Write1(flagH, false)
 		c.Registers.Write1(flagC, false)
-	case "RL", "RLA", "RLC", "RLCA", "RR", "RRA", "RRCA", "SLA", "SRA", "SRL":
+	case "RL", "RLA", "RLC", "RLCA", "RR", "RRA", "RRC", "RRCA", "SLA", "SRA", "SRL":
 		// RL   R; rotate bits left          C <- [7 <- 0] <- C
 		// RLC  R; rotate bits left          C <- [7 <- 0] <- [7]
 		// RR-- R; variants rotate right
