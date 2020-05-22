@@ -398,7 +398,7 @@ func (c *cpu) Cycle() int {
 
 		c.write8(inst.Operands[0], v)
 
-		if inst.Mnemonic == "RLA" || inst.Mnemonic == "RLCA" {
+		if inst.Mnemonic == "RLA" || inst.Mnemonic == "RLCA" || inst.Mnemonic == "RRA" || inst.Mnemonic == "RRCA" {
 			c.Registers.Write1(flagZ, false)
 		} else {
 			c.Registers.Write1(flagZ, v == 0)
