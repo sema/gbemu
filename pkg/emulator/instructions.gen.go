@@ -1104,14 +1104,21 @@ var instructions = []instruction{
 		Mnemonic: "CPL",
 		Size:     1,
 		Cycles:   []int{1},
-		Operands: []operand{},
+		Operands: []operand{
+			{
+				Name:         "A",
+				Type:         operandReg8,
+				Ref:          "",
+				RefRegister8: registerA,
+			},
+		},
 		Flags: flags{
 			Z: "-",
 			N: "1",
 			H: "1",
 			C: "-",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0x30",

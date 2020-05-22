@@ -222,7 +222,15 @@ func (c *cpu) Cycle() int {
 		c.Registers.Write1(flagZ, v == 0)
 		c.Registers.Write1(flagH, false)
 		c.Registers.Write1(flagC, carry)
+	case "CPL":
+		// CPL A; A=A xor 0xFF
+		assertOperandType(inst.Operands[0], operandReg8)
 
+		v := c.read8(inst.Operands[0]) ^ 0xFF
+		c.write8(inst.Operands[0], v)
+
+		c.Registers.Write1(flagN, true)
+		c.Registers.Write1(flagH, true)
 	case "JP":
 		// JP $TO [$CONDITION]; PC=$TO
 		jump := true
