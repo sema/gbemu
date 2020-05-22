@@ -28,10 +28,10 @@ const (
 )
 
 const (
-	flagZ flag = 0 // Zero
-	flagN      = 1 // Subtract
-	flagH      = 2 // HalfCarry
-	flagC      = 3 // Carry
+	flagZ flag = 7 // Zero
+	flagN      = 6 // Subtract
+	flagH      = 5 // HalfCarry
+	flagC      = 4 // Carry
 )
 
 var register8Names = map[register8]string{
