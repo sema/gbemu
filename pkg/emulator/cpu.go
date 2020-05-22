@@ -87,13 +87,13 @@ func (c *cpu) Cycle() int {
 	case "INC8":
 		// INC8 $OP; $OP++
 		assertOperandType(inst.Operands[0], operandReg8, operandReg16Ptr)
-		v := c.read8(inst.Operands[0]) + 1
+
+		v, _, halfoverflow := add(c.read8(inst.Operands[0]), 1)
+
 		c.write8(inst.Operands[0], v)
 		c.Registers.Write1(flagZ, v == 0)
 		c.Registers.Write1(flagN, false)
-		// TODO calculate correctly
-		//lowerHalfInOverflowPosition := v&0b00001111 == 0
-		//c.Registers.Write1(flagH, lowerHalfInOverflowPosition)
+		c.Registers.Write1(flagH, halfoverflow)
 	case "INC16":
 		// INC16 $OP; $OP++
 		assertOperandType(inst.Operands[0], operandReg16)
