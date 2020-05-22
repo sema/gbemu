@@ -1,6 +1,0 @@
-.vscode
-*.code-workspace
-gbemu
-c.read8(inst.Operands[0]), c.read8(inst.Operands[1]))
-localroms
-*.dump
