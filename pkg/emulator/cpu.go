@@ -24,6 +24,10 @@ var interruptAddresses = []uint16{
 	0x0060, // Joypad
 }
 
+// instructionCalledCallback is called (if set) on every new instruction as it is
+// executed
+type instructionCalledCallback func(mnemonic string, pc uint16)
+
 type cpu struct {
 	Memory         *memory
 	Registers      *registers
@@ -31,14 +35,19 @@ type cpu struct {
 	PowerOn        bool
 
 	Interrupts imeState
+
+	instructionCallback instructionCalledCallback
+
+	options options
 }
 
-func newCPU(memory *memory, registers *registers) *cpu {
+func newCPU(memory *memory, registers *registers, options options) *cpu {
 	return &cpu{
 		Memory:         memory,
 		Registers:      registers,
 		ProgramCounter: 0x0100,
 		PowerOn:        true,
+		options:        options,
 	}
 }
 
@@ -61,8 +70,13 @@ func (c *cpu) Cycle() int {
 
 	c.ProgramCounter += inst.Size
 
-	// TODO for debugging - expose in CLI
-	log.Printf("Execute %#04x %-30s %s", c.ProgramCounter-inst.Size, inst.String(), c.reprOperandValues(inst))
+	if c.options.DebugLogging {
+		log.Printf("Execute %#04x %-30s %s", c.ProgramCounter-inst.Size, inst.String(), c.reprOperandValues(inst))
+	}
+
+	if c.instructionCallback != nil {
+		c.instructionCallback(inst.Mnemonic, c.ProgramCounter)
+	}
 
 	// TODO remove when we support everything
 	if inst.Todo != "" {

@@ -88,7 +88,7 @@ func TestStackPushPopReturnsSameValue(t *testing.T) {
 	interrupt := newInterruptController()
 	registers := newRegisters()
 	memory := newMemory(video, timer, interrupt, serial)
-	cpu := newCPU(memory, registers)
+	cpu := newCPU(memory, registers, options{})
 
 	registers.Write16(registerSP, 0xFFFE) // Initialize SP
 

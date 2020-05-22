@@ -18,6 +18,8 @@ const (
 	registerFF02 = 0xFF02
 )
 
+type SerialDataCallback func(data uint8)
+
 // serialController handles data transfers over the serial port
 //
 // Currently, does not support connecting an external device, thus:
@@ -33,6 +35,10 @@ type serialController struct {
 
 	// Interrupt is true if the serial port wants to trigger the INT 58 interrupt
 	Interrupt *interruptSource
+
+	// Callback is called (if set) on every byte that is transferred over the
+	// serial port.
+	Callback SerialDataCallback
 }
 
 func newSerialController() *serialController {
@@ -85,6 +91,10 @@ func (s *serialController) Cycle() {
 
 	transferDone := s.transferTicks >= 1000
 	if transferDone {
+		if s.Callback != nil {
+			s.Callback(s.readRegister(0xFF01))
+		}
+
 		s.transferTicks = 0
 		s.writeRegister(0xFF01, 0xFF)
 		s.writeRegister(0xFF02, writeBitN(control, 7, false))

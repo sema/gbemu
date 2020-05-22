@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"image"
 	"image/color"
@@ -46,10 +47,11 @@ func (s sprite) At(xx, y int) color.Color {
 }
 
 func (r *runCmd) Run() error {
+	ctx := context.Background()
 	e := emulator.New()
 
 	go func() {
-		if err := e.Run(r.Path, r.BootROM); err != nil {
+		if err := e.Run(ctx, r.Path, r.BootROM); err != nil {
 			log.Panicln(err)
 		}
 	}()

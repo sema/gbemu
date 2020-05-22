@@ -1,6 +1,7 @@
 package emulator
 
 import (
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"time"
@@ -15,17 +16,60 @@ type Emulator struct {
 	Memory    *memory
 	CPU       *cpu
 	FrameChan chan Frame
+	options   options
+}
+
+type options struct {
+	DebugLogging bool
+	// Speed determines the speed of the emulation
+	//
+	// Currently only allows for switching between uncapped (as fast as possible)) and
+	// realtime (as if using a real device). Can support speedup/slowmotion in the future.
+	//
+	// 0 = uncapped
+	// 1 = realtime
+	Speed float64
+}
+
+type optionFunc func(e *Emulator)
+
+// WithDebugLogging enables debug-level logging in the emulator
+//
+// Doing so greatly slows down emulation.
+func WithDebugLogging() optionFunc {
+	return func(e *Emulator) {
+		e.options.DebugLogging = true
+	}
+}
+
+// WithSpeedUncapped causes the emulator to run as fast as it can
+func WithSpeedUncapped() optionFunc {
+	return func(e *Emulator) {
+		e.options.Speed = 0
+	}
+}
+
+// WithSerialDataCallback provides a func f that will be called on
+// every byte transferred out on the serial port
+func WithSerialDataCallback(f SerialDataCallback) optionFunc {
+	return func(e *Emulator) {
+		e.Serial.Callback = f
+	}
 }
 
 // New returns an instance of Emulator
-func New() *Emulator {
+func New(opts ...optionFunc) *Emulator {
+	options := options{
+		Speed: 1,
+	}
+
 	timer := newTimerController()
 	video := newVideoController()
 	interrupt := newInterruptController()
 	serial := newSerialController()
 	memory := newMemory(video, timer, interrupt, serial)
 	registers := newRegisters()
-	cpu := newCPU(memory, registers)
+	cpu := newCPU(memory, registers, options)
 
 	interrupt.registerSource(0, nil) // VBLANK
 	interrupt.registerSource(1, nil) // LCD stat
@@ -33,7 +77,7 @@ func New() *Emulator {
 	interrupt.registerSource(3, serial.Interrupt)
 	interrupt.registerSource(4, nil) // Joypad
 
-	return &Emulator{
+	e := &Emulator{
 		CPU:       cpu,
 		Memory:    memory,
 		Video:     video,
@@ -41,11 +85,18 @@ func New() *Emulator {
 		Serial:    serial,
 		Interrupt: interrupt,
 		FrameChan: make(chan Frame),
+		options:   options,
 	}
+
+	for _, opt := range opts {
+		opt(e)
+	}
+
+	return e
 }
 
 // Run runs the ROM in the emulator, and returns when the emulator halts
-func (e *Emulator) Run(path string, bootPath string) error {
+func (e *Emulator) Run(ctx context.Context, path string, bootPath string) error {
 	if err := e.Memory.LoadROM(path); err != nil {
 		return err
 	}
@@ -98,7 +149,14 @@ func (e *Emulator) Run(path string, bootPath string) error {
 
 	frameSync := time.NewTicker(time.Second / 60)
 	cpuIdleCycles := 0
+
 	for e.CPU.PowerOn {
+		select {
+		case <-ctx.Done():
+			return nil
+		default:
+		}
+
 		if cpuIdleCycles > 0 {
 			cpuIdleCycles--
 		} else {
@@ -112,10 +170,20 @@ func (e *Emulator) Run(path string, bootPath string) error {
 		e.Interrupt.CheckSourcesForInterrupts()
 
 		if e.Video.FrameReady {
-			// Cap rendering to 60 fps
-			<-frameSync.C
+			if e.options.Speed > 0 {
+				// Cap rendering to 60 fps
+				select {
+				case <-frameSync.C:
+				case <-ctx.Done():
+					return nil
+				}
+			}
 
-			e.FrameChan <- e.Video.Frame
+			select {
+			case e.FrameChan <- e.Video.Frame:
+			case <-ctx.Done():
+				return nil
+			}
 		}
 	}
 
