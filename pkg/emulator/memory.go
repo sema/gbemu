@@ -152,7 +152,7 @@ func newFFPage(video *videoController, timer *timerController, interrupt *interr
 		{End: 0x0E, Controller: nil},
 		{End: 0x0F, Controller: interrupt},
 		{End: 0x3F, Controller: sound},
-		{End: 0x49, Controller: video},
+		{End: 0x4B, Controller: video},
 		{End: 0x7F, Controller: nil},
 		{End: 0xFE, Controller: hram},
 		{End: 0xFF, Controller: interrupt},
