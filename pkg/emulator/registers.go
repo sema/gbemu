@@ -120,6 +120,14 @@ func (r *registers) Read16(register register16) uint16 {
 }
 
 func (r *registers) Write16(register register16, v uint16) {
+	if register == registerAF {
+		// Force lower 4 bits of the flags register to always be zero
+		//
+		// Unable to find this specified in the spec, but this semantics
+		// is explicitly tested in Blargg's test ROMs.
+		v = v & 0xFFF0
+	}
+
 	binary.LittleEndian.PutUint16(r.Data[register:register+2], v)
 }
 
