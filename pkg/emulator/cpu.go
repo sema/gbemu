@@ -489,6 +489,10 @@ func (c *cpu) write16(op operand, v uint16) {
 	switch op.Type {
 	case operandReg16:
 		c.Registers.Write16(op.RefRegister16, v)
+	case operandA16Ptr:
+		address := c.Memory.Read16(c.ProgramCounter - 2)
+		c.Memory.Write8(address, uint8(v))      // lower 8 bits
+		c.Memory.Write8(address+1, uint8(v>>8)) // upper 8 bits
 	default:
 		log.Panicf("unexpected operand (%s) encountered while writing 16bit value", op.Type.String())
 	}

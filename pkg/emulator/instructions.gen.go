@@ -185,7 +185,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0x08",
-		Mnemonic: "LD8",
+		Mnemonic: "LD16",
 		Size:     3,
 		Cycles:   []int{5},
 		Operands: []operand{

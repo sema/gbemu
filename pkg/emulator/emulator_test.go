@@ -14,6 +14,9 @@ func TestEmulatorBlarggSuite(t *testing.T) {
 		testROM string
 	}{
 		{
+			testROM: "03-op sp,hl.gb",
+		},
+		{
 			testROM: "09-op r,r.gb",
 		},
 	}

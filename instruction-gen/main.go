@@ -346,8 +346,12 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		inst.Mnemonic = "ADDSP"
 	} else if inst.Mnemonic == "LD" || inst.Mnemonic == "INC" || inst.Mnemonic == "DEC" || inst.Mnemonic == "ADD" {
 		// Differentiate between 8bit and 16bit instructions, as they
-		// differn between the amount of data they expect to read and write
-		inst.Mnemonic = fmt.Sprintf("%s%d", inst.Mnemonic, inst.Operands[0].RWBits)
+		// difference between the amount of data they expect to read and write
+		//
+		// Note, we use the "size" of the last operand to determine the value we operate on, as the
+		// spec sometimes uses [a16] as a 8bit destination, and sometimes as a 16bit destination in LD
+		// instructions.
+		inst.Mnemonic = fmt.Sprintf("%s%d", inst.Mnemonic, inst.Operands[len(inst.Operands)-1].RWBits)
 	}
 
 	if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
