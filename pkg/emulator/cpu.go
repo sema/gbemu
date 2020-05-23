@@ -70,6 +70,19 @@ func (c *cpu) Cycle() int {
 
 	c.ProgramCounter += inst.Size
 
+	cycles := c.execute(inst)
+
+	if c.Interrupts == interruptsEnabledAfterNextCycle {
+		c.Interrupts = interruptsEnabledAfterCycle
+	} else if c.Interrupts == interruptsEnabledAfterCycle {
+		c.Interrupts = interruptsEnabled
+	}
+
+	return cycles
+}
+
+func (c *cpu) execute(inst instruction) int {
+
 	if c.options.DebugLogging {
 		log.Printf("Execute %#04x %-30s %s", c.ProgramCounter-inst.Size, inst.String(), c.reprOperandValues(inst))
 	}
@@ -98,6 +111,38 @@ func (c *cpu) Cycle() int {
 		// LD16 $TARGET $VALUE; $TARGET=$VALUE
 		v := c.read16(inst.Operands[1])
 		c.write16(inst.Operands[0], v)
+	case "LDSP":
+		// LDSP HL SP r8; HL=SP+r8
+		assertOperandType(inst.Operands[0], operandReg16)
+		assertOperandType(inst.Operands[1], operandReg16)
+		assertOperandType(inst.Operands[2], operandR8)
+
+		sp := c.read16(inst.Operands[1])
+		r8 := c.read8signed(inst.Operands[2])
+
+		v := offsetAddress(sp, int16(r8))
+		c.write16(inst.Operands[0], v)
+
+		// The spec is slightly counter-intuitive w.r.t. the C and H flags for this
+		// operation. Concensus seems to be that the the flags should be set if
+		// there is an overflow on the 3rd and 7th bits, as if the operation was a
+		// addition (even for subtractions).
+		//
+		// Ref
+		// https://stackoverflow.com/questions/5159603/gbz80-how-does-ld-hl-spe-affect-h-and-c-flags
+		// Ref
+		// https://stackoverflow.com/questions/37021908/what-do-opcodes-0xe9-jp-hl-and-0xf8-ld-hl-spr8-do
+		//
+		// Using this approach to detect "overflows" makes the logic match the
+		// Blargg tests.
+		carry := (v & 0xFF) < (sp & 0xFF)
+		halfcarry := (v & 0xF) < (sp & 0xF)
+
+		c.Registers.Write1(flagZ, false)
+		c.Registers.Write1(flagN, false)
+		c.Registers.Write1(flagH, halfcarry)
+		c.Registers.Write1(flagC, carry)
+
 	case "INC8":
 		// INC8 $OP; $OP++
 		assertOperandType(inst.Operands[0], operandReg8, operandReg16Ptr)
@@ -212,12 +257,9 @@ func (c *cpu) Cycle() int {
 		old := c.read16(inst.Operands[0])
 		new := offsetAddress(old, int16(offset))
 
-		carry := false
-		halfcarry := false
-		if offset > 0 {
-			// carry/halfcarry follow 8bit addition rules
-			_, carry, halfcarry = add(uint8(old), uint8(offset))
-		}
+		// See C & H flag comment in the LDSP instruction
+		carry := (new & 0xFF) < (old & 0xFF)
+		halfcarry := (new & 0xF) < (old & 0xF)
 
 		c.write16(inst.Operands[0], new)
 
@@ -458,13 +500,8 @@ func (c *cpu) Cycle() int {
 		return inst.Cycles[1]
 	}
 
-	if c.Interrupts == interruptsEnabledAfterNextCycle {
-		c.Interrupts = interruptsEnabledAfterCycle
-	} else if c.Interrupts == interruptsEnabledAfterCycle {
-		c.Interrupts = interruptsEnabled
-	}
-
 	return inst.Cycles[0]
+
 }
 
 func (c *cpu) read16(op operand) uint16 {

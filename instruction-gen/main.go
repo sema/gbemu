@@ -230,6 +230,16 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		inst.Opcode = fmt.Sprintf("*%s", opcode)
 	}
 
+	if inst.Opcode == "0xF8" {
+		// LD HL SP+r8 is specified with a misleading notation in the spec file
+		// (SP+r8 is noted as just SP+ which has a different meaning)
+		inst.Operands = []*operand{
+			&operand{Name: "HL", Immediate: true},
+			&operand{Name: "SP", Immediate: true},
+			&operand{Name: "r8", Immediate: true},
+		}
+	}
+
 	if inst.Mnemonic == "XOR" || inst.Mnemonic == "AND" || inst.Mnemonic == "OR" || inst.Mnemonic == "CP" || inst.Mnemonic == "SUB" {
 		// 8bit logical and arithmetic instructions take two arguments, A and X (X=reg8|reg16Ptr).
 		// The spec does not include the implicit A argument. Adding the argument to
@@ -341,7 +351,11 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		op.RWBits = rwBits
 	}
 
-	if inst.Mnemonic == "ADD" && inst.Operands[0].RefRegister16 == "registerSP" {
+	if inst.Opcode == "0xF8" {
+		// LD HL SP+r8 is different from all other LD(8/16) instructions as it modifies
+		// flags. Separate it out into a seprate Mnemonic.
+		inst.Mnemonic = "LDSP"
+	} else if inst.Mnemonic == "ADD" && inst.Operands[0].RefRegister16 == "registerSP" {
 		// ADDSP is different from ADD8 and ADD16, as we add a signed value to the current SP
 		inst.Mnemonic = "ADDSP"
 	} else if inst.Mnemonic == "LD" || inst.Mnemonic == "INC" || inst.Mnemonic == "DEC" || inst.Mnemonic == "ADD" {
@@ -355,7 +369,7 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 	}
 
 	if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
-		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" && inst.Mnemonic != "ADD8" && inst.Mnemonic != "SCF" && inst.Mnemonic != "CCF" && inst.Mnemonic != "SWAP" && inst.Mnemonic != "POP" && inst.Mnemonic != "ADC" && inst.Mnemonic != "SBC" && inst.Mnemonic != "ADD16" && inst.Mnemonic != "ADDSP" && inst.Mnemonic != "DAA" && inst.Mnemonic != "CPL" && inst.Mnemonic != "RRC" {
+		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" && inst.Mnemonic != "ADD8" && inst.Mnemonic != "SCF" && inst.Mnemonic != "CCF" && inst.Mnemonic != "SWAP" && inst.Mnemonic != "POP" && inst.Mnemonic != "ADC" && inst.Mnemonic != "SBC" && inst.Mnemonic != "ADD16" && inst.Mnemonic != "ADDSP" && inst.Mnemonic != "DAA" && inst.Mnemonic != "CPL" && inst.Mnemonic != "RRC" && inst.Mnemonic != "LDSP" {
 			inst.Todo = "mutates flags"
 		}
 	}

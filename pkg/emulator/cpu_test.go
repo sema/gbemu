@@ -3,6 +3,7 @@ package emulator
 import (
 	"testing"
 
+	"github.com/sema/gbemu/pkg/ptr"
 	"github.com/stretchr/testify/require"
 )
 
@@ -82,16 +83,80 @@ func TestIsFlagSet(t *testing.T) {
 }
 
 func TestStackPushPopReturnsSameValue(t *testing.T) {
+	cpu := testCPU()
+
+	cpu.Registers.Write16(registerSP, 0xFFFE) // Initialize SP
+
+	cpu.stackPush(0x1005)
+	require.Equal(t, uint16(0x1005), cpu.stackPop())
+}
+
+func TestInstructions(t *testing.T) {
+	type iao struct {
+		inst instruction
+		data []uint8
+	}
+
+	run := func(inst uint16, data ...uint8) iao {
+		return iao{
+			inst: instructions[inst],
+			data: data,
+		}
+	}
+
+	tests := []struct {
+		name         string
+		instructions []iao
+		regSP        uint16
+		wantRegHL    *uint16
+	}{
+		{
+			name: "0xF8 LD HL SP+r8 with r8=1 increments SP and stores it to HL",
+			instructions: []iao{
+				run(0xF8, 0x01),
+			},
+			regSP:     0xFFFE,
+			wantRegHL: ptr.UInt16(0xFFFF),
+		},
+		{
+			name: "0xF8 LD HL SP+r8 with r8=-1 decrements SP and stores it to HL",
+			instructions: []iao{
+				run(0xF8, 0xFF),
+			},
+			regSP:     0xFFFE,
+			wantRegHL: ptr.UInt16(0xFFFD),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cpu := testCPU()
+			cpu.Registers.Write16(registerSP, tt.regSP)
+
+			for _, inst := range tt.instructions {
+				// Emulate instruction placed at 0xCF00, with optional data after it
+				cpu.ProgramCounter = 0xCF01
+				for _, d := range inst.data {
+					cpu.Memory.Write8(cpu.ProgramCounter, d)
+					cpu.ProgramCounter++
+				}
+
+				cpu.execute(inst.inst)
+			}
+
+			if tt.wantRegHL != nil {
+				require.Equal(t, *tt.wantRegHL, cpu.Registers.Read16(registerHL))
+			}
+
+		})
+	}
+}
+
+func testCPU() *cpu {
 	video := newVideoController()
 	timer := newTimerController()
 	serial := newSerialController()
 	interrupt := newInterruptController()
 	registers := newRegisters()
 	memory := newMemory(video, timer, interrupt, serial)
-	cpu := newCPU(memory, registers, options{})
-
-	registers.Write16(registerSP, 0xFFFE) // Initialize SP
-
-	cpu.stackPush(0x1005)
-	require.Equal(t, uint16(0x1005), cpu.stackPop())
+	return newCPU(memory, registers, options{})
 }

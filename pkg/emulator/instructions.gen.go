@@ -6156,7 +6156,7 @@ var instructions = []instruction{
 	},
 	{
 		Opcode:   "0xF8",
-		Mnemonic: "LD16",
+		Mnemonic: "LDSP",
 		Size:     2,
 		Cycles:   []int{3},
 		Operands: []operand{
@@ -6167,11 +6167,15 @@ var instructions = []instruction{
 				RefRegister16: registerHL,
 			},
 			{
-				Name:           "SP+",
-				Type:           operandReg16,
-				Ref:            "",
-				RefRegister16:  registerSP,
-				IncrementReg16: true,
+				Name:          "SP",
+				Type:          operandReg16,
+				Ref:           "",
+				RefRegister16: registerSP,
+			},
+			{
+				Name: "r8",
+				Type: operandR8,
+				Ref:  "",
 			},
 		},
 		Flags: flags{
@@ -6180,7 +6184,7 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "mutates flags",
+		Todo: "",
 	},
 	{
 		Opcode:   "0xF9",

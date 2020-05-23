@@ -61,7 +61,7 @@ func bcdConversion(v uint8, wasSubtraction bool, halfcarry bool, carry bool) (vO
 func add16(v1, v2 uint16) (result uint16, overflow bool, halfoverflow bool) {
 	result = v1 + v2
 	overflow = v1 > (0xFFFF - v2)
-	halfoverflow = (v1 & 0x0FFF) > (0xFFFF - (v2 & 0x0FFF))
+	halfoverflow = (v1 & 0x0FFF) > (0x0FFF - (v2 & 0x0FFF))
 	return
 }
 
