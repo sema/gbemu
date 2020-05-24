@@ -13,9 +13,6 @@ type instruction struct {
 	Cycles   []int
 	Operands []operand
 	Flags    flags
-
-	// TODO flags instruction as unsupported temporarily as we expand codegen
-	Todo string
 }
 
 type operand struct {

@@ -56,7 +56,6 @@ var instructions = []instruction{
 			H: "{{ .Flags.H }}",
 			C: "{{ .Flags.C }}",
 		},
-		Todo: "{{ .Todo }}",
 	},{{ printf "\n" }}
 {{- end }}}
 
@@ -91,7 +90,6 @@ var cbInstructions = []instruction{
 				H: "{{ .Flags.H }}",
 				C: "{{ .Flags.C }}",
 			},
-			Todo: "{{ .Todo }}",
 		},{{ printf "\n" }}
 	{{- end }}}
 
@@ -126,9 +124,6 @@ type instruction struct {
 	Operands  []*operand
 	Immediate bool
 	Flags     flags
-
-	// Todo flags instruction as unsupported temporarily as we expand codegen
-	Todo string
 }
 
 type operand struct {
@@ -366,11 +361,5 @@ func postprocessInstruction(opcode string, inst *instruction, isPrefixed bool) {
 		// spec sometimes uses [a16] as a 8bit destination, and sometimes as a 16bit destination in LD
 		// instructions.
 		inst.Mnemonic = fmt.Sprintf("%s%d", inst.Mnemonic, inst.Operands[len(inst.Operands)-1].RWBits)
-	}
-
-	if inst.Flags.C != "-" || inst.Flags.H != "-" || inst.Flags.N != "-" || inst.Flags.Z != "-" {
-		if inst.Mnemonic != "INC8" && inst.Mnemonic != "DEC8" && inst.Mnemonic != "XOR" && inst.Mnemonic != "AND" && inst.Mnemonic != "OR" && inst.Mnemonic != "BIT" && inst.Mnemonic != "RL" && inst.Mnemonic != "RLA" && inst.Mnemonic != "RLC" && inst.Mnemonic != "RLCA" && inst.Mnemonic != "RR" && inst.Mnemonic != "RRA" && inst.Mnemonic != "RRCA" && inst.Mnemonic != "SLA" && inst.Mnemonic != "SRA" && inst.Mnemonic != "SRL" && inst.Mnemonic != "CP" && inst.Mnemonic != "SUB" && inst.Mnemonic != "ADD8" && inst.Mnemonic != "SCF" && inst.Mnemonic != "CCF" && inst.Mnemonic != "SWAP" && inst.Mnemonic != "POP" && inst.Mnemonic != "ADC" && inst.Mnemonic != "SBC" && inst.Mnemonic != "ADD16" && inst.Mnemonic != "ADDSP" && inst.Mnemonic != "DAA" && inst.Mnemonic != "CPL" && inst.Mnemonic != "RRC" && inst.Mnemonic != "LDSP" {
-			inst.Todo = "mutates flags"
-		}
 	}
 }

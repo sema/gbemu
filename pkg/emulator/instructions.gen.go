@@ -18,7 +18,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x01",
@@ -44,7 +43,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x02",
@@ -71,7 +69,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x03",
@@ -92,7 +89,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x04",
@@ -113,7 +109,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x05",
@@ -134,7 +129,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x06",
@@ -160,7 +154,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x07",
@@ -181,7 +174,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x08",
@@ -207,7 +199,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x09",
@@ -234,7 +225,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x0A",
@@ -261,7 +251,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x0B",
@@ -282,7 +271,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x0C",
@@ -303,7 +291,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x0D",
@@ -324,7 +311,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x0E",
@@ -350,7 +336,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x0F",
@@ -371,7 +356,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x10",
@@ -385,7 +369,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x11",
@@ -411,7 +394,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x12",
@@ -438,7 +420,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x13",
@@ -459,7 +440,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x14",
@@ -480,7 +460,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x15",
@@ -501,7 +480,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x16",
@@ -527,7 +505,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x17",
@@ -548,7 +525,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x18",
@@ -568,7 +544,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x19",
@@ -595,7 +570,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x1A",
@@ -622,7 +596,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x1B",
@@ -643,7 +616,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x1C",
@@ -664,7 +636,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x1D",
@@ -685,7 +656,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x1E",
@@ -711,7 +681,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x1F",
@@ -732,7 +701,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x20",
@@ -761,7 +729,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x21",
@@ -787,7 +754,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x22",
@@ -815,7 +781,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x23",
@@ -836,7 +801,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x24",
@@ -857,7 +821,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x25",
@@ -878,7 +841,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x26",
@@ -904,7 +866,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x27",
@@ -925,7 +886,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x28",
@@ -953,7 +913,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x29",
@@ -980,7 +939,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x2A",
@@ -1008,7 +966,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x2B",
@@ -1029,7 +986,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x2C",
@@ -1050,7 +1006,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x2D",
@@ -1071,7 +1026,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x2E",
@@ -1097,7 +1051,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x2F",
@@ -1118,7 +1071,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x30",
@@ -1147,7 +1099,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x31",
@@ -1173,7 +1124,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x32",
@@ -1201,7 +1151,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x33",
@@ -1222,7 +1171,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x34",
@@ -1243,7 +1191,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x35",
@@ -1264,7 +1211,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x36",
@@ -1290,7 +1236,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x37",
@@ -1304,7 +1249,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "1",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x38",
@@ -1332,7 +1276,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x39",
@@ -1359,7 +1302,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x3A",
@@ -1387,7 +1329,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x3B",
@@ -1408,7 +1349,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x3C",
@@ -1429,7 +1369,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x3D",
@@ -1450,7 +1389,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x3E",
@@ -1476,7 +1414,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x3F",
@@ -1490,7 +1427,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x40",
@@ -1517,7 +1453,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x41",
@@ -1544,7 +1479,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x42",
@@ -1571,7 +1505,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x43",
@@ -1598,7 +1531,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x44",
@@ -1625,7 +1557,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x45",
@@ -1652,7 +1583,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x46",
@@ -1679,7 +1609,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x47",
@@ -1706,7 +1635,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x48",
@@ -1733,7 +1661,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x49",
@@ -1760,7 +1687,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x4A",
@@ -1787,7 +1713,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x4B",
@@ -1814,7 +1739,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x4C",
@@ -1841,7 +1765,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x4D",
@@ -1868,7 +1791,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x4E",
@@ -1895,7 +1817,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x4F",
@@ -1922,7 +1843,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x50",
@@ -1949,7 +1869,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x51",
@@ -1976,7 +1895,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x52",
@@ -2003,7 +1921,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x53",
@@ -2030,7 +1947,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x54",
@@ -2057,7 +1973,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x55",
@@ -2084,7 +1999,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x56",
@@ -2111,7 +2025,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x57",
@@ -2138,7 +2051,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x58",
@@ -2165,7 +2077,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x59",
@@ -2192,7 +2103,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x5A",
@@ -2219,7 +2129,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x5B",
@@ -2246,7 +2155,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x5C",
@@ -2273,7 +2181,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x5D",
@@ -2300,7 +2207,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x5E",
@@ -2327,7 +2233,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x5F",
@@ -2354,7 +2259,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x60",
@@ -2381,7 +2285,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x61",
@@ -2408,7 +2311,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x62",
@@ -2435,7 +2337,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x63",
@@ -2462,7 +2363,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x64",
@@ -2489,7 +2389,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x65",
@@ -2516,7 +2415,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x66",
@@ -2543,7 +2441,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x67",
@@ -2570,7 +2467,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x68",
@@ -2597,7 +2493,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x69",
@@ -2624,7 +2519,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x6A",
@@ -2651,7 +2545,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x6B",
@@ -2678,7 +2571,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x6C",
@@ -2705,7 +2597,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x6D",
@@ -2732,7 +2623,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x6E",
@@ -2759,7 +2649,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x6F",
@@ -2786,7 +2675,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x70",
@@ -2813,7 +2701,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x71",
@@ -2840,7 +2727,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x72",
@@ -2867,7 +2753,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x73",
@@ -2894,7 +2779,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x74",
@@ -2921,7 +2805,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x75",
@@ -2948,7 +2831,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x76",
@@ -2962,7 +2844,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x77",
@@ -2989,7 +2870,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x78",
@@ -3016,7 +2896,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x79",
@@ -3043,7 +2922,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x7A",
@@ -3070,7 +2948,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x7B",
@@ -3097,7 +2974,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x7C",
@@ -3124,7 +3000,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x7D",
@@ -3151,7 +3026,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x7E",
@@ -3178,7 +3052,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x7F",
@@ -3205,7 +3078,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x80",
@@ -3232,7 +3104,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x81",
@@ -3259,7 +3130,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x82",
@@ -3286,7 +3156,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x83",
@@ -3313,7 +3182,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x84",
@@ -3340,7 +3208,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x85",
@@ -3367,7 +3234,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x86",
@@ -3394,7 +3260,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x87",
@@ -3421,7 +3286,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x88",
@@ -3448,7 +3312,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x89",
@@ -3475,7 +3338,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x8A",
@@ -3502,7 +3364,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x8B",
@@ -3529,7 +3390,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x8C",
@@ -3556,7 +3416,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x8D",
@@ -3583,7 +3442,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x8E",
@@ -3610,7 +3468,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x8F",
@@ -3637,7 +3494,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x90",
@@ -3664,7 +3520,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x91",
@@ -3691,7 +3546,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x92",
@@ -3718,7 +3572,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x93",
@@ -3745,7 +3598,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x94",
@@ -3772,7 +3624,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x95",
@@ -3799,7 +3650,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x96",
@@ -3826,7 +3676,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x97",
@@ -3853,7 +3702,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x98",
@@ -3880,7 +3728,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x99",
@@ -3907,7 +3754,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x9A",
@@ -3934,7 +3780,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x9B",
@@ -3961,7 +3806,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x9C",
@@ -3988,7 +3832,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x9D",
@@ -4015,7 +3858,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x9E",
@@ -4042,7 +3884,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0x9F",
@@ -4069,7 +3910,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA0",
@@ -4096,7 +3936,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA1",
@@ -4123,7 +3962,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA2",
@@ -4150,7 +3988,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA3",
@@ -4177,7 +4014,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA4",
@@ -4204,7 +4040,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA5",
@@ -4231,7 +4066,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA6",
@@ -4258,7 +4092,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA7",
@@ -4285,7 +4118,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA8",
@@ -4312,7 +4144,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xA9",
@@ -4339,7 +4170,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xAA",
@@ -4366,7 +4196,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xAB",
@@ -4393,7 +4222,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xAC",
@@ -4420,7 +4248,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xAD",
@@ -4447,7 +4274,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xAE",
@@ -4474,7 +4300,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xAF",
@@ -4501,7 +4326,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB0",
@@ -4528,7 +4352,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB1",
@@ -4555,7 +4378,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB2",
@@ -4582,7 +4404,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB3",
@@ -4609,7 +4430,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB4",
@@ -4636,7 +4456,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB5",
@@ -4663,7 +4482,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB6",
@@ -4690,7 +4508,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB7",
@@ -4717,7 +4534,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB8",
@@ -4744,7 +4560,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xB9",
@@ -4771,7 +4586,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xBA",
@@ -4798,7 +4612,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xBB",
@@ -4825,7 +4638,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xBC",
@@ -4852,7 +4664,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xBD",
@@ -4879,7 +4690,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xBE",
@@ -4906,7 +4716,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xBF",
@@ -4933,7 +4742,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC0",
@@ -4957,7 +4765,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC1",
@@ -4978,7 +4785,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC2",
@@ -5007,7 +4813,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC3",
@@ -5027,7 +4832,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC4",
@@ -5056,7 +4860,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC5",
@@ -5077,7 +4880,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC6",
@@ -5103,7 +4905,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC7",
@@ -5123,7 +4924,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC8",
@@ -5146,7 +4946,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xC9",
@@ -5160,7 +4959,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xCA",
@@ -5188,7 +4986,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xCB",
@@ -5202,7 +4999,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xCC",
@@ -5230,7 +5026,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xCD",
@@ -5250,7 +5045,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xCE",
@@ -5276,7 +5070,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xCF",
@@ -5297,7 +5090,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD0",
@@ -5321,7 +5113,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD1",
@@ -5342,7 +5133,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD2",
@@ -5371,7 +5161,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD3",
@@ -5385,7 +5174,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD4",
@@ -5414,7 +5202,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD5",
@@ -5435,7 +5222,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD6",
@@ -5461,7 +5247,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD7",
@@ -5482,7 +5267,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD8",
@@ -5505,7 +5289,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xD9",
@@ -5519,7 +5302,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xDA",
@@ -5547,7 +5329,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xDB",
@@ -5561,7 +5342,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xDC",
@@ -5589,7 +5369,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xDD",
@@ -5603,7 +5382,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xDE",
@@ -5629,7 +5407,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xDF",
@@ -5650,7 +5427,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE0",
@@ -5676,7 +5452,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE1",
@@ -5697,7 +5472,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE2",
@@ -5724,7 +5498,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE3",
@@ -5738,7 +5511,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE4",
@@ -5752,7 +5524,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE5",
@@ -5773,7 +5544,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE6",
@@ -5799,7 +5569,6 @@ var instructions = []instruction{
 			H: "1",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE7",
@@ -5820,7 +5589,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE8",
@@ -5846,7 +5614,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xE9",
@@ -5867,7 +5634,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xEA",
@@ -5893,7 +5659,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xEB",
@@ -5907,7 +5672,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xEC",
@@ -5921,7 +5685,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xED",
@@ -5935,7 +5698,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xEE",
@@ -5961,7 +5723,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xEF",
@@ -5982,7 +5743,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF0",
@@ -6008,7 +5768,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF1",
@@ -6029,7 +5788,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF2",
@@ -6056,7 +5814,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF3",
@@ -6070,7 +5827,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF4",
@@ -6084,7 +5840,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF5",
@@ -6105,7 +5860,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF6",
@@ -6131,7 +5885,6 @@ var instructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF7",
@@ -6152,7 +5905,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF8",
@@ -6184,7 +5936,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xF9",
@@ -6211,7 +5962,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xFA",
@@ -6237,7 +5987,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xFB",
@@ -6251,7 +6000,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xFC",
@@ -6265,7 +6013,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xFD",
@@ -6279,7 +6026,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xFE",
@@ -6305,7 +6051,6 @@ var instructions = []instruction{
 			H: "H",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "0xFF",
@@ -6326,7 +6071,6 @@ var instructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 }
 
@@ -6350,7 +6094,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x01",
@@ -6371,7 +6114,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x02",
@@ -6392,7 +6134,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x03",
@@ -6413,7 +6154,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x04",
@@ -6434,7 +6174,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x05",
@@ -6455,7 +6194,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x06",
@@ -6476,7 +6214,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x07",
@@ -6497,7 +6234,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x08",
@@ -6518,7 +6254,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x09",
@@ -6539,7 +6274,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x0A",
@@ -6560,7 +6294,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x0B",
@@ -6581,7 +6314,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x0C",
@@ -6602,7 +6334,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x0D",
@@ -6623,7 +6354,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x0E",
@@ -6644,7 +6374,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x0F",
@@ -6665,7 +6394,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x10",
@@ -6686,7 +6414,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x11",
@@ -6707,7 +6434,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x12",
@@ -6728,7 +6454,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x13",
@@ -6749,7 +6474,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x14",
@@ -6770,7 +6494,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x15",
@@ -6791,7 +6514,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x16",
@@ -6812,7 +6534,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x17",
@@ -6833,7 +6554,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x18",
@@ -6854,7 +6574,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x19",
@@ -6875,7 +6594,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x1A",
@@ -6896,7 +6614,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x1B",
@@ -6917,7 +6634,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x1C",
@@ -6938,7 +6654,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x1D",
@@ -6959,7 +6674,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x1E",
@@ -6980,7 +6694,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x1F",
@@ -7001,7 +6714,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x20",
@@ -7022,7 +6734,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x21",
@@ -7043,7 +6754,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x22",
@@ -7064,7 +6774,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x23",
@@ -7085,7 +6794,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x24",
@@ -7106,7 +6814,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x25",
@@ -7127,7 +6834,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x26",
@@ -7148,7 +6854,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x27",
@@ -7169,7 +6874,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x28",
@@ -7190,7 +6894,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x29",
@@ -7211,7 +6914,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x2A",
@@ -7232,7 +6934,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x2B",
@@ -7253,7 +6954,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x2C",
@@ -7274,7 +6974,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x2D",
@@ -7295,7 +6994,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x2E",
@@ -7316,7 +7014,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x2F",
@@ -7337,7 +7034,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x30",
@@ -7358,7 +7054,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x31",
@@ -7379,7 +7074,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x32",
@@ -7400,7 +7094,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x33",
@@ -7421,7 +7114,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x34",
@@ -7442,7 +7134,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x35",
@@ -7463,7 +7154,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x36",
@@ -7484,7 +7174,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x37",
@@ -7505,7 +7194,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "0",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x38",
@@ -7526,7 +7214,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x39",
@@ -7547,7 +7234,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x3A",
@@ -7568,7 +7254,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x3B",
@@ -7589,7 +7274,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x3C",
@@ -7610,7 +7294,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x3D",
@@ -7631,7 +7314,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x3E",
@@ -7652,7 +7334,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x3F",
@@ -7673,7 +7354,6 @@ var cbInstructions = []instruction{
 			H: "0",
 			C: "C",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x40",
@@ -7699,7 +7379,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x41",
@@ -7725,7 +7404,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x42",
@@ -7751,7 +7429,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x43",
@@ -7777,7 +7454,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x44",
@@ -7803,7 +7479,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x45",
@@ -7829,7 +7504,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x46",
@@ -7855,7 +7529,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x47",
@@ -7881,7 +7554,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x48",
@@ -7908,7 +7580,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x49",
@@ -7935,7 +7606,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x4A",
@@ -7962,7 +7632,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x4B",
@@ -7989,7 +7658,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x4C",
@@ -8016,7 +7684,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x4D",
@@ -8043,7 +7710,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x4E",
@@ -8070,7 +7736,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x4F",
@@ -8097,7 +7762,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x50",
@@ -8124,7 +7788,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x51",
@@ -8151,7 +7814,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x52",
@@ -8178,7 +7840,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x53",
@@ -8205,7 +7866,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x54",
@@ -8232,7 +7892,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x55",
@@ -8259,7 +7918,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x56",
@@ -8286,7 +7944,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x57",
@@ -8313,7 +7970,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x58",
@@ -8340,7 +7996,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x59",
@@ -8367,7 +8022,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x5A",
@@ -8394,7 +8048,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x5B",
@@ -8421,7 +8074,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x5C",
@@ -8448,7 +8100,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x5D",
@@ -8475,7 +8126,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x5E",
@@ -8502,7 +8152,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x5F",
@@ -8529,7 +8178,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x60",
@@ -8556,7 +8204,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x61",
@@ -8583,7 +8230,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x62",
@@ -8610,7 +8256,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x63",
@@ -8637,7 +8282,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x64",
@@ -8664,7 +8308,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x65",
@@ -8691,7 +8334,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x66",
@@ -8718,7 +8360,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x67",
@@ -8745,7 +8386,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x68",
@@ -8772,7 +8412,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x69",
@@ -8799,7 +8438,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x6A",
@@ -8826,7 +8464,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x6B",
@@ -8853,7 +8490,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x6C",
@@ -8880,7 +8516,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x6D",
@@ -8907,7 +8542,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x6E",
@@ -8934,7 +8568,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x6F",
@@ -8961,7 +8594,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x70",
@@ -8988,7 +8620,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x71",
@@ -9015,7 +8646,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x72",
@@ -9042,7 +8672,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x73",
@@ -9069,7 +8698,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x74",
@@ -9096,7 +8724,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x75",
@@ -9123,7 +8750,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x76",
@@ -9150,7 +8776,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x77",
@@ -9177,7 +8802,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x78",
@@ -9204,7 +8828,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x79",
@@ -9231,7 +8854,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x7A",
@@ -9258,7 +8880,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x7B",
@@ -9285,7 +8906,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x7C",
@@ -9312,7 +8932,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x7D",
@@ -9339,7 +8958,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x7E",
@@ -9366,7 +8984,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x7F",
@@ -9393,7 +9010,6 @@ var cbInstructions = []instruction{
 			H: "1",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x80",
@@ -9419,7 +9035,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x81",
@@ -9445,7 +9060,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x82",
@@ -9471,7 +9085,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x83",
@@ -9497,7 +9110,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x84",
@@ -9523,7 +9135,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x85",
@@ -9549,7 +9160,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x86",
@@ -9575,7 +9185,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x87",
@@ -9601,7 +9210,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x88",
@@ -9628,7 +9236,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x89",
@@ -9655,7 +9262,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x8A",
@@ -9682,7 +9288,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x8B",
@@ -9709,7 +9314,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x8C",
@@ -9736,7 +9340,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x8D",
@@ -9763,7 +9366,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x8E",
@@ -9790,7 +9392,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x8F",
@@ -9817,7 +9418,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x90",
@@ -9844,7 +9444,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x91",
@@ -9871,7 +9470,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x92",
@@ -9898,7 +9496,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x93",
@@ -9925,7 +9522,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x94",
@@ -9952,7 +9548,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x95",
@@ -9979,7 +9574,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x96",
@@ -10006,7 +9600,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x97",
@@ -10033,7 +9626,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x98",
@@ -10060,7 +9652,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x99",
@@ -10087,7 +9678,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x9A",
@@ -10114,7 +9704,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x9B",
@@ -10141,7 +9730,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x9C",
@@ -10168,7 +9756,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x9D",
@@ -10195,7 +9782,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x9E",
@@ -10222,7 +9808,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0x9F",
@@ -10249,7 +9834,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA0",
@@ -10276,7 +9860,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA1",
@@ -10303,7 +9886,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA2",
@@ -10330,7 +9912,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA3",
@@ -10357,7 +9938,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA4",
@@ -10384,7 +9964,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA5",
@@ -10411,7 +9990,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA6",
@@ -10438,7 +10016,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA7",
@@ -10465,7 +10042,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA8",
@@ -10492,7 +10068,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xA9",
@@ -10519,7 +10094,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xAA",
@@ -10546,7 +10120,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xAB",
@@ -10573,7 +10146,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xAC",
@@ -10600,7 +10172,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xAD",
@@ -10627,7 +10198,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xAE",
@@ -10654,7 +10224,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xAF",
@@ -10681,7 +10250,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB0",
@@ -10708,7 +10276,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB1",
@@ -10735,7 +10302,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB2",
@@ -10762,7 +10328,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB3",
@@ -10789,7 +10354,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB4",
@@ -10816,7 +10380,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB5",
@@ -10843,7 +10406,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB6",
@@ -10870,7 +10432,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB7",
@@ -10897,7 +10458,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB8",
@@ -10924,7 +10484,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xB9",
@@ -10951,7 +10510,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xBA",
@@ -10978,7 +10536,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xBB",
@@ -11005,7 +10562,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xBC",
@@ -11032,7 +10588,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xBD",
@@ -11059,7 +10614,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xBE",
@@ -11086,7 +10640,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xBF",
@@ -11113,7 +10666,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC0",
@@ -11139,7 +10691,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC1",
@@ -11165,7 +10716,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC2",
@@ -11191,7 +10741,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC3",
@@ -11217,7 +10766,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC4",
@@ -11243,7 +10791,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC5",
@@ -11269,7 +10816,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC6",
@@ -11295,7 +10841,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC7",
@@ -11321,7 +10866,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC8",
@@ -11348,7 +10892,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xC9",
@@ -11375,7 +10918,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xCA",
@@ -11402,7 +10944,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xCB",
@@ -11429,7 +10970,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xCC",
@@ -11456,7 +10996,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xCD",
@@ -11483,7 +11022,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xCE",
@@ -11510,7 +11048,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xCF",
@@ -11537,7 +11074,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD0",
@@ -11564,7 +11100,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD1",
@@ -11591,7 +11126,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD2",
@@ -11618,7 +11152,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD3",
@@ -11645,7 +11178,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD4",
@@ -11672,7 +11204,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD5",
@@ -11699,7 +11230,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD6",
@@ -11726,7 +11256,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD7",
@@ -11753,7 +11282,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD8",
@@ -11780,7 +11308,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xD9",
@@ -11807,7 +11334,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xDA",
@@ -11834,7 +11360,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xDB",
@@ -11861,7 +11386,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xDC",
@@ -11888,7 +11412,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xDD",
@@ -11915,7 +11438,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xDE",
@@ -11942,7 +11464,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xDF",
@@ -11969,7 +11490,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE0",
@@ -11996,7 +11516,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE1",
@@ -12023,7 +11542,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE2",
@@ -12050,7 +11568,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE3",
@@ -12077,7 +11594,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE4",
@@ -12104,7 +11620,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE5",
@@ -12131,7 +11646,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE6",
@@ -12158,7 +11672,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE7",
@@ -12185,7 +11698,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE8",
@@ -12212,7 +11724,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xE9",
@@ -12239,7 +11750,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xEA",
@@ -12266,7 +11776,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xEB",
@@ -12293,7 +11802,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xEC",
@@ -12320,7 +11828,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xED",
@@ -12347,7 +11854,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xEE",
@@ -12374,7 +11880,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xEF",
@@ -12401,7 +11906,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF0",
@@ -12428,7 +11932,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF1",
@@ -12455,7 +11958,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF2",
@@ -12482,7 +11984,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF3",
@@ -12509,7 +12010,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF4",
@@ -12536,7 +12036,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF5",
@@ -12563,7 +12062,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF6",
@@ -12590,7 +12088,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF7",
@@ -12617,7 +12114,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF8",
@@ -12644,7 +12140,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xF9",
@@ -12671,7 +12166,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xFA",
@@ -12698,7 +12192,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xFB",
@@ -12725,7 +12218,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xFC",
@@ -12752,7 +12244,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xFD",
@@ -12779,7 +12270,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xFE",
@@ -12806,7 +12296,6 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 	{
 		Opcode:   "*0xFF",
@@ -12833,6 +12322,5 @@ var cbInstructions = []instruction{
 			H: "-",
 			C: "-",
 		},
-		Todo: "",
 	},
 }

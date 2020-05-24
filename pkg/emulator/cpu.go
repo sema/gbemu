@@ -100,11 +100,6 @@ func (c *cpu) execute(inst instruction) int {
 		c.instructionCallback(inst.Mnemonic, c.ProgramCounter)
 	}
 
-	// TODO remove when we support everything
-	if inst.Todo != "" {
-		notImplemented("Unsupported instruction [%s] %s called: %s", inst.Opcode, inst.Mnemonic, inst.Todo)
-	}
-
 	actionTaken := false
 
 	switch inst.Mnemonic {
