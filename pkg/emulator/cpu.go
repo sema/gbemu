@@ -274,6 +274,7 @@ func (c *cpu) execute(inst instruction) int {
 
 		v := c.read8(inst.Operands[0])
 		v, carry := bcdConversion(v, c.Registers.Read1(flagN), c.Registers.Read1(flagH), c.Registers.Read1(flagC))
+		c.write8(inst.Operands[0], v)
 
 		c.Registers.Write1(flagZ, v == 0)
 		c.Registers.Write1(flagH, false)

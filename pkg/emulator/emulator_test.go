@@ -14,10 +14,34 @@ func TestEmulatorBlarggSuite(t *testing.T) {
 		testROM string
 	}{
 		{
+			testROM: "01-special.gb",
+		},
+
+		// TODO: add 02 tests
+		{
 			testROM: "03-op sp,hl.gb",
 		},
 		{
+			testROM: "04-op r,imm.gb",
+		},
+		{
+			testROM: "05-op rp.gb",
+		},
+		{
+			testROM: "06-ld r,r.gb",
+		},
+		// TODO: add 07 tests
+		{
+			testROM: "08-misc instrs.gb",
+		},
+		{
 			testROM: "09-op r,r.gb",
+		},
+		{
+			testROM: "10-bit ops.gb",
+		},
+		{
+			testROM: "11-op a,(hl).gb",
 		},
 	}
 	for _, tt := range tests {
