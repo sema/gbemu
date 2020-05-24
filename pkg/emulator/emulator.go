@@ -108,7 +108,6 @@ func (e *Emulator) Run(ctx context.Context, path string, bootPath string) error 
 		e.Memory.LoadBootROM(bootPath)
 		e.CPU.ProgramCounter = 0 // execute the boot rom
 	} else {
-		// TODO set registers if we skip
 		e.CPU.ProgramCounter = 0x0100 // skip past boot rom and run ROM directly
 		e.CPU.Registers.Write16(registerAF, 0x01B0)
 		e.CPU.Registers.Write16(registerBC, 0x0013)

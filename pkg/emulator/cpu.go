@@ -529,7 +529,6 @@ func (c *cpu) execute(inst instruction) int {
 func (c *cpu) read16(op operand) uint16 {
 	switch op.Type {
 	case operandD16:
-		// TODO little endian conversion here may be wrong
 		return c.Memory.Read16(c.ProgramCounter - 2)
 	case operandA16:
 		return c.Memory.Read16(c.ProgramCounter - 2)

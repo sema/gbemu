@@ -41,8 +41,6 @@ type operandType int
 
 // Operands for instructions
 //
-// TODO complete docs as I gain insight into the types
-//
 // The FooPtr variants of the operands are similar to their Foo counterpart,
 // with the value of Foo interpreted as a pointer into the memory space. Any
 // reads/writes to this operand are done on the dereferenced pointer.
@@ -59,7 +57,8 @@ const (
 	// operandA8Ptr is the pointer variant of operandA8
 	operandA8Ptr
 
-	// operandA16 ??
+	// operandA16 is a 16bit value immediately following the opcode (i.e. PC+1 and
+	// PC+2) interpreted as a memory address
 	operandA16
 
 	// operandA16Ptr is the pointer variant of operandA16
