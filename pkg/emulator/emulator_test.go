@@ -13,43 +13,58 @@ func TestEmulatorBlarggSuite(t *testing.T) {
 	tests := []struct {
 		testROM string
 	}{
+		/*
+			TODO: The timing emulation is simplified, making all changes in a single
+			cycle and then waiting for the remainder of the cycles. In reality, the
+			read/write operation(s) should happen on the last cycle (if only one), or
+			last two cycles (if both).
+			{
+			  testROM: "mem_timing/individual/01-read_timing.gb",
+			},
+			{
+			  testROM: "mem_timing/individual/02-write_timing.gb",
+			},
+			{
+			  testROM: "mem_timing/individual/03-modify_timing.gb",
+			},
+		*/
 		{
-			testROM: "01-special.gb",
+			testROM: "cpu_instrs/individual/01-special.gb",
 		},
 		{
-			testROM: "02-interrupts.gb",
+			testROM: "cpu_instrs/individual/02-interrupts.gb",
 		},
 		{
-			testROM: "03-op sp,hl.gb",
+			testROM: "cpu_instrs/individual/03-op sp,hl.gb",
 		},
 		{
-			testROM: "04-op r,imm.gb",
+			testROM: "cpu_instrs/individual/04-op r,imm.gb",
 		},
 		{
-			testROM: "05-op rp.gb",
+			testROM: "cpu_instrs/individual/05-op rp.gb",
 		},
 		{
-			testROM: "06-ld r,r.gb",
+			testROM: "cpu_instrs/individual/06-ld r,r.gb",
 		},
 		{
-			testROM: "07-jr,jp,call,ret,rst.gb",
+			testROM: "cpu_instrs/individual/07-jr,jp,call,ret,rst.gb",
 		},
 		{
-			testROM: "08-misc instrs.gb",
+			testROM: "cpu_instrs/individual/08-misc instrs.gb",
 		},
 		{
-			testROM: "09-op r,r.gb",
+			testROM: "cpu_instrs/individual/09-op r,r.gb",
 		},
 		{
-			testROM: "10-bit ops.gb",
+			testROM: "cpu_instrs/individual/10-bit ops.gb",
 		},
 		{
-			testROM: "11-op a,(hl).gb",
+			testROM: "cpu_instrs/individual/11-op a,(hl).gb",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.testROM, func(t *testing.T) {
-			testPath := fmt.Sprintf("testdata/roms/blargg/cpu_instrs/individual/%s", tt.testROM)
+			testPath := fmt.Sprintf("testdata/roms/blargg/%s", tt.testROM)
 
 			output := strings.Builder{}
 			serialDataCallback := func(data uint8) {
