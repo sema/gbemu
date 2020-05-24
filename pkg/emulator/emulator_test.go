@@ -16,7 +16,9 @@ func TestEmulatorBlarggSuite(t *testing.T) {
 		{
 			testROM: "01-special.gb",
 		},
-		// TODO: add 02 tests
+		{
+			testROM: "02-interrupts.gb",
+		},
 		{
 			testROM: "03-op sp,hl.gb",
 		},

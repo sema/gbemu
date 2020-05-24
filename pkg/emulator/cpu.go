@@ -33,6 +33,7 @@ type cpu struct {
 	Registers      *registers
 	ProgramCounter uint16
 	PowerOn        bool
+	lowPowerMode   bool
 
 	Interrupts imeState
 
@@ -52,6 +53,14 @@ func newCPU(memory *memory, registers *registers, options options) *cpu {
 }
 
 func (c *cpu) Cycle() int {
+	if c.lowPowerMode {
+		if c.shouldWakeFromLowPowerMode() {
+			c.lowPowerMode = false
+		} else {
+			return 1 // wait until we can wake from low power mode
+		}
+	}
+
 	address, ok := c.readAndClearInterrupt()
 	if ok {
 		c.Interrupts = interruptsDisabled
@@ -490,6 +499,8 @@ func (c *cpu) execute(inst instruction) int {
 		c.Interrupts = interruptsDisabled
 	case "EI":
 		c.Interrupts = interruptsEnabledAfterNextCycle
+	case "HALT":
+		c.lowPowerMode = true
 	case "STOP":
 		// STOP; stop running
 		log.Println("POWER OFF")
@@ -663,6 +674,21 @@ func (c *cpu) reprOperandValue(op operand) (v string) {
 	}
 
 	return
+}
+
+// shouldWakeFromLowPowerMode returns true if an interrupt is pending,
+// regardless of interrupts being globally enabled or not
+//
+// TODO: According to [1] calling Halt with interrupts globally disabled AND
+// interrupts already pending causes a hardware bug where the next instruction
+// is run twice. We do not currently emulate this bug.
+//
+// [1] https://rednex.github.io/rgbds/gbz80.7.html#HALT
+func (c *cpu) shouldWakeFromLowPowerMode() bool {
+	interruptEnabled := c.Memory.Read8(0xFFFF)
+	interruptPending := c.Memory.Read8(0xFF0F)
+
+	return (interruptEnabled & interruptPending) > 0
 }
 
 func (c *cpu) readAndClearInterrupt() (address uint16, ok bool) {
