@@ -146,11 +146,10 @@ func newFFPage(video *videoController, timer *timerController, interrupt *interr
 		End        uint8
 	}{
 		{End: 0x00, Controller: joypad},
-		{End: 0x01, Controller: nil},
 		{End: 0x02, Controller: serial},
-		{End: 0x03, Controller: nil},
+		{End: 0x03, Controller: nil}, // UNUSED
 		{End: 0x07, Controller: timer},
-		{End: 0x0E, Controller: nil},
+		{End: 0x0E, Controller: nil}, // UNUSED
 		{End: 0x0F, Controller: interrupt},
 		{End: 0x3F, Controller: sound},
 		{End: 0x4B, Controller: video},

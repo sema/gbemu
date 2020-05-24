@@ -69,7 +69,7 @@ func (j *joypadController) Write8(address uint16, v byte) {
 	case 0xFF00:
 		j.register = v & 0xF0 // lower 4 bits are readonly
 	default:
-		notImplemented("write of unimplemented TIMER register at %#4x", address)
+		notImplemented("write of unimplemented JOYPAD register at %#4x", address)
 	}
 }
 
