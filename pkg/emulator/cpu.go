@@ -329,6 +329,13 @@ func (c *cpu) execute(inst instruction) int {
 			c.stackPush(c.ProgramCounter)
 			c.ProgramCounter = c.read16(inst.Operands[0])
 		}
+	case "RST":
+		// RST $TARGET; PC=$TARGET. Old PC is added to stack.
+		assertOperandType(inst.Operands[0], operandConst8)
+
+		address := uint16(inst.Operands[0].RefConst8)
+		c.stackPush(c.ProgramCounter)
+		c.ProgramCounter = address
 	case "PUSH":
 		// PUSH RR; SP=SP-2, register RR pushed to stack
 		assertOperandType(inst.Operands[0], operandReg16)
@@ -351,6 +358,14 @@ func (c *cpu) execute(inst instruction) int {
 			actionTaken = true
 			c.ProgramCounter = c.stackPop()
 		}
+	case "RETI":
+		// RET; restore PC and enable interrupts
+		c.ProgramCounter = c.stackPop()
+
+		// RETI is equivalent to calling EI + RET, so interrupts are enabled on next
+		// intruction rather than the one after as would usually happen when calling
+		// EI.
+		c.Interrupts = interruptsEnabledAfterCycle
 	case "XOR":
 		// XOR $A $X; $A=$A^$X
 		assertOperandType(inst.Operands[0], operandReg8)
@@ -480,7 +495,7 @@ func (c *cpu) execute(inst instruction) int {
 		log.Println("POWER OFF")
 		c.PowerOn = false
 	default:
-		notImplemented("instruction not implemented yet")
+		notImplemented(fmt.Sprintf("instruction [%s] %s not implemented yet", inst.Opcode, inst.Mnemonic))
 	}
 
 	// Some instructions automatically increment/decrement values after they complete

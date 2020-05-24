@@ -16,7 +16,6 @@ func TestEmulatorBlarggSuite(t *testing.T) {
 		{
 			testROM: "01-special.gb",
 		},
-
 		// TODO: add 02 tests
 		{
 			testROM: "03-op sp,hl.gb",
@@ -30,7 +29,9 @@ func TestEmulatorBlarggSuite(t *testing.T) {
 		{
 			testROM: "06-ld r,r.gb",
 		},
-		// TODO: add 07 tests
+		{
+			testROM: "07-jr,jp,call,ret,rst.gb",
+		},
 		{
 			testROM: "08-misc instrs.gb",
 		},
