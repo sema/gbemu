@@ -137,7 +137,7 @@ type ffPage struct {
 	timer *timerController
 }
 
-func newFFPage(video *videoController, timer *timerController, interrupt *interruptController, serial *serialController) *ffPage {
+func newFFPage(video *videoController, timer *timerController, interrupt *interruptController, serial *serialController, joypad *joypadController) *ffPage {
 	hram := newRAM("HRAM", 0xFE-0x7F, 0xFF80)
 	sound := newSoundController()
 
@@ -145,7 +145,8 @@ func newFFPage(video *videoController, timer *timerController, interrupt *interr
 		Controller memoryPage
 		End        uint8
 	}{
-		{End: 0x00, Controller: nil},
+		{End: 0x00, Controller: joypad},
+		{End: 0x01, Controller: nil},
 		{End: 0x02, Controller: serial},
 		{End: 0x03, Controller: nil},
 		{End: 0x07, Controller: timer},
@@ -224,10 +225,10 @@ type memory struct {
 	IsBootROMLoaded bool
 }
 
-func newMemory(video *videoController, timer *timerController, interrupt *interruptController, serial *serialController) *memory {
+func newMemory(video *videoController, timer *timerController, interrupt *interruptController, serial *serialController, joypad *joypadController) *memory {
 	rom := newROM()
 	bootROM := newBootROM()
-	ffPage := newFFPage(video, timer, interrupt, serial)
+	ffPage := newFFPage(video, timer, interrupt, serial, joypad)
 	externalRAM := newRAM("EXTERNAL RAM", 0xC000-0xA000, 0xA000)
 	wRAM0 := newRAM("WRAM[0]", 0xD000-0xC000, 0xC000)
 	wRAM1 := newRAM("WRAM[1]", 0xE000-0xD000, 0xD000)

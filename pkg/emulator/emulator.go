@@ -67,7 +67,8 @@ func New(opts ...optionFunc) *Emulator {
 	video := newVideoController()
 	interrupt := newInterruptController()
 	serial := newSerialController()
-	memory := newMemory(video, timer, interrupt, serial)
+	joypad := newJoypadController()
+	memory := newMemory(video, timer, interrupt, serial, joypad)
 	registers := newRegisters()
 	cpu := newCPU(memory, registers, options)
 
@@ -75,7 +76,7 @@ func New(opts ...optionFunc) *Emulator {
 	interrupt.registerSource(1, nil) // LCD stat
 	interrupt.registerSource(2, timer.Interrupt)
 	interrupt.registerSource(3, serial.Interrupt)
-	interrupt.registerSource(4, nil) // Joypad
+	interrupt.registerSource(4, joypad.Interrupt)
 
 	e := &Emulator{
 		CPU:       cpu,

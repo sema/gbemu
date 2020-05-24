@@ -13,6 +13,11 @@ func TestEmulatorBlarggSuite(t *testing.T) {
 	tests := []struct {
 		testROM string
 	}{
+		{
+			testROM: "instr_timing/instr_timing.gb",
+		},
+		// TODO: sound tests
+		// TODO: interrupt timing tests
 		/*
 			TODO: The timing emulation is simplified, making all changes in a single
 			cycle and then waiting for the remainder of the cycles. In reality, the

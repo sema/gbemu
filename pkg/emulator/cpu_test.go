@@ -155,8 +155,9 @@ func testCPU() *cpu {
 	video := newVideoController()
 	timer := newTimerController()
 	serial := newSerialController()
+	joypad := newJoypadController()
 	interrupt := newInterruptController()
 	registers := newRegisters()
-	memory := newMemory(video, timer, interrupt, serial)
+	memory := newMemory(video, timer, interrupt, serial, joypad)
 	return newCPU(memory, registers, options{})
 }
