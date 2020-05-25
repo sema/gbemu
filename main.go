@@ -16,11 +16,11 @@ import (
 	_ "github.com/skelterjohn/go.wde/cocoa"
 )
 
-var shadeToColor = []color.Gray16{
-	color.White,
-	color.Gray16{0x2700},
-	color.Gray16{0x4E00},
-	color.Black,
+var shadeToColor = []color.RGBA{
+	color.RGBA{R: 155, G: 188, B: 15, A: 255}, // "white"
+	color.RGBA{R: 139, G: 172, B: 15, A: 255},
+	color.RGBA{R: 48, G: 98, B: 48, A: 255},
+	color.RGBA{R: 15, G: 56, B: 15, A: 255}, // "black"
 }
 
 type runCmd struct {
