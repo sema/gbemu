@@ -49,6 +49,10 @@ const (
 	// LY - LCDC Y-Coordinate (Read)
 	registerFF44 = 0xFF44
 
+	// Line compare - change status field and trigger interrupt if line is equal
+	// to the value of this register
+	registerFF45 = 0xFF45
+
 	// Maps BG/Window color # -> shade (see shade type) (Read/Write)
 	// Bit 7-6 - Shade for Color Number 3
 	// Bit 5-4 - Shade for Color Number 2
@@ -143,13 +147,22 @@ type videoController struct {
 	// True once every frame has been calculated, such that it can be flushed
 	// to screen.
 	FrameReady bool
+
+	// lastLineCompare stores the previous cycles result for line comparison, such
+	// that we can trigger interrupts only on changes to this value
+	lastLineCompare bool
+
+	InterruptVBlank     *interruptSource // INT 40
+	InterruptLCDCStatus *interruptSource // INT 48
 }
 
 func newVideoController() *videoController {
 	v := &videoController{
-		registers:      make([]byte, 0xFF4B-0xFF40+1),
-		vram:           make([]byte, 0x9FFF-0x8000+1),
-		vramAccessible: true,
+		registers:           make([]byte, 0xFF4B-0xFF40+1),
+		vram:                make([]byte, 0x9FFF-0x8000+1),
+		vramAccessible:      true,
+		InterruptLCDCStatus: newInterruptSource(),
+		InterruptVBlank:     newInterruptSource(),
 	}
 	v.clearFrame()
 
@@ -223,6 +236,21 @@ func (s *videoController) Cycle() {
 	dot := s.nextCycle % 456
 	s.nextCycle = (s.nextCycle + 1) % (456 * 154)
 
+	status := s.readRegister(registerFF41)
+
+	interruptLineCompareEnabled := readBitN(status, 6)
+	interruptMode2Enabled := readBitN(status, 5)
+	interruptMode1Enabled := readBitN(status, 4)
+	interruptMode0Enabled := readBitN(status, 3)
+
+	lineCompare := s.readRegister(registerFF45)
+	lineCompareEqual := uint(lineCompare) == line
+	lineCompareChanged := lineCompareEqual != s.lastLineCompare
+
+	if interruptLineCompareEnabled && lineCompareEqual && lineCompareChanged {
+		s.InterruptLCDCStatus.Set()
+	}
+
 	s.FrameReady = false
 
 	var mode uint8
@@ -232,6 +260,10 @@ func (s *videoController) Cycle() {
 		if line == 144 && dot == 0 {
 			// Entered VBLANK, signal that we have a complete frame ready
 			s.FrameReady = true
+			s.InterruptVBlank.Set()
+			if interruptMode1Enabled {
+				s.InterruptLCDCStatus.Set()
+			}
 		}
 		mode = 1
 		s.vramAccessible = true
@@ -242,7 +274,9 @@ func (s *videoController) Cycle() {
 			s.screenX = s.readRegister(registerFF43)
 			s.windowY = s.readRegister(registerFF4A)
 			s.windowX = s.readRegister(registerFF4B)
-
+			if interruptMode2Enabled {
+				s.InterruptLCDCStatus.Set()
+			}
 		}
 		mode = 2
 		s.vramAccessible = true
@@ -256,6 +290,12 @@ func (s *videoController) Cycle() {
 		mode = 3
 		s.vramAccessible = false
 	default: // HBLANK
+		if dot == 80+168 {
+			// Start of HBLANK
+			if interruptMode0Enabled {
+				s.InterruptLCDCStatus.Set()
+			}
+		}
 		mode = 0
 		s.vramAccessible = true
 	}
@@ -263,12 +303,12 @@ func (s *videoController) Cycle() {
 	s.writeRegister(registerFF44, uint8(line))
 
 	// Set mode in 0xFF41 (lower two bits)
-	s.writeRegister(registerFF41, copyBits(s.readRegister(registerFF41), mode, 0, 1))
+	status = copyBits(status, mode, 0, 1)
+	status = writeBitN(status, 2, lineCompareEqual)
+	s.writeRegister(registerFF41, status)
 
-	// TODO support interrupts
 	// TODO support OAM
 	// TODO support window
-	// TODO support 0xFF45 - LY COMPARE
 }
 
 func (s *videoController) calculateShade(y uint8, x uint8) Shade {

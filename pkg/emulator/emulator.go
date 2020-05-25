@@ -72,8 +72,8 @@ func New(opts ...optionFunc) *Emulator {
 	registers := newRegisters()
 	cpu := newCPU(memory, registers, options)
 
-	interrupt.registerSource(0, nil) // VBLANK
-	interrupt.registerSource(1, nil) // LCD stat
+	interrupt.registerSource(0, video.InterruptVBlank)
+	interrupt.registerSource(1, video.InterruptLCDCStatus)
 	interrupt.registerSource(2, timer.Interrupt)
 	interrupt.registerSource(3, serial.Interrupt)
 	interrupt.registerSource(4, joypad.Interrupt)

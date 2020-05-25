@@ -14,7 +14,6 @@ Built from scratch using only the following resources:
 
 ## TODO
 - Video
-  - Interrupts
   - Sprite
   - Window
 - Sound
