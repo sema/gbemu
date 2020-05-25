@@ -96,6 +96,7 @@ const (
 var (
 	flagVideoEnabled           = videoFlag{register: 0xFF40, bitOffset: 7}
 	flagBGWindowTileDataSelect = videoFlag{register: 0xFF40, bitOffset: 4}
+	flagBGTileMapSelect        = videoFlag{register: 0xFF40, bitOffset: 3}
 )
 
 // videoController handles everything video/graphics/PPU related
@@ -365,8 +366,11 @@ func (s *videoController) calculateShade(y uint8, x uint8) Shade {
 	adjustedY := (uint16(s.screenY) + uint16(y)) % 255
 
 	tileOffset := adjustedY/8*32 + adjustedX/8
-	tileNumber := s.readVRAM(0x9800 + tileOffset)
-	// TODO ^ 0xx9800 is configurable in 0xFF40
+	tileMapAddress := uint16(0x9800)
+	if s.readFlag(flagBGTileMapSelect) {
+		tileMapAddress = 0x9C00
+	}
+	tileNumber := s.readVRAM(tileMapAddress + tileOffset)
 
 	var tileAddress uint16
 	if s.readFlag(flagBGWindowTileDataSelect) {
@@ -374,7 +378,7 @@ func (s *videoController) calculateShade(y uint8, x uint8) Shade {
 		tileAddress = 0x8000 + 16*uint16(tileNumber)
 	} else {
 		// 8800 addressing mode
-		tileAddress = offsetAddress(0x9000, int16(16*int8(tileNumber)))
+		tileAddress = offsetAddress(0x9000, 16*int16(int8(tileNumber)))
 	}
 
 	tileY := uint8((uint16(s.screenY) + uint16(y)) % 8)
