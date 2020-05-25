@@ -360,36 +360,85 @@ func (s *videoController) Cycle() {
 	// TODO support window
 }
 
-func (s *videoController) calculateShade(y uint8, x uint8) Shade {
+func (s *videoController) calculateShade(line uint8, dot uint8) Shade {
+	return s.calculateBackgroundShade(line, dot)
+}
+
+// calculateBackgroundShade determines the background by doing the following calculations
+//
+// The GB display shows the contents of the screen (inner area shown below using "-").
+// The screen shows a subset of a larger background. If the screen crosses the rightmost or
+// lower boundary of the background then it wraps back around.
+//
+// The 0, 0 coordinate is in the upper left corner.
+// ________
+// |  --  |
+// |  --  |
+//  _______
+//
+// - line, dot (coordinates in the display/screen) ->
+// - absolute y, x background coordinate ->
+// - background tile # + tile y, x coordinate (within tile) ->
+// - shade
+
+func (s *videoController) calculateBackgroundShade(line uint8, dot uint8) Shade {
 	if !s.readFlag(flagBGWindowDisplay) {
+		// If BG rendering is disable, then return a white background
 		return white
 	}
 
+	// Find absolute x, y coordinates in background for input dot, line,
+	// affected by current position of the screen (view into background)
+	backgroundX := (uint16(s.screenX) + uint16(dot)) % 256
+	backgroundY := (uint16(s.screenY) + uint16(line)) % 256
+
 	// Find tile # in Background Tile Map. Every tile in the background tile map
 	// represent a 8x8 pixel area.
-	adjustedX := (uint16(s.screenX) + uint16(x)) % 255
-	adjustedY := (uint16(s.screenY) + uint16(y)) % 255
+	tileNumber := s.lookupTileNumber(backgroundY, backgroundX, s.readFlag(flagBGTileMapSelect))
+	tileY := uint8(backgroundY % 8)
+	tileX := uint8(backgroundX % 8)
 
-	tileOffset := adjustedY/8*32 + adjustedX/8
+	// lookup color number for x,y coordinate within tile (referenced by tile number)
+	colorNum := s.lookupTile(tileY, tileX, tileNumber, s.readFlag(flagBGWindowTileDataSelect))
+
+	// Shift 0xFF47 to get the shade for the color # to be in the
+	// lower two bits, and use a bitmask (0x03 = b00000011) to
+	// ignore all other bits.
+	colorToShade := s.readRegister(registerFF47)
+	return Shade((colorToShade >> 2 * colorNum) & 0x03)
+}
+
+// lookupTileNumber returns the tile # for a given absolute x, y
+// background/window coordinate
+//
+// tileMapSelect determines the memory address for the tilemap to be used
+// (0x9800 if false, 0x9C00 if true). Use the tilemap selection value in the
+// 0xFF40 register associated with the background or window when used.
+func (s *videoController) lookupTileNumber(y, x uint16, tileMapSelect bool) byte {
 	tileMapAddress := uint16(0x9800)
-	if s.readFlag(flagBGTileMapSelect) {
+	if tileMapSelect {
 		tileMapAddress = 0x9C00
 	}
-	tileNumber := s.readVRAM(tileMapAddress + tileOffset)
 
-	var tileAddress uint16
-	if s.readFlag(flagBGWindowTileDataSelect) {
+	// each tile represent a 8x8 area, and there are 32 tiles in every line.
+	offset := y/8*32 + x/8
+
+	return s.readVRAM(tileMapAddress + offset)
+}
+
+// lookupTile returns the color number for an y, x coordinate within a tile
+//
+// tileDataSelect determines the tile data to use: 8800 addressing mode if false
+// or 8000 addressing mode if true.
+func (s *videoController) lookupTile(tileY, tileX uint8, tileNumber byte, tileDataSelect bool) uint8 {
+	// 8800 addressing mode - tileNumber is signed
+	tileAddress := offsetAddress(0x9000, 16*int16(int8(tileNumber)))
+	if tileDataSelect {
 		// 8000 addressing mode
 		tileAddress = 0x8000 + 16*uint16(tileNumber)
-	} else {
-		// 8800 addressing mode
-		tileAddress = offsetAddress(0x9000, 16*int16(int8(tileNumber)))
 	}
 
-	tileY := uint8((uint16(s.screenY) + uint16(y)) % 8)
-	tileX := uint8((uint16(s.screenX) + uint16(x)) % 8)
-
-	rowAddress := offsetAddress(tileAddress, 2*int16(tileY))
+	rowAddress := offsetAddress(tileAddress, 2*int16(tileY)) // 2 bytes for every row
 	lowerByte := s.readVRAM(rowAddress)
 	higherByte := s.readVRAM(rowAddress + 1)
 
@@ -401,11 +450,7 @@ func (s *videoController) calculateShade(y uint8, x uint8) Shade {
 	colorNum = writeBitN(colorNum, 0, lowerBit)
 	colorNum = writeBitN(colorNum, 1, higherBit)
 
-	// Shift 0xFF47 to get the shade for the color # to be in the
-	// lower two bits, and use a bitmask (0x03 = b00000011) to
-	// ignore all other bits.
-	colorToShade := s.readRegister(registerFF47)
-	return Shade((colorToShade >> 2 * colorNum) & 0x03)
+	return colorNum
 }
 
 func (s *videoController) readVRAM(address uint16) byte {
