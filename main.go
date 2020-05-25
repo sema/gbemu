@@ -16,6 +16,13 @@ import (
 	_ "github.com/skelterjohn/go.wde/cocoa"
 )
 
+var shadeToColor = []color.Gray16{
+	color.White,
+	color.Gray16{0x2700},
+	color.Gray16{0x4E00},
+	color.Black,
+}
+
 type runCmd struct {
 	BootROM string `help:"Use boot ROM" type:"path"`
 
@@ -112,11 +119,7 @@ func (r *runCmd) Run() error {
 					for x, shade := range row {
 						for ys := minY + y*scale; ys < minY+y*scale+scale; ys++ {
 							for xs := minX + x*scale; xs < minX+x*scale+scale; xs++ {
-								if shade == 0 {
-									buffer.Set(xs, ys, color.White)
-								} else {
-									buffer.Set(xs, ys, color.Black)
-								}
+								buffer.Set(xs, ys, shadeToColor[shade])
 							}
 						}
 					}
