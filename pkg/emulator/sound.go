@@ -27,7 +27,7 @@ func (s *soundController) Read8(address uint16) byte {
 		return writeBitN(byte(0), 7, s.powerOn)
 	}
 
-	notImplemented("read of unimplemented SOUND register at %#4x", address)
+	// ignore all reads
 	return byte(0)
 }
 
