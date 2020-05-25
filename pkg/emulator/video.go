@@ -97,6 +97,7 @@ var (
 	flagVideoEnabled           = videoFlag{register: 0xFF40, bitOffset: 7}
 	flagBGWindowTileDataSelect = videoFlag{register: 0xFF40, bitOffset: 4}
 	flagBGTileMapSelect        = videoFlag{register: 0xFF40, bitOffset: 3}
+	flagBGWindowDisplay        = videoFlag{register: 0xFF40, bitOffset: 0}
 )
 
 // videoController handles everything video/graphics/PPU related
@@ -360,6 +361,10 @@ func (s *videoController) Cycle() {
 }
 
 func (s *videoController) calculateShade(y uint8, x uint8) Shade {
+	if !s.readFlag(flagBGWindowDisplay) {
+		return white
+	}
+
 	// Find tile # in Background Tile Map. Every tile in the background tile map
 	// represent a 8x8 pixel area.
 	adjustedX := (uint16(s.screenX) + uint16(x)) % 255
