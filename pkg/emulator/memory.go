@@ -201,8 +201,8 @@ func newMemory(video *videoController, timer *timerController, interrupt *interr
 		{End: 0xBF, Controller: externalRAM},
 		{End: 0xCF, Controller: wRAM0},
 		{End: 0xDF, Controller: wRAM1},
-		{End: 0xFD, Controller: nil}, // ECHO RAM
-		{End: 0xFE, Controller: nil}, // OAM
+		{End: 0xFD, Controller: nil},   // ECHO RAM
+		{End: 0xFE, Controller: video}, // OAM
 		{End: 0xFF, Controller: ffPage},
 	}
 

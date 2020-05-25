@@ -15,6 +15,7 @@ type videoRegister uint16
 const (
 	offsetRegisters uint16 = 0xFF40
 	offsetVRAM             = 0x8000
+	offsetOAM              = 0xFE00
 )
 
 const (
@@ -59,7 +60,16 @@ const (
 	// Bit 3-2 - Shade for Color Number 1
 	// Bit 1-0 - Shade for Color Number 0
 	registerFF47 = 0xFF47
-	// TODO +48,49
+
+	// Maps Sprite color # -> shade (see shade type) (Platte 0) (Read/Write)
+	// Bit 7-6 - Shade for Color Number 3
+	// Bit 5-4 - Shade for Color Number 2
+	// Bit 3-2 - Shade for Color Number 1
+	// Bit 1-0 - Unused as Color Number 0 is interpreted as transparrent
+	registerFF48 = 0xFF48
+
+	// Same as registerFF48, but for Platte 1
+	registerFF49 = 0xFF49
 
 	// Window Y position (Read/Write)
 	registerFF4A = 0xFF4A
@@ -134,6 +144,23 @@ type videoController struct {
 	vram           []byte
 	vramAccessible bool
 
+	// oam contains the Sprite attribute table at 0xFE00 - 0xFE9F
+	//
+	// The Sprite attribute table contains up to 40 entries of 4 bytes
+	//
+	// Byte 0 - Y position (minus 16, 0 = hidden)
+	// Byte 1 - X position (minus 8, 0 = hidden)
+	// Byte 2 - Tile/pattern number (references the tile data table in VRAM)
+	// Byte 3 - Attributes/flags
+	//
+	// Flags:
+	// Bit7   OBJ-to-BG Priority (0=OBJ Above BG, 1=OBJ Behind BG color 1-3) (Used for both BG and Window. BG color 0 is always behind OBJ)
+	// Bit6   Y flip          (0=Normal, 1=Vertically mirrored)
+	// Bit5   X flip          (0=Normal, 1=Horizontally mirrored)
+	// Bit4   Palette number  (0=OBP0, 1=OBP1)
+	oam           []byte
+	oamAccessible bool
+
 	nextCycle uint
 
 	// scanline data (snapshot at the start of a line)
@@ -160,7 +187,9 @@ func newVideoController() *videoController {
 	v := &videoController{
 		registers:           make([]byte, 0xFF4B-0xFF40+1),
 		vram:                make([]byte, 0x9FFF-0x8000+1),
+		oam:                 make([]byte, 0xFE9F-0xFE00+1),
 		vramAccessible:      true,
+		oamAccessible:       true,
 		InterruptLCDCStatus: newInterruptSource(),
 		InterruptVBlank:     newInterruptSource(),
 	}
@@ -184,6 +213,10 @@ func (s *videoController) Read8(address uint16) byte {
 		return s.registers[address-offsetRegisters]
 	}
 
+	if s.isOAMAddress(address) {
+		return s.oam[address-offsetOAM]
+	}
+
 	return s.vram[address-offsetVRAM]
 }
 
@@ -197,14 +230,24 @@ func (s *videoController) Write8(address uint16, v byte) {
 			s.registers[address-offsetRegisters] = copyBits(v, current, 0, 1, 2)
 		case registerFF44:
 			// do nothing - address is read-only
+		case 0xFF46:
+			notImplemented("OAM DMA transfers not implemented")
 		default:
 			s.registers[address-offsetRegisters] = v
 		}
 		return
 	}
 
-	// TODO block writes in specific modes
-	s.vram[address-offsetVRAM] = v
+	if s.isOAMAddress(address) {
+		if s.oamAccessible {
+			s.oam[address-offsetOAM] = v
+		}
+		return
+	}
+
+	if s.vramAccessible {
+		s.vram[address-offsetVRAM] = v
+	}
 }
 
 // Cycle progresses the video rendering (i.e. PPU)
@@ -267,6 +310,7 @@ func (s *videoController) Cycle() {
 		}
 		mode = 1
 		s.vramAccessible = true
+		s.oamAccessible = true
 	case dot < 80: // Scanning OAM
 		if dot == 0 {
 			// Start of scanline
@@ -280,6 +324,7 @@ func (s *videoController) Cycle() {
 		}
 		mode = 2
 		s.vramAccessible = true
+		s.oamAccessible = false
 	case dot < 80+168: // Write pixels
 		y := uint8(line)
 		x := uint8(dot - 80)
@@ -289,6 +334,7 @@ func (s *videoController) Cycle() {
 
 		mode = 3
 		s.vramAccessible = false
+		s.oamAccessible = false
 	default: // HBLANK
 		if dot == 80+168 {
 			// Start of HBLANK
@@ -298,6 +344,7 @@ func (s *videoController) Cycle() {
 		}
 		mode = 0
 		s.vramAccessible = true
+		s.oamAccessible = true
 	}
 
 	s.writeRegister(registerFF44, uint8(line))
@@ -307,7 +354,7 @@ func (s *videoController) Cycle() {
 	status = writeBitN(status, 2, lineCompareEqual)
 	s.writeRegister(registerFF41, status)
 
-	// TODO support OAM
+	// TODO support OAM (rendering)
 	// TODO support window
 }
 
@@ -370,6 +417,10 @@ func (s *videoController) writeRegister(r videoRegister, v byte) {
 
 func (s *videoController) isRegisterAddress(address uint16) bool {
 	return address >= offsetRegisters
+}
+
+func (s *videoController) isOAMAddress(address uint16) bool {
+	return 0xFE00 <= address && address <= 0xFE9F
 }
 
 func (s *videoController) String() string {
