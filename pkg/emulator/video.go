@@ -449,7 +449,7 @@ func (s *videoController) calculateBackgroundShade(line uint8, dot uint8) (Shade
 
 	// Find absolute x, y coordinates in background for input dot, line,
 	// affected by current position of the screen (view into background)
-	backgroundX := (uint16(s.screenX) + uint16(dot)) % 256 // TODO this is wrong
+	backgroundX := (uint16(s.screenX) + uint16(dot)) % 256
 	backgroundY := (uint16(s.screenY) + uint16(line)) % 256
 
 	// Find tile # in Background Tile Map. Every tile in the background tile map
@@ -570,9 +570,9 @@ func (s *videoController) calculateSpriteShade(line uint16, dot uint16) (Shade, 
 		tileNumber := s.oam[offset+2]
 		attributes := s.oam[offset+3]
 
-		if y <= int(line) && int(line) <= y+spriteHeight {
+		if y <= int(line) && int(line) < y+spriteHeight {
 			spritesFoundOnLine++
-			if x <= int(dot) && int(dot) <= x+spriteWidth {
+			if x <= int(dot) && int(dot) < x+spriteWidth {
 				if match && matchX < x {
 					continue // existing sprite has higher priority
 				}
@@ -594,10 +594,10 @@ func (s *videoController) calculateSpriteShade(line uint16, dot uint16) (Shade, 
 	tileX := uint8(int(dot) - matchX)
 
 	if readBitN(matchAttributes, 6) { // y-flip
-		tileY = uint8(spriteHeight) - tileY
+		tileY = uint8(spriteHeight) - 1 - tileY
 	}
 	if readBitN(matchAttributes, 5) { // x-flip
-		tileX = uint8(spriteWidth) - tileX
+		tileX = uint8(spriteWidth) - 1 - tileX
 	}
 
 	if spriteHeight == 16 {
