@@ -11,7 +11,6 @@ const (
 const (
 	// Divider register (read/write)
 	//
-	// Increments by 4 every cycle.  // TODO wrong
 	// Writing any value to the register resets it to zero.
 	registerFF04 timerRegister = 0xFF04
 
@@ -98,7 +97,7 @@ func (t *timerController) Write8(address uint16, v byte) {
 
 // Cycle progresses internal counters, and may trigger interrupts
 //
-// TODO timer emulation is not exact, as there are a number of complex
+// TODO: timer emulation is not exact, as there are a number of complex
 // edge cases not currently handled.
 // See https://gbdev.io/pandocs/Timer_Obscure_Behaviour.html
 func (t *timerController) Cycle() {

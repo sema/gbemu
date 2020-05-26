@@ -2,7 +2,7 @@ package emulator
 
 // soundController handles everything sound related
 //
-// TODO For now, only support on/off of sound - all other sound is disabled
+// TODO: For now, only support on/off of sound - all other sound is disabled
 // Registers, see https://gbdev.io/pandocs/#sound-controller
 // FF10 - FF1E
 // FF20 - FF26

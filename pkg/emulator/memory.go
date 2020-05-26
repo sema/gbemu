@@ -36,7 +36,7 @@ func (b *bootROM) Read8(address uint16) byte {
 
 func (b *bootROM) Write8(address uint16, v byte) {
 	// BootROM is read-only
-	// TODO decide proper semantics when/if writes like these occur
+	// TODO: decide proper semantics when/if writes like these occur
 	notImplemented("writes to MBC not implemented")
 }
 
@@ -250,8 +250,8 @@ func (m *memory) UnloadBootROM() {
 
 func (m *memory) Read8(address uint16) byte {
 	if address == 0xFF50 { // Boot ROM loaded register
-		// TODO the current design makes it difficult to catch this signal in a page
-		// controller assigned to this exact address. Should be improved.
+		// TODO: the current design makes it difficult to catch this signal in a
+		// page controller assigned to this exact address. Should be improved.
 		return 0
 	}
 
@@ -266,8 +266,8 @@ func (m *memory) Read8(address uint16) byte {
 
 func (m *memory) Write8(address uint16, v byte) {
 	if address == 0xFF50 && v == 0x01 {
-		// TODO the current design makes it difficult to catch this signal in a page
-		// controller assigned to this exact address. Should be improved.
+		// TODO: the current design makes it difficult to catch this signal in a
+		// page controller assigned to this exact address. Should be improved.
 		m.UnloadBootROM()
 		return
 	}
