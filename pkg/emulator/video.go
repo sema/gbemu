@@ -88,11 +88,9 @@ type shadePriority uint8
 
 const (
 	shadePriorityHidden shadePriority = iota
-	shadePriorityBackgroundZero
-	shadePriorityWindowZero
+	shadePriorityBackgroundWindowZero
 	shadePrioritySpriteLow
-	shadePriorityBackgroundOther
-	shadePriorityWindowOther
+	shadePriorityBackgroundWindowOther
 	shadePrioritySpriteHigh
 )
 
@@ -383,8 +381,6 @@ func (s *videoController) Cycle() {
 	status = copyBits(status, mode, 0, 1)
 	status = writeBitN(status, 2, lineCompareEqual)
 	s.writeRegister(registerFF41, status)
-
-	// TODO support window
 }
 
 // calculateShade determines the shade of color for given line, dot coordinate
@@ -405,22 +401,25 @@ func (s *videoController) calculateShade(line uint8, dot uint8) Shade {
 	matchShade := white // fallback color if no other layers apply
 	matchPriority := shadePriorityHidden
 
-	spriteShade, spritePriority := s.calculateSpriteShade(uint16(line), uint16(dot))
-	if spritePriority > matchPriority {
-		matchShade = spriteShade
-		matchPriority = spritePriority
-	}
-
-	bgShade, bgPriority := s.calculateBackgroundShade(line, dot)
-	if bgPriority > matchPriority {
-		matchShade = bgShade
-		matchPriority = bgPriority
-	}
-
 	windowShade, windowPriority := s.calculateWindowShade(line, dot)
 	if windowPriority > matchPriority {
 		matchShade = windowShade
 		matchPriority = windowPriority
+	}
+
+	if windowShade == transparrent {
+		// only draw background if the window was not drawn
+		bgShade, bgPriority := s.calculateBackgroundShade(line, dot)
+		if bgPriority > matchPriority {
+			matchShade = bgShade
+			matchPriority = bgPriority
+		}
+	}
+
+	spriteShade, spritePriority := s.calculateSpriteShade(uint16(line), uint16(dot))
+	if spritePriority > matchPriority {
+		matchShade = spriteShade
+		matchPriority = spritePriority
 	}
 
 	return matchShade
@@ -461,9 +460,9 @@ func (s *videoController) calculateBackgroundShade(line uint8, dot uint8) (Shade
 	// lookup color number for x,y coordinate within tile (referenced by tile number)
 	colorNum := s.lookupTile(tileY, tileX, tileNumber, s.readFlag(flagBGWindowTileDataSelect))
 
-	shadePriority := shadePriorityBackgroundOther
+	shadePriority := shadePriorityBackgroundWindowOther
 	if colorNum == 0 {
-		shadePriority = shadePriorityBackgroundZero
+		shadePriority = shadePriorityBackgroundWindowZero
 	}
 
 	shadePlatter := s.readRegister(registerFF47)
@@ -513,9 +512,9 @@ func (s *videoController) calculateWindowShade(line uint8, dot uint8) (Shade, sh
 	// lookup color number for x,y coordinate within tile (referenced by tile number)
 	colorNum := s.lookupTile(tileY, tileX, tileNumber, s.readFlag(flagBGWindowTileDataSelect))
 
-	shadePriority := shadePriorityWindowOther
+	shadePriority := shadePriorityBackgroundWindowOther
 	if colorNum == 0 {
-		shadePriority = shadePriorityWindowZero
+		shadePriority = shadePriorityBackgroundWindowZero
 	}
 
 	shadePlatter := s.readRegister(registerFF47)
