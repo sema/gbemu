@@ -113,7 +113,7 @@ func newFFPage(video *videoController, timer *timerController, interrupt *interr
 		{End: 0x0F, Controller: interrupt},
 		{End: 0x3F, Controller: sound},
 		{End: 0x4B, Controller: video},
-		{End: 0x7F, Controller: nil},
+		{End: 0x7F, Controller: nil}, // UNUSED
 		{End: 0xFE, Controller: hram},
 		{End: 0xFF, Controller: interrupt},
 	}
@@ -145,7 +145,8 @@ func (f *ffPage) Read8(address uint16) byte {
 func (f *ffPage) Write8(address uint16, v byte) {
 	entry := f.entries[address-0xFF00]
 	if entry == nil {
-		notImplemented("memory operations at address %#04x not implemented", address)
+		log.Printf("WARNING: write to unused memory space %#04x", address)
+		return
 	}
 
 	entry.Write8(address, v)

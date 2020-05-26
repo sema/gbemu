@@ -217,7 +217,7 @@ func newVideoController() *videoController {
 	v := &videoController{
 		registers:           make([]byte, 0xFF4B-0xFF40+1),
 		vram:                make([]byte, 0x9FFF-0x8000+1),
-		oam:                 make([]byte, 0xFE9F-0xFE00+1),
+		oam:                 make([]byte, 0xFEFF-0xFE00+1),
 		vramAccessible:      true,
 		oamAccessible:       true,
 		InterruptLCDCStatus: newInterruptSource(),
@@ -687,7 +687,7 @@ func (s *videoController) isRegisterAddress(address uint16) bool {
 }
 
 func (s *videoController) isOAMAddress(address uint16) bool {
-	return 0xFE00 <= address && address <= 0xFE9F
+	return 0xFE00 <= address && address <= 0xFEFF
 }
 
 func (s *videoController) String() string {
