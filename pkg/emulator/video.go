@@ -78,6 +78,21 @@ const (
 	registerFF4B = 0xFF4B
 )
 
+// shadePriority is used to determine which of two (or more) overlapping shades
+// should be shown on the LCD
+//
+// The shadePriority constants are ordered by their priority, so sp1 > sp2 means
+// that sp1 should be shown over sp2.
+type shadePriority uint8
+
+const (
+	shadePriorityHidden shadePriority = iota
+	shadePriorityBackgroundZero
+	shadePrioritySpriteLow
+	shadePriorityBackgroundOther
+	shadePrioritySpriteHigh
+)
+
 type videoFlag struct {
 	register  videoRegister
 	bitOffset uint8
@@ -91,12 +106,15 @@ const (
 	grayLight
 	grayDark
 	black
+	transparrent = 255
 )
 
 var (
 	flagVideoEnabled           = videoFlag{register: 0xFF40, bitOffset: 7}
 	flagBGWindowTileDataSelect = videoFlag{register: 0xFF40, bitOffset: 4}
 	flagBGTileMapSelect        = videoFlag{register: 0xFF40, bitOffset: 3}
+	flagSpriteSize             = videoFlag{register: 0xFF40, bitOffset: 2}
+	flagSpriteDisplay          = videoFlag{register: 0xFF40, bitOffset: 1}
 	flagBGWindowDisplay        = videoFlag{register: 0xFF40, bitOffset: 0}
 )
 
@@ -356,12 +374,45 @@ func (s *videoController) Cycle() {
 	status = writeBitN(status, 2, lineCompareEqual)
 	s.writeRegister(registerFF41, status)
 
-	// TODO support OAM (rendering)
 	// TODO support window
 }
 
+// calculateShade determines the shade of color for given line, dot coordinate
+//
+// The GB display shows the contents of the screen (inner area shown below using "-").
+// The screen shows a subset of a larger background. If the screen crosses the rightmost or
+// lower boundary of the background then it wraps back around.
+//
+// The 0, 0 coordinate is in the upper left corner.
+// ________
+// |  --  |
+// |  --  |
+//  _______
+//
+// The shade is calculated by overlaying the background, window, and sprites,
+// with various rules of priority, transparrency, etc.
 func (s *videoController) calculateShade(line uint8, dot uint8) Shade {
-	return s.calculateBackgroundShade(line, dot)
+	// Find absolute x, y coordinates in background for input dot, line,
+	// affected by current position of the screen (view into background)
+	backgroundX := (uint16(s.screenX) + uint16(dot)) % 256
+	backgroundY := (uint16(s.screenY) + uint16(line)) % 256
+
+	matchShade := white // fallback color if no other layers apply
+	matchPriority := shadePriorityHidden
+
+	spriteShade, spritePriority := s.calculateSpriteShade(uint16(line), uint16(dot))
+	if spritePriority > matchPriority {
+		matchShade = spriteShade
+		matchPriority = spritePriority
+	}
+
+	bgShade, bgPriority := s.calculateBackgroundShade(backgroundY, backgroundX)
+	if bgPriority > matchPriority {
+		matchShade = bgShade
+		matchPriority = bgPriority
+	}
+
+	return matchShade
 }
 
 // calculateBackgroundShade determines the background by doing the following calculations
@@ -380,17 +431,10 @@ func (s *videoController) calculateShade(line uint8, dot uint8) Shade {
 // - absolute y, x background coordinate ->
 // - background tile # + tile y, x coordinate (within tile) ->
 // - shade
-
-func (s *videoController) calculateBackgroundShade(line uint8, dot uint8) Shade {
+func (s *videoController) calculateBackgroundShade(backgroundY uint16, backgroundX uint16) (Shade, shadePriority) {
 	if !s.readFlag(flagBGWindowDisplay) {
-		// If BG rendering is disable, then return a white background
-		return white
+		return transparrent, shadePriorityHidden
 	}
-
-	// Find absolute x, y coordinates in background for input dot, line,
-	// affected by current position of the screen (view into background)
-	backgroundX := (uint16(s.screenX) + uint16(dot)) % 256
-	backgroundY := (uint16(s.screenY) + uint16(line)) % 256
 
 	// Find tile # in Background Tile Map. Every tile in the background tile map
 	// represent a 8x8 pixel area.
@@ -401,11 +445,120 @@ func (s *videoController) calculateBackgroundShade(line uint8, dot uint8) Shade 
 	// lookup color number for x,y coordinate within tile (referenced by tile number)
 	colorNum := s.lookupTile(tileY, tileX, tileNumber, s.readFlag(flagBGWindowTileDataSelect))
 
-	// Shift 0xFF47 to get the shade for the color # to be in the
-	// lower two bits, and use a bitmask (0x03 = b00000011) to
-	// ignore all other bits.
-	colorToShade := s.readRegister(registerFF47)
-	return Shade((colorToShade >> 2 * colorNum) & 0x03)
+	shadePriority := shadePriorityBackgroundOther
+	if colorNum == 0 {
+		shadePriority = shadePriorityBackgroundZero
+	}
+
+	shadePlatter := s.readRegister(registerFF47)
+	return s.lookupShadeInPlatter(shadePlatter, colorNum), shadePriority
+}
+
+// lookupShadeInPlatter returns the shade encoded for a colorNum in a platter
+//
+// A platter contains 4 shades, 2 bits each, with color 0 encoded using the
+// lower 2 bits.
+func (s *videoController) lookupShadeInPlatter(platter byte, colorNum uint8) Shade {
+	return Shade((platter >> 2 * colorNum) & 0x03)
+}
+
+func (s *videoController) calculateSpriteShade(line uint16, dot uint16) (Shade, shadePriority) {
+	if !s.readFlag(flagSpriteDisplay) {
+		return transparrent, shadePriorityHidden
+	}
+
+	spriteWidth := 8
+	spriteHeight := 8
+	if s.readFlag(flagSpriteSize) { // 0=8x8 1=8x16
+		spriteHeight = 16
+	}
+
+	spritesFoundOnLine := 0
+
+	match := false
+	var matchY, matchX int
+	var matchTileNumber byte
+
+	// Bit7   OBJ-to-BG Priority (0=OBJ Above BG, 1=OBJ Behind BG color 1-3) Used for both BG and Window. BG color 0 is always behind OBJ)
+	// Bit6   Y flip          (0=Normal, 1=Vertically mirrored)
+	// Bit5   X flip          (0=Normal, 1=Horizontally mirrored)
+	// Bit4   Palette number  (0=OBP0, 1=OBP1)
+	var matchAttributes byte
+
+	// Search for the highest priority sprite with a pixel at line, dot
+	//
+	// Rules:
+	// - At most 10 sprites may be evaluated that overlap with line
+	// - Sprites are priorited by their x-coordinate (lower is better)
+	// - Sprites with the same x-coordinate are priorited on their spriteIdx (lower is better)
+	for spriteIdx := 0; spriteIdx < 40; spriteIdx++ {
+		if spritesFoundOnLine >= 10 {
+			continue // evaluate at most 10 sprites on the current line
+		}
+
+		offset := spriteIdx * 4        // each sprite is 4 bytes long
+		y := int(s.oam[offset+0]) - 16 // y is offset by 16 such that 0 = hide sprite
+		x := int(s.oam[offset+1]) - 8  // x is offset by 8 such that 0 = hide sprite
+		tileNumber := s.oam[offset+2]
+		attributes := s.oam[offset+3]
+
+		if y <= int(line) && int(line) <= y+spriteHeight {
+			spritesFoundOnLine++
+			if x <= int(dot) && int(dot) <= x+spriteWidth {
+				if match && matchX < x {
+					continue // existing sprite has higher priority
+				}
+
+				match = true
+				matchY = y
+				matchX = x
+				matchTileNumber = tileNumber
+				matchAttributes = attributes
+			}
+		}
+	}
+
+	if !match {
+		return transparrent, shadePriorityHidden
+	}
+
+	tileY := uint8(int(line) - matchY)
+	tileX := uint8(int(dot) - matchX)
+
+	if readBitN(matchAttributes, 6) { // y-flip
+		tileY = uint8(spriteHeight) - tileY
+	}
+	if readBitN(matchAttributes, 5) { // x-flip
+		tileX = uint8(spriteWidth) - tileX
+	}
+
+	if spriteHeight == 16 {
+		// stacked tile mode, in this mode the upper tile has the lower bit in
+		// tileNumber forced to 0, and the lower tile has the lower bit forced to 1
+		if tileY <= 7 {
+			matchTileNumber = matchTileNumber & 0xFE
+		} else {
+			matchTileNumber = matchTileNumber | 0x01
+			tileY = tileY - 8
+		}
+	}
+
+	colorNum := s.lookupTile(tileY, tileX, matchTileNumber, true)
+	if colorNum == 0 {
+		return transparrent, shadePriorityHidden
+	}
+
+	shadePriority := shadePrioritySpriteHigh
+	if readBitN(matchAttributes, 7) { // sprite behind background colors 1-3
+		shadePriority = shadePrioritySpriteLow
+	}
+
+	shadePlatter := s.readRegister(registerFF48) // platter 0
+	if readBitN(matchAttributes, 4) {
+		shadePlatter = s.readRegister(registerFF49) // platter 1
+	}
+
+	return s.lookupShadeInPlatter(shadePlatter, colorNum), shadePriority
 }
 
 // lookupTileNumber returns the tile # for a given absolute x, y
