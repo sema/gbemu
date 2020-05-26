@@ -2,6 +2,7 @@ package emulator
 
 import (
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -88,8 +89,10 @@ type shadePriority uint8
 const (
 	shadePriorityHidden shadePriority = iota
 	shadePriorityBackgroundZero
+	shadePriorityWindowZero
 	shadePrioritySpriteLow
 	shadePriorityBackgroundOther
+	shadePriorityWindowOther
 	shadePrioritySpriteHigh
 )
 
@@ -109,8 +112,15 @@ const (
 	transparrent = 255
 )
 
+const (
+	lcdWidth  = 160
+	lcdHeight = 144
+)
+
 var (
 	flagVideoEnabled           = videoFlag{register: 0xFF40, bitOffset: 7}
+	flagWindowTileMapSelect    = videoFlag{register: 0xFF40, bitOffset: 6}
+	flagWindowDisplay          = videoFlag{register: 0xFF40, bitOffset: 5}
 	flagBGWindowTileDataSelect = videoFlag{register: 0xFF40, bitOffset: 4}
 	flagBGTileMapSelect        = videoFlag{register: 0xFF40, bitOffset: 3}
 	flagSpriteSize             = videoFlag{register: 0xFF40, bitOffset: 2}
@@ -392,11 +402,6 @@ func (s *videoController) Cycle() {
 // The shade is calculated by overlaying the background, window, and sprites,
 // with various rules of priority, transparrency, etc.
 func (s *videoController) calculateShade(line uint8, dot uint8) Shade {
-	// Find absolute x, y coordinates in background for input dot, line,
-	// affected by current position of the screen (view into background)
-	backgroundX := (uint16(s.screenX) + uint16(dot)) % 256
-	backgroundY := (uint16(s.screenY) + uint16(line)) % 256
-
 	matchShade := white // fallback color if no other layers apply
 	matchPriority := shadePriorityHidden
 
@@ -406,10 +411,16 @@ func (s *videoController) calculateShade(line uint8, dot uint8) Shade {
 		matchPriority = spritePriority
 	}
 
-	bgShade, bgPriority := s.calculateBackgroundShade(backgroundY, backgroundX)
+	bgShade, bgPriority := s.calculateBackgroundShade(line, dot)
 	if bgPriority > matchPriority {
 		matchShade = bgShade
 		matchPriority = bgPriority
+	}
+
+	windowShade, windowPriority := s.calculateWindowShade(line, dot)
+	if windowPriority > matchPriority {
+		matchShade = windowShade
+		matchPriority = windowPriority
 	}
 
 	return matchShade
@@ -431,13 +442,18 @@ func (s *videoController) calculateShade(line uint8, dot uint8) Shade {
 // - absolute y, x background coordinate ->
 // - background tile # + tile y, x coordinate (within tile) ->
 // - shade
-func (s *videoController) calculateBackgroundShade(backgroundY uint16, backgroundX uint16) (Shade, shadePriority) {
+func (s *videoController) calculateBackgroundShade(line uint8, dot uint8) (Shade, shadePriority) {
 	if !s.readFlag(flagBGWindowDisplay) {
 		return transparrent, shadePriorityHidden
 	}
 
+	// Find absolute x, y coordinates in background for input dot, line,
+	// affected by current position of the screen (view into background)
+	backgroundX := (uint16(s.screenX) + uint16(dot)) % 256 // TODO this is wrong
+	backgroundY := (uint16(s.screenY) + uint16(line)) % 256
+
 	// Find tile # in Background Tile Map. Every tile in the background tile map
-	// represent a 8x8 pixel area.
+	// represents a 8x8 pixel area.
 	tileNumber := s.lookupTileNumber(backgroundY, backgroundX, s.readFlag(flagBGTileMapSelect))
 	tileY := uint8(backgroundY % 8)
 	tileX := uint8(backgroundX % 8)
@@ -448,6 +464,58 @@ func (s *videoController) calculateBackgroundShade(backgroundY uint16, backgroun
 	shadePriority := shadePriorityBackgroundOther
 	if colorNum == 0 {
 		shadePriority = shadePriorityBackgroundZero
+	}
+
+	shadePlatter := s.readRegister(registerFF47)
+	return s.lookupShadeInPlatter(shadePlatter, colorNum), shadePriority
+}
+
+// calculateWindowShade determines the shade for the window layer
+//
+// The window layer is drawn directly on the current screen, offset by a window
+// x,y coordinate pair. The x value is offset by 7 dots, such that x=7 is
+// off-screen.
+//
+// Otherwise, the approach for calculating the shade is very similar to the calculation used for the background:
+// - Determine current x,y coordinate on the window layer
+// - Lookup tile number in tile map
+// - Lookup tile data
+// - Lookup shade from tile data
+func (s *videoController) calculateWindowShade(line uint8, dot uint8) (Shade, shadePriority) {
+	if !s.readFlag(flagBGWindowDisplay) {
+		return transparrent, shadePriorityHidden
+	}
+
+	if !s.readFlag(flagWindowDisplay) {
+		return transparrent, shadePriorityHidden
+	}
+
+	windowStartY := int(s.readRegister(registerFF4A))
+	windowStartX := int(s.readRegister(registerFF4B)) - 7
+
+	if int(line) < windowStartY || int(dot) < windowStartX {
+		return transparrent, shadePriorityHidden
+	}
+
+	if windowStartX < 0 || windowStartX == 159 {
+		log.Printf("Warning: window X position set to %d which triggers a hardware bug that is not emulated", windowStartX)
+	}
+
+	windowY := uint16(int(line) - windowStartY)
+	windowX := uint16(int(dot) - windowStartX)
+
+	// Find tile # in Window Tile Map. Every tile in the window tile map
+	// represents a 8x8 pixel area.
+	tileNumber := s.lookupTileNumber(windowY, windowX, s.readFlag(flagWindowTileMapSelect))
+	tileY := uint8(windowY % 8)
+	tileX := uint8(windowX % 8)
+
+	// lookup color number for x,y coordinate within tile (referenced by tile number)
+	colorNum := s.lookupTile(tileY, tileX, tileNumber, s.readFlag(flagBGWindowTileDataSelect))
+
+	shadePriority := shadePriorityWindowOther
+	if colorNum == 0 {
+		shadePriority = shadePriorityWindowZero
 	}
 
 	shadePlatter := s.readRegister(registerFF47)
