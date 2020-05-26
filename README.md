@@ -36,3 +36,14 @@ https://gbhh.avivace.com/game/is-that-a-demo-in-your-pocket
   developing emulators. Rely primarily on these ROMs for testing, and use more
   detailed unit tests when debugging / deep diving into specific issues, or
   testing core functionality (math or bit operations).
+
+## Development
+
+- main.go  - main entry into application
+- instruction-gen/  - logic to generate the instructions.gen.go filo from a
+  3-party instruction spec file
+- pkg/emulator/  - core logic
+
+To re-generate instructions.gen.go run `go generate ./...`
+
+To run tests do `go test ./...`
