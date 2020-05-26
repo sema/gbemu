@@ -467,7 +467,7 @@ func (s *videoController) calculateBackgroundShade(line uint8, dot uint8) (Shade
 	}
 
 	shadePlatter := s.readRegister(registerFF47)
-	return s.lookupShadeInPlatter(shadePlatter, colorNum), shadePriority
+	return lookupShadeInPlatter(shadePlatter, colorNum), shadePriority
 }
 
 // calculateWindowShade determines the shade for the window layer
@@ -519,15 +519,7 @@ func (s *videoController) calculateWindowShade(line uint8, dot uint8) (Shade, sh
 	}
 
 	shadePlatter := s.readRegister(registerFF47)
-	return s.lookupShadeInPlatter(shadePlatter, colorNum), shadePriority
-}
-
-// lookupShadeInPlatter returns the shade encoded for a colorNum in a platter
-//
-// A platter contains 4 shades, 2 bits each, with color 0 encoded using the
-// lower 2 bits.
-func (s *videoController) lookupShadeInPlatter(platter byte, colorNum uint8) Shade {
-	return Shade((platter >> 2 * colorNum) & 0x03)
+	return lookupShadeInPlatter(shadePlatter, colorNum), shadePriority
 }
 
 func (s *videoController) calculateSpriteShade(line uint16, dot uint16) (Shade, shadePriority) {
@@ -626,7 +618,7 @@ func (s *videoController) calculateSpriteShade(line uint16, dot uint16) (Shade, 
 		shadePlatter = s.readRegister(registerFF49) // platter 1
 	}
 
-	return s.lookupShadeInPlatter(shadePlatter, colorNum), shadePriority
+	return lookupShadeInPlatter(shadePlatter, colorNum), shadePriority
 }
 
 // lookupTileNumber returns the tile # for a given absolute x, y
@@ -714,4 +706,12 @@ func (f Frame) Render() string {
 	sb.WriteString("==============================\n")
 
 	return sb.String()
+}
+
+// lookupShadeInPlatter returns the shade encoded for a colorNum in a platter
+//
+// A platter contains 4 shades, 2 bits each, with color 0 encoded using the
+// lower 2 bits.
+func lookupShadeInPlatter(platter byte, colorNum uint8) Shade {
+	return Shade((platter >> (2 * colorNum)) & 0x03)
 }
